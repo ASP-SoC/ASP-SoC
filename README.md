@@ -3,7 +3,7 @@ Audio Signal Processing SoC
 
 # Contact
 
-<img src="/ASP-SoC.github.io/Pictures/fhLogo.png" width="120" >
+<img src="https://asp-soc.github.io/Pictures/fhLogo.png" width="120" >
 
 **University of Applied Science Upper Austria**  
 **Campus Hagenberg**  

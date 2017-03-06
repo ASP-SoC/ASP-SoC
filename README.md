@@ -1,5 +1,4 @@
-# ASP-SoC
-Audio Signal Processing SoC
+<img src="https://asp-soc.github.io/Pictures/logo3.png">
 
 # Contact
 

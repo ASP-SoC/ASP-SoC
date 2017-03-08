@@ -1,0 +1,772 @@
+# Reading C:/intelFPGA_lite/16.1/modelsim_ase/tcl/vsim/pref.tcl
+do Comp.do
+# ../../..
+# C:\Users\fxst\AppData\Local\Temp
+# worklibdir = C:\Users\fxst\AppData\Local\Temp
+# ** Warning: (vlib-34) Library already exists at "C:\Users\fxst\AppData\Local\Temp/work".
+# Model Technology ModelSim - Intel FPGA Edition vmap 10.5b Lib Mapping Utility 2016.10 Oct  5 2016
+# vmap work C:\Users\fxst\AppData\Local\Temp/work 
+# Copying C:/intelFPGA_lite/16.1/modelsim_ase/win32aloem/../modelsim.ini to modelsim.ini
+# Modifying modelsim.ini
+# 0
+## pkgGlobal
+## vcom ../../../grpPackages/pkgGlobal/src/Global-p.vhd
+## StrobGen
+## vcom ../../../grpAudio/unitFlanger/src/Flanger-e.vhd
+# ** Error: ../../../grpAudio/unitFlanger/src/Flanger-e.vhd(35): (vcom-1136) Unknown identifier "gSigLength".
+# ** Error: ../../../grpAudio/unitFlanger/src/Flanger-e.vhd(35): ** Error: (vcom-1591) Bad expression in right bound of range expression.
+# ** Error: ../../../grpAudio/unitFlanger/src/Flanger-e.vhd(35): Type error in range expression.
+# ** Error: ../../../grpAudio/unitFlanger/src/Flanger-e.vhd(40): (vcom-1136) Unknown identifier "gSigLength".
+# ** Error: ../../../grpAudio/unitFlanger/src/Flanger-e.vhd(40): ** Error: (vcom-1591) Bad expression in right bound of range expression.
+# ** Error: ../../../grpAudio/unitFlanger/src/Flanger-e.vhd(40): Type error in range expression.
+# ** Error: ../../../grpAudio/unitFlanger/src/Flanger-e.vhd(42): VHDL Compiler exiting
+# ** Error: C:/intelFPGA_lite/16.1/modelsim_ase/win32aloem/vcom failed.
+# Error in macro ./Comp.do line 24
+# C:/intelFPGA_lite/16.1/modelsim_ase/win32aloem/vcom failed.
+#     while executing
+# "vcom -93 -novopt -quiet ${filename}"
+#     (procedure "myvcom" line 4)
+#     invoked from within
+# "myvcom ${Root}/grpAudio/unitFlanger/src/Flanger-e.vhd"
+do Comp.do
+# worklibdir = C:\Users\fxst\AppData\Local\Temp
+# ** Warning: (vlib-34) Library already exists at "C:\Users\fxst\AppData\Local\Temp/work".
+# Model Technology ModelSim - Intel FPGA Edition vmap 10.5b Lib Mapping Utility 2016.10 Oct  5 2016
+# vmap work C:\Users\fxst\AppData\Local\Temp/work 
+# Modifying modelsim.ini
+# 0
+## pkgGlobal
+## vcom ../../../grpPackages/pkgGlobal/src/Global-p.vhd
+## StrobGen
+## vcom ../../../grpAudio/unitFlanger/src/Flanger-e.vhd
+# ** Error: ../../../grpAudio/unitFlanger/src/Flanger-e.vhd(35): (vcom-1136) Unknown identifier "gSigLength".
+# ** Error: ../../../grpAudio/unitFlanger/src/Flanger-e.vhd(35): ** Error: (vcom-1591) Bad expression in right bound of range expression.
+# ** Error: ../../../grpAudio/unitFlanger/src/Flanger-e.vhd(35): Type error in range expression.
+# ** Error: ../../../grpAudio/unitFlanger/src/Flanger-e.vhd(40): (vcom-1136) Unknown identifier "gSigLength".
+# ** Error: ../../../grpAudio/unitFlanger/src/Flanger-e.vhd(40): ** Error: (vcom-1591) Bad expression in right bound of range expression.
+# ** Error: ../../../grpAudio/unitFlanger/src/Flanger-e.vhd(40): Type error in range expression.
+# ** Error: ../../../grpAudio/unitFlanger/src/Flanger-e.vhd(42): VHDL Compiler exiting
+# ** Error: C:/intelFPGA_lite/16.1/modelsim_ase/win32aloem/vcom failed.
+# Error in macro ./Comp.do line 24
+# C:/intelFPGA_lite/16.1/modelsim_ase/win32aloem/vcom failed.
+#     while executing
+# "vcom -93 -novopt -quiet ${filename}"
+#     (procedure "myvcom" line 4)
+#     invoked from within
+# "myvcom ${Root}/grpAudio/unitFlanger/src/Flanger-e.vhd"
+do Comp.do
+# worklibdir = C:\Users\fxst\AppData\Local\Temp
+# ** Warning: (vlib-34) Library already exists at "C:\Users\fxst\AppData\Local\Temp/work".
+# Model Technology ModelSim - Intel FPGA Edition vmap 10.5b Lib Mapping Utility 2016.10 Oct  5 2016
+# vmap work C:\Users\fxst\AppData\Local\Temp/work 
+# Modifying modelsim.ini
+# 0
+## pkgGlobal
+## vcom ../../../grpPackages/pkgGlobal/src/Global-p.vhd
+## StrobGen
+## vcom ../../../grpAudio/unitFlanger/src/Flanger-e.vhd
+# ** Error: ../../../grpAudio/unitFlanger/src/Flanger-e.vhd(40): (vcom-1136) Unknown identifier "gSigLength".
+# ** Error: ../../../grpAudio/unitFlanger/src/Flanger-e.vhd(40): ** Error: (vcom-1591) Bad expression in right bound of range expression.
+# ** Error: ../../../grpAudio/unitFlanger/src/Flanger-e.vhd(40): Type error in range expression.
+# ** Error: ../../../grpAudio/unitFlanger/src/Flanger-e.vhd(42): VHDL Compiler exiting
+# ** Error: C:/intelFPGA_lite/16.1/modelsim_ase/win32aloem/vcom failed.
+# Error in macro ./Comp.do line 24
+# C:/intelFPGA_lite/16.1/modelsim_ase/win32aloem/vcom failed.
+#     while executing
+# "vcom -93 -novopt -quiet ${filename}"
+#     (procedure "myvcom" line 4)
+#     invoked from within
+# "myvcom ${Root}/grpAudio/unitFlanger/src/Flanger-e.vhd"
+do Comp.do
+# worklibdir = C:\Users\fxst\AppData\Local\Temp
+# ** Warning: (vlib-34) Library already exists at "C:\Users\fxst\AppData\Local\Temp/work".
+# Model Technology ModelSim - Intel FPGA Edition vmap 10.5b Lib Mapping Utility 2016.10 Oct  5 2016
+# vmap work C:\Users\fxst\AppData\Local\Temp/work 
+# Modifying modelsim.ini
+# 0
+## pkgGlobal
+## vcom ../../../grpPackages/pkgGlobal/src/Global-p.vhd
+## StrobGen
+## vcom ../../../grpAudio/unitFlanger/src/Flanger-e.vhd
+## vcom ../../../grpAudio/unitFlanger/src/Flanger-Rtl-a.vhd
+# ** Error: ../../../grpAudio/unitFlanger/src/Flanger-Rtl-a.vhd(24): (vcom-1136) Unknown identifier "aDataArray".
+# ** Error: ../../../grpAudio/unitFlanger/src/Flanger-Rtl-a.vhd(49): (vcom-1136) Unknown identifier "iSelOutReg".
+# ** Error: ../../../grpAudio/unitFlanger/src/Flanger-Rtl-a.vhd(52): near ")": syntax error
+# ** Error: ../../../grpAudio/unitFlanger/src/Flanger-Rtl-a.vhd(55): VHDL Compiler exiting
+# ** Error: C:/intelFPGA_lite/16.1/modelsim_ase/win32aloem/vcom failed.
+# Error in macro ./Comp.do line 25
+# C:/intelFPGA_lite/16.1/modelsim_ase/win32aloem/vcom failed.
+#     while executing
+# "vcom -93 -novopt -quiet ${filename}"
+#     (procedure "myvcom" line 4)
+#     invoked from within
+# "myvcom ${Root}/grpAudio/unitFlanger/src/Flanger-Rtl-a.vhd"
+do Comp.do
+# worklibdir = C:\Users\fxst\AppData\Local\Temp
+# ** Warning: (vlib-34) Library already exists at "C:\Users\fxst\AppData\Local\Temp/work".
+# Model Technology ModelSim - Intel FPGA Edition vmap 10.5b Lib Mapping Utility 2016.10 Oct  5 2016
+# vmap work C:\Users\fxst\AppData\Local\Temp/work 
+# Modifying modelsim.ini
+# 0
+## pkgGlobal
+## vcom ../../../grpPackages/pkgGlobal/src/Global-p.vhd
+## StrobGen
+## vcom ../../../grpAudio/unitFlanger/src/Flanger-e.vhd
+## vcom ../../../grpAudio/unitFlanger/src/Flanger-Rtl-a.vhd
+# ** Error: ../../../grpAudio/unitFlanger/src/Flanger-Rtl-a.vhd(52): near ")": syntax error
+# ** Error: ../../../grpAudio/unitFlanger/src/Flanger-Rtl-a.vhd(55): VHDL Compiler exiting
+# ** Error: C:/intelFPGA_lite/16.1/modelsim_ase/win32aloem/vcom failed.
+# Error in macro ./Comp.do line 25
+# C:/intelFPGA_lite/16.1/modelsim_ase/win32aloem/vcom failed.
+#     while executing
+# "vcom -93 -novopt -quiet ${filename}"
+#     (procedure "myvcom" line 4)
+#     invoked from within
+# "myvcom ${Root}/grpAudio/unitFlanger/src/Flanger-Rtl-a.vhd"
+do Comp.do
+# worklibdir = C:\Users\fxst\AppData\Local\Temp
+# ** Warning: (vlib-34) Library already exists at "C:\Users\fxst\AppData\Local\Temp/work".
+# Model Technology ModelSim - Intel FPGA Edition vmap 10.5b Lib Mapping Utility 2016.10 Oct  5 2016
+# vmap work C:\Users\fxst\AppData\Local\Temp/work 
+# Modifying modelsim.ini
+# 0
+## pkgGlobal
+## vcom ../../../grpPackages/pkgGlobal/src/Global-p.vhd
+## StrobGen
+## vcom ../../../grpAudio/unitFlanger/src/Flanger-e.vhd
+## vcom ../../../grpAudio/unitFlanger/src/Flanger-Rtl-a.vhd
+## Flanger
+## Flanger Testbench
+## vcom ../../../grpAudio/unitFlanger/src/tbFlanger-Bhv-ea.vhd
+# ** Error: ../../../grpAudio/unitFlanger/src/tbFlanger-Bhv-ea.vhd(38): (vcom-1136) Unknown identifier "gRegisterLen".
+# ** Error: ../../../grpAudio/unitFlanger/src/tbFlanger-Bhv-ea.vhd(38): ** Error: (vcom-1591) Bad expression in left bound of range expression.
+# ** Error: ../../../grpAudio/unitFlanger/src/tbFlanger-Bhv-ea.vhd(38): Type error in range expression.
+# ** Error: ../../../grpAudio/unitFlanger/src/tbFlanger-Bhv-ea.vhd(80): (vcom-1136) Unknown identifier "nResetAsync".
+# ** Error: ../../../grpAudio/unitFlanger/src/tbFlanger-Bhv-ea.vhd(95): VHDL Compiler exiting
+# ** Error: C:/intelFPGA_lite/16.1/modelsim_ase/win32aloem/vcom failed.
+# Error in macro ./Comp.do line 30
+# C:/intelFPGA_lite/16.1/modelsim_ase/win32aloem/vcom failed.
+#     while executing
+# "vcom -93 -novopt -quiet ${filename}"
+#     (procedure "myvcom" line 4)
+#     invoked from within
+# "myvcom ${Root}/grpAudio/unitFlanger/src/tbFlanger-Bhv-ea.vhd"
+do Comp.do
+# worklibdir = C:\Users\fxst\AppData\Local\Temp
+# ** Warning: (vlib-34) Library already exists at "C:\Users\fxst\AppData\Local\Temp/work".
+# Model Technology ModelSim - Intel FPGA Edition vmap 10.5b Lib Mapping Utility 2016.10 Oct  5 2016
+# vmap work C:\Users\fxst\AppData\Local\Temp/work 
+# Modifying modelsim.ini
+# 0
+## pkgGlobal
+## vcom ../../../grpPackages/pkgGlobal/src/Global-p.vhd
+## StrobGen
+## vcom ../../../grpAudio/unitFlanger/src/Flanger-e.vhd
+## vcom ../../../grpAudio/unitFlanger/src/Flanger-Rtl-a.vhd
+## Flanger
+## Flanger Testbench
+## vcom ../../../grpAudio/unitFlanger/src/tbFlanger-Bhv-ea.vhd
+# ** Error: ../../../grpAudio/unitFlanger/src/tbFlanger-Bhv-ea.vhd(80): (vcom-1136) Unknown identifier "nResetAsync".
+# ** Error: ../../../grpAudio/unitFlanger/src/tbFlanger-Bhv-ea.vhd(95): VHDL Compiler exiting
+# ** Error: C:/intelFPGA_lite/16.1/modelsim_ase/win32aloem/vcom failed.
+# Error in macro ./Comp.do line 30
+# C:/intelFPGA_lite/16.1/modelsim_ase/win32aloem/vcom failed.
+#     while executing
+# "vcom -93 -novopt -quiet ${filename}"
+#     (procedure "myvcom" line 4)
+#     invoked from within
+# "myvcom ${Root}/grpAudio/unitFlanger/src/tbFlanger-Bhv-ea.vhd"
+do Comp.do
+# worklibdir = C:\Users\fxst\AppData\Local\Temp
+# ** Warning: (vlib-34) Library already exists at "C:\Users\fxst\AppData\Local\Temp/work".
+# Model Technology ModelSim - Intel FPGA Edition vmap 10.5b Lib Mapping Utility 2016.10 Oct  5 2016
+# vmap work C:\Users\fxst\AppData\Local\Temp/work 
+# Modifying modelsim.ini
+# 0
+## pkgGlobal
+## vcom ../../../grpPackages/pkgGlobal/src/Global-p.vhd
+## StrobGen
+## vcom ../../../grpAudio/unitFlanger/src/Flanger-e.vhd
+## vcom ../../../grpAudio/unitFlanger/src/Flanger-Rtl-a.vhd
+## Flanger
+## Flanger Testbench
+## vcom ../../../grpAudio/unitFlanger/src/tbFlanger-Bhv-ea.vhd
+do CompSim.do
+# worklibdir = C:\Users\fxst\AppData\Local\Temp
+# ** Warning: (vlib-34) Library already exists at "C:\Users\fxst\AppData\Local\Temp/work".
+# Model Technology ModelSim - Intel FPGA Edition vmap 10.5b Lib Mapping Utility 2016.10 Oct  5 2016
+# vmap work C:\Users\fxst\AppData\Local\Temp/work 
+# Modifying modelsim.ini
+# 0
+## pkgGlobal
+## vcom ../../../grpPackages/pkgGlobal/src/Global-p.vhd
+## StrobGen
+## vcom ../../../grpAudio/unitFlanger/src/Flanger-e.vhd
+## vcom ../../../grpAudio/unitFlanger/src/Flanger-Rtl-a.vhd
+## Flanger
+## Flanger Testbench
+## vcom ../../../grpAudio/unitFlanger/src/tbFlanger-Bhv-ea.vhd
+# Sim: load design
+# Flanger
+# vsim -novopt -wlfdeleteonquit work.tbFlanger(Bhv) 
+# Start time: 19:34:27 on Mar 08,2017
+# Loading std.standard
+# Loading std.textio(body)
+# Loading ieee.std_logic_1164(body)
+# Loading ieee.numeric_std(body)
+# Loading ieee.fixed_float_types
+# Loading ieee.math_real(body)
+# Loading ieee.fixed_generic_pkg(body)
+# Loading ieee.fixed_pkg
+# Loading work.global(body)
+# Loading work.tbflanger(bhv)
+# Loading work.strobegen(rtl)
+# Loading work.flanger(rtl)
+# Sim: load wave-file(s)
+# 1
+# ** Error: (vish-4014) No objects found matching '/tbflanger/nRstAsync'.
+# Executing ONERROR command at macro ./wave-default.do line 3
+# 0
+# 1
+# Sim: log signals
+# Sim: run ...
+run
+run
+run
+run
+run
+run
+run
+run
+add wave -position 0  sim:/tbflanger/Clk
+add wave -position 0  sim:/tbflanger/nResetAsync
+add wave -position 3  sim:/tbflanger/SelFlangeLen
+add wave -position end  sim:/tbflanger/UUT/intern_register
+write format wave -window .main_pane.wave.interior.cs.body.pw.wf C:/Git/ASP-SoC/hw/src/grpAudio/unitFlanger/sim/wave-default.do
+do CompSim.do
+# worklibdir = C:\Users\fxst\AppData\Local\Temp
+# ** Warning: (vlib-34) Library already exists at "C:\Users\fxst\AppData\Local\Temp/work".
+# Model Technology ModelSim - Intel FPGA Edition vmap 10.5b Lib Mapping Utility 2016.10 Oct  5 2016
+# vmap work C:\Users\fxst\AppData\Local\Temp/work 
+# Modifying modelsim.ini
+# 0
+## pkgGlobal
+## vcom ../../../grpPackages/pkgGlobal/src/Global-p.vhd
+## StrobGen
+## vcom ../../../grpAudio/unitFlanger/src/Flanger-e.vhd
+## vcom ../../../grpAudio/unitFlanger/src/Flanger-Rtl-a.vhd
+## Flanger
+## Flanger Testbench
+## vcom ../../../grpAudio/unitFlanger/src/tbFlanger-Bhv-ea.vhd
+# Sim: load design
+# Flanger
+# End time: 19:38:35 on Mar 08,2017, Elapsed time: 0:04:08
+# Errors: 3, Warnings: 0
+# vsim -novopt -wlfdeleteonquit work.tbFlanger(Bhv) 
+# Start time: 19:38:35 on Mar 08,2017
+# Loading std.standard
+# Loading std.textio(body)
+# Loading ieee.std_logic_1164(body)
+# Loading ieee.numeric_std(body)
+# Loading ieee.fixed_float_types
+# Loading ieee.math_real(body)
+# Loading ieee.fixed_generic_pkg(body)
+# Loading ieee.fixed_pkg
+# Loading work.global(body)
+# Loading work.tbflanger(bhv)
+# Loading work.strobegen(rtl)
+# Loading work.flanger(rtl)
+# Sim: load wave-file(s)
+# 1
+# 0
+# 1
+# Sim: log signals
+# Sim: run ...
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+add wave -position 6  sim:/tbflanger/UUT/sum
+add wave -position 6  sim:/tbflanger/UUT/iData
+do CompSim.do
+# worklibdir = C:\Users\fxst\AppData\Local\Temp
+# ** Warning: (vlib-34) Library already exists at "C:\Users\fxst\AppData\Local\Temp/work".
+# Model Technology ModelSim - Intel FPGA Edition vmap 10.5b Lib Mapping Utility 2016.10 Oct  5 2016
+# vmap work C:\Users\fxst\AppData\Local\Temp/work 
+# Modifying modelsim.ini
+# 0
+## pkgGlobal
+## vcom ../../../grpPackages/pkgGlobal/src/Global-p.vhd
+## StrobGen
+## vcom ../../../grpAudio/unitFlanger/src/Flanger-e.vhd
+## vcom ../../../grpAudio/unitFlanger/src/Flanger-Rtl-a.vhd
+## Flanger
+## Flanger Testbench
+## vcom ../../../grpAudio/unitFlanger/src/tbFlanger-Bhv-ea.vhd
+# Sim: load design
+# Flanger
+# End time: 19:54:56 on Mar 08,2017, Elapsed time: 0:16:21
+# Errors: 0, Warnings: 0
+# vsim -novopt -wlfdeleteonquit work.tbFlanger(Bhv) 
+# Start time: 19:54:56 on Mar 08,2017
+# Loading std.standard
+# Loading std.textio(body)
+# Loading ieee.std_logic_1164(body)
+# Loading ieee.numeric_std(body)
+# Loading ieee.fixed_float_types
+# Loading ieee.math_real(body)
+# Loading ieee.fixed_generic_pkg(body)
+# Loading ieee.fixed_pkg
+# Loading work.global(body)
+# Loading work.tbflanger(bhv)
+# Loading work.strobegen(rtl)
+# Loading work.flanger(rtl)
+# Sim: load wave-file(s)
+# 1
+# 0
+# 1
+# Sim: log signals
+# Sim: run ...
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+write format wave -window .main_pane.wave.interior.cs.body.pw.wf C:/Git/ASP-SoC/hw/src/grpAudio/unitFlanger/sim/wave-default.do
+do CompSim.do
+# worklibdir = C:\Users\fxst\AppData\Local\Temp
+# ** Warning: (vlib-34) Library already exists at "C:\Users\fxst\AppData\Local\Temp/work".
+# Model Technology ModelSim - Intel FPGA Edition vmap 10.5b Lib Mapping Utility 2016.10 Oct  5 2016
+# vmap work C:\Users\fxst\AppData\Local\Temp/work 
+# Modifying modelsim.ini
+# 0
+## pkgGlobal
+## vcom ../../../grpPackages/pkgGlobal/src/Global-p.vhd
+## StrobGen
+## vcom ../../../grpAudio/unitFlanger/src/Flanger-e.vhd
+## vcom ../../../grpAudio/unitFlanger/src/Flanger-Rtl-a.vhd
+## Flanger
+## Flanger Testbench
+## vcom ../../../grpAudio/unitFlanger/src/tbFlanger-Bhv-ea.vhd
+# Sim: load design
+# Flanger
+# End time: 20:02:53 on Mar 08,2017, Elapsed time: 0:07:57
+# Errors: 0, Warnings: 0
+# vsim -novopt -wlfdeleteonquit work.tbFlanger(Bhv) 
+# Start time: 20:02:53 on Mar 08,2017
+# Loading std.standard
+# Loading std.textio(body)
+# Loading ieee.std_logic_1164(body)
+# Loading ieee.numeric_std(body)
+# Loading ieee.fixed_float_types
+# Loading ieee.math_real(body)
+# Loading ieee.fixed_generic_pkg(body)
+# Loading ieee.fixed_pkg
+# Loading work.global(body)
+# Loading work.tbflanger(bhv)
+# Loading work.strobegen(rtl)
+# Loading work.flanger(rtl)
+# Sim: load wave-file(s)
+# 1
+# 0
+# 1
+# Sim: log signals
+# Sim: run ...
+do CompSim.do
+# worklibdir = C:\Users\fxst\AppData\Local\Temp
+# ** Warning: (vlib-34) Library already exists at "C:\Users\fxst\AppData\Local\Temp/work".
+# Model Technology ModelSim - Intel FPGA Edition vmap 10.5b Lib Mapping Utility 2016.10 Oct  5 2016
+# vmap work C:\Users\fxst\AppData\Local\Temp/work 
+# Modifying modelsim.ini
+# 0
+## pkgGlobal
+## vcom ../../../grpPackages/pkgGlobal/src/Global-p.vhd
+## StrobGen
+## vcom ../../../grpAudio/unitFlanger/src/Flanger-e.vhd
+## vcom ../../../grpAudio/unitFlanger/src/Flanger-Rtl-a.vhd
+## Flanger
+## Flanger Testbench
+## vcom ../../../grpAudio/unitFlanger/src/tbFlanger-Bhv-ea.vhd
+# Sim: load design
+# Flanger
+# End time: 20:04:16 on Mar 08,2017, Elapsed time: 0:01:23
+# Errors: 0, Warnings: 0
+# vsim -novopt -wlfdeleteonquit work.tbFlanger(Bhv) 
+# Start time: 20:04:16 on Mar 08,2017
+# Loading std.standard
+# Loading std.textio(body)
+# Loading ieee.std_logic_1164(body)
+# Loading ieee.numeric_std(body)
+# Loading ieee.fixed_float_types
+# Loading ieee.math_real(body)
+# Loading ieee.fixed_generic_pkg(body)
+# Loading ieee.fixed_pkg
+# Loading work.global(body)
+# Loading work.tbflanger(bhv)
+# Loading work.strobegen(rtl)
+# Loading work.flanger(rtl)
+# Sim: load wave-file(s)
+# 1
+# 0
+# 1
+# Sim: log signals
+# Sim: run ...
+do CompSim.do
+# worklibdir = C:\Users\fxst\AppData\Local\Temp
+# ** Warning: (vlib-34) Library already exists at "C:\Users\fxst\AppData\Local\Temp/work".
+# Model Technology ModelSim - Intel FPGA Edition vmap 10.5b Lib Mapping Utility 2016.10 Oct  5 2016
+# vmap work C:\Users\fxst\AppData\Local\Temp/work 
+# Modifying modelsim.ini
+# 0
+## pkgGlobal
+## vcom ../../../grpPackages/pkgGlobal/src/Global-p.vhd
+## StrobGen
+## vcom ../../../grpAudio/unitFlanger/src/Flanger-e.vhd
+## vcom ../../../grpAudio/unitFlanger/src/Flanger-Rtl-a.vhd
+## Flanger
+## Flanger Testbench
+## vcom ../../../grpAudio/unitFlanger/src/tbFlanger-Bhv-ea.vhd
+# Sim: load design
+# Flanger
+# End time: 20:05:17 on Mar 08,2017, Elapsed time: 0:01:01
+# Errors: 0, Warnings: 0
+# vsim -novopt -wlfdeleteonquit work.tbFlanger(Bhv) 
+# Start time: 20:05:17 on Mar 08,2017
+# Loading std.standard
+# Loading std.textio(body)
+# Loading ieee.std_logic_1164(body)
+# Loading ieee.numeric_std(body)
+# Loading ieee.fixed_float_types
+# Loading ieee.math_real(body)
+# Loading ieee.fixed_generic_pkg(body)
+# Loading ieee.fixed_pkg
+# Loading work.global(body)
+# Loading work.tbflanger(bhv)
+# Loading work.strobegen(rtl)
+# Loading work.flanger(rtl)
+# Sim: load wave-file(s)
+# 1
+# 0
+# 1
+# Sim: log signals
+# Sim: run ...
+do CompSim.do
+# worklibdir = C:\Users\fxst\AppData\Local\Temp
+# ** Warning: (vlib-34) Library already exists at "C:\Users\fxst\AppData\Local\Temp/work".
+# Model Technology ModelSim - Intel FPGA Edition vmap 10.5b Lib Mapping Utility 2016.10 Oct  5 2016
+# vmap work C:\Users\fxst\AppData\Local\Temp/work 
+# Modifying modelsim.ini
+# 0
+## pkgGlobal
+## vcom ../../../grpPackages/pkgGlobal/src/Global-p.vhd
+## StrobGen
+## vcom ../../../grpAudio/unitFlanger/src/Flanger-e.vhd
+## vcom ../../../grpAudio/unitFlanger/src/Flanger-Rtl-a.vhd
+## Flanger
+## Flanger Testbench
+## vcom ../../../grpAudio/unitFlanger/src/tbFlanger-Bhv-ea.vhd
+# Sim: load design
+# Flanger
+# End time: 20:05:42 on Mar 08,2017, Elapsed time: 0:00:25
+# Errors: 0, Warnings: 0
+# vsim -novopt -wlfdeleteonquit work.tbFlanger(Bhv) 
+# Start time: 20:05:42 on Mar 08,2017
+# Loading std.standard
+# Loading std.textio(body)
+# Loading ieee.std_logic_1164(body)
+# Loading ieee.numeric_std(body)
+# Loading ieee.fixed_float_types
+# Loading ieee.math_real(body)
+# Loading ieee.fixed_generic_pkg(body)
+# Loading ieee.fixed_pkg
+# Loading work.global(body)
+# Loading work.tbflanger(bhv)
+# Loading work.strobegen(rtl)
+# Loading work.flanger(rtl)
+# Sim: load wave-file(s)
+# 1
+# 0
+# 1
+# Sim: log signals
+# Sim: run ...
+do CompSim.do
+# worklibdir = C:\Users\fxst\AppData\Local\Temp
+# ** Warning: (vlib-34) Library already exists at "C:\Users\fxst\AppData\Local\Temp/work".
+# Model Technology ModelSim - Intel FPGA Edition vmap 10.5b Lib Mapping Utility 2016.10 Oct  5 2016
+# vmap work C:\Users\fxst\AppData\Local\Temp/work 
+# Modifying modelsim.ini
+# 0
+## pkgGlobal
+## vcom ../../../grpPackages/pkgGlobal/src/Global-p.vhd
+## StrobGen
+## vcom ../../../grpAudio/unitFlanger/src/Flanger-e.vhd
+## vcom ../../../grpAudio/unitFlanger/src/Flanger-Rtl-a.vhd
+## Flanger
+## Flanger Testbench
+## vcom ../../../grpAudio/unitFlanger/src/tbFlanger-Bhv-ea.vhd
+# Sim: load design
+# Flanger
+# End time: 20:06:15 on Mar 08,2017, Elapsed time: 0:00:33
+# Errors: 0, Warnings: 0
+# vsim -novopt -wlfdeleteonquit work.tbFlanger(Bhv) 
+# Start time: 20:06:15 on Mar 08,2017
+# Loading std.standard
+# Loading std.textio(body)
+# Loading ieee.std_logic_1164(body)
+# Loading ieee.numeric_std(body)
+# Loading ieee.fixed_float_types
+# Loading ieee.math_real(body)
+# Loading ieee.fixed_generic_pkg(body)
+# Loading ieee.fixed_pkg
+# Loading work.global(body)
+# Loading work.tbflanger(bhv)
+# Loading work.strobegen(rtl)
+# Loading work.flanger(rtl)
+# Sim: load wave-file(s)
+# 1
+# 0
+# 1
+# Sim: log signals
+# Sim: run ...
+do CompSim.do
+# worklibdir = C:\Users\fxst\AppData\Local\Temp
+# ** Warning: (vlib-34) Library already exists at "C:\Users\fxst\AppData\Local\Temp/work".
+# Model Technology ModelSim - Intel FPGA Edition vmap 10.5b Lib Mapping Utility 2016.10 Oct  5 2016
+# vmap work C:\Users\fxst\AppData\Local\Temp/work 
+# Modifying modelsim.ini
+# 0
+## pkgGlobal
+## vcom ../../../grpPackages/pkgGlobal/src/Global-p.vhd
+## StrobGen
+## vcom ../../../grpAudio/unitFlanger/src/Flanger-e.vhd
+## vcom ../../../grpAudio/unitFlanger/src/Flanger-Rtl-a.vhd
+## Flanger
+## Flanger Testbench
+## vcom ../../../grpAudio/unitFlanger/src/tbFlanger-Bhv-ea.vhd
+# Sim: load design
+# Flanger
+# End time: 20:06:42 on Mar 08,2017, Elapsed time: 0:00:27
+# Errors: 0, Warnings: 0
+# vsim -novopt -wlfdeleteonquit work.tbFlanger(Bhv) 
+# Start time: 20:06:42 on Mar 08,2017
+# Loading std.standard
+# Loading std.textio(body)
+# Loading ieee.std_logic_1164(body)
+# Loading ieee.numeric_std(body)
+# Loading ieee.fixed_float_types
+# Loading ieee.math_real(body)
+# Loading ieee.fixed_generic_pkg(body)
+# Loading ieee.fixed_pkg
+# Loading work.global(body)
+# Loading work.tbflanger(bhv)
+# Loading work.strobegen(rtl)
+# Loading work.flanger(rtl)
+# Sim: load wave-file(s)
+# 1
+# 0
+# 1
+# Sim: log signals
+# Sim: run ...
+do CompSim.do
+# worklibdir = C:\Users\fxst\AppData\Local\Temp
+# ** Warning: (vlib-34) Library already exists at "C:\Users\fxst\AppData\Local\Temp/work".
+# Model Technology ModelSim - Intel FPGA Edition vmap 10.5b Lib Mapping Utility 2016.10 Oct  5 2016
+# vmap work C:\Users\fxst\AppData\Local\Temp/work 
+# Modifying modelsim.ini
+# 0
+## pkgGlobal
+## vcom ../../../grpPackages/pkgGlobal/src/Global-p.vhd
+## StrobGen
+## vcom ../../../grpAudio/unitFlanger/src/Flanger-e.vhd
+## vcom ../../../grpAudio/unitFlanger/src/Flanger-Rtl-a.vhd
+## Flanger
+## Flanger Testbench
+## vcom ../../../grpAudio/unitFlanger/src/tbFlanger-Bhv-ea.vhd
+# Sim: load design
+# Flanger
+# End time: 20:07:10 on Mar 08,2017, Elapsed time: 0:00:28
+# Errors: 0, Warnings: 0
+# vsim -novopt -wlfdeleteonquit work.tbFlanger(Bhv) 
+# Start time: 20:07:10 on Mar 08,2017
+# Loading std.standard
+# Loading std.textio(body)
+# Loading ieee.std_logic_1164(body)
+# Loading ieee.numeric_std(body)
+# Loading ieee.fixed_float_types
+# Loading ieee.math_real(body)
+# Loading ieee.fixed_generic_pkg(body)
+# Loading ieee.fixed_pkg
+# Loading work.global(body)
+# Loading work.tbflanger(bhv)
+# Loading work.strobegen(rtl)
+# Loading work.flanger(rtl)
+# Sim: load wave-file(s)
+# 1
+# 0
+# 1
+# Sim: log signals
+# Sim: run ...
+do CompSim.do
+# worklibdir = C:\Users\fxst\AppData\Local\Temp
+# ** Warning: (vlib-34) Library already exists at "C:\Users\fxst\AppData\Local\Temp/work".
+# Model Technology ModelSim - Intel FPGA Edition vmap 10.5b Lib Mapping Utility 2016.10 Oct  5 2016
+# vmap work C:\Users\fxst\AppData\Local\Temp/work 
+# Modifying modelsim.ini
+# 0
+## pkgGlobal
+## vcom ../../../grpPackages/pkgGlobal/src/Global-p.vhd
+## StrobGen
+## vcom ../../../grpAudio/unitFlanger/src/Flanger-e.vhd
+## vcom ../../../grpAudio/unitFlanger/src/Flanger-Rtl-a.vhd
+## Flanger
+## Flanger Testbench
+## vcom ../../../grpAudio/unitFlanger/src/tbFlanger-Bhv-ea.vhd
+# Sim: load design
+# Flanger
+# End time: 20:07:32 on Mar 08,2017, Elapsed time: 0:00:22
+# Errors: 0, Warnings: 0
+# vsim -novopt -wlfdeleteonquit work.tbFlanger(Bhv) 
+# Start time: 20:07:32 on Mar 08,2017
+# Loading std.standard
+# Loading std.textio(body)
+# Loading ieee.std_logic_1164(body)
+# Loading ieee.numeric_std(body)
+# Loading ieee.fixed_float_types
+# Loading ieee.math_real(body)
+# Loading ieee.fixed_generic_pkg(body)
+# Loading ieee.fixed_pkg
+# Loading work.global(body)
+# Loading work.tbflanger(bhv)
+# Loading work.strobegen(rtl)
+# Loading work.flanger(rtl)
+# Sim: load wave-file(s)
+# 1
+# 0
+# 1
+# Sim: log signals
+# Sim: run ...
+do CompSim.do
+# worklibdir = C:\Users\fxst\AppData\Local\Temp
+# ** Warning: (vlib-34) Library already exists at "C:\Users\fxst\AppData\Local\Temp/work".
+# Model Technology ModelSim - Intel FPGA Edition vmap 10.5b Lib Mapping Utility 2016.10 Oct  5 2016
+# vmap work C:\Users\fxst\AppData\Local\Temp/work 
+# Modifying modelsim.ini
+# 0
+## pkgGlobal
+## vcom ../../../grpPackages/pkgGlobal/src/Global-p.vhd
+## StrobGen
+## vcom ../../../grpAudio/unitFlanger/src/Flanger-e.vhd
+## vcom ../../../grpAudio/unitFlanger/src/Flanger-Rtl-a.vhd
+## Flanger
+## Flanger Testbench
+## vcom ../../../grpAudio/unitFlanger/src/tbFlanger-Bhv-ea.vhd
+# Sim: load design
+# Flanger
+# End time: 20:08:04 on Mar 08,2017, Elapsed time: 0:00:32
+# Errors: 0, Warnings: 0
+# vsim -novopt -wlfdeleteonquit work.tbFlanger(Bhv) 
+# Start time: 20:08:04 on Mar 08,2017
+# Loading std.standard
+# Loading std.textio(body)
+# Loading ieee.std_logic_1164(body)
+# Loading ieee.numeric_std(body)
+# Loading ieee.fixed_float_types
+# Loading ieee.math_real(body)
+# Loading ieee.fixed_generic_pkg(body)
+# Loading ieee.fixed_pkg
+# Loading work.global(body)
+# Loading work.tbflanger(bhv)
+# Loading work.strobegen(rtl)
+# Loading work.flanger(rtl)
+# Sim: load wave-file(s)
+# 1
+# 0
+# 1
+# Sim: log signals
+# Sim: run ...
+# End time: 20:08:19 on Mar 08,2017, Elapsed time: 0:00:15
+# Errors: 0, Warnings: 0

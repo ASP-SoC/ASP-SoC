@@ -1,49 +1,57 @@
----------------------------------------------------------------------*-vhdl-*--
--- File        : PwmGen-Rtl-a.vhd
--- Description : <short overview about functionality>
---
 -------------------------------------------------------------------------------
--- History (yyyy-mm-dd):
--- yyyy-mm-dd last update by firstname lastname
+-- Title      : Audio Flanger
+-- Project    : ASP-SoC
+-------------------------------------------------------------------------------
+-- File       : Flanger-Rtl-a.vhd
+-- Author     : Haberleitner David
+-------------------------------------------------------------------------------
+-- Description: 
+-------------------------------------------------------------------------------
+-- Copyright (c) 2017 
+-------------------------------------------------------------------------------
+-- Revisions  :
+-- Date        Version  Author          Description
+-- 2017-03-07  1.0      Haberleitner    Created
+-- 2017-03-08  1.1      Steinbacher     Edited
 -------------------------------------------------------------------------------
 
 architecture Rtl of Flanger is
 
-  type aDataArray is array ((99) downto 0) of sfixed(-1 downto -24);
-  signal internal_register : aDataArray;
+  type aInternReg is array (gRegisterLen downto 0) of sfixed(-1 downto -gSigLen);
+  signal intern_register : aInternReg;  -- intern shift register
+  signal sum             : sfixed(0 downto -gSigLen);  -- sum of two signals, 1 bigger than the signals
 
-  constant cInternal_registerZero : aDataArray := (others => (others => '0'));
+  constant cIntern_regZero : aInternReg := (others => (others => '0'));
 
 begin  -- Rtl
-  
-Flanger : process( inResetAsync, iClk )
 
-  variable sum : sfixed(0 downto -24);        --sum is 1 bit bigger
-begin
+  Flanger : process(inResetAsync, iClk)
+  begin
 
-  if inResetAsync = not '1' then
-    oData <= (others => '0');
+    if inResetAsync = not '1' then         -- async low active reset
+      intern_register <= cIntern_regZero;  -- reset intern reg
+      sum             <= (others => '0');  -- reset sum
 
-    -- reset internal reg
-    internal_register <= cInternal_registerZero;
-  else
-    if rising_edge(iClk) then
-      if iStrobe = '1' then
-        internal_register(0) <= iData;
+    elsif rising_edge(iClk) then
+      if iEnable = '1' then             -- shift register
+        intern_register(0) <= iData;
 
-        for I in 0 to (97) loop                     -- shift data through the internal registers
-          internal_register(I+1) <= internal_register(I);
+        for i in 1 to gRegisterLen loop  -- shift data through the internal registers
+          intern_register(i) <= intern_register(i-1);
         end loop;
 
-        
-        sum := (internal_register(98) + iData);     -- add the two values and normalize (divide by two)
-        oData <= sum(0 downto -23 );
       end if;
-    
+
+      -- sum
+      sum <= (intern_register(to_integer(iSelFlangeLen)) + iData);
     end if;
-  end if;
-  
-end process ; -- Flanger
-  
+
+  end process;  -- Flanger
+
+
+
+  -- output
+  oData <= sum(0 downto -(gSigLen-1));  -- divide sum by two
+
 
 end architecture Rtl;

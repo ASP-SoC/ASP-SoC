@@ -2,7 +2,7 @@
 do Comp.do
 
 echo "Sim: load design"
-set unit PwmGen
+set unit Flanger
 vsim -novopt -wlfdeleteonquit \
       work.tb${unit}(Bhv)
 
@@ -15,8 +15,10 @@ echo "Sim: log signals"
 log -r /*
 
 echo "Sim: run ..."
- run 10 us
- run 60 us
+ run 100 us
+ run 1000 us
+ run 6000 us
 
+ 
 WaveRestoreZoom {0 us} $now
 

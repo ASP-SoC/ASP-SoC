@@ -21,25 +21,10 @@ echo ## pkgGlobal
 myvcom ${Root}/grpPackages/pkgGlobal/src/Global-p.vhd
 
 echo ## StrobGen
-myvcom ${Root}/grpStrobesAndClocks/unitStrobeGen/src/StrobeGen-e.vhd
-myvcom ${Root}/grpStrobesAndClocks/unitStrobeGen/src/StrobeGen-Rtl-a.vhd
+myvcom ${Root}/grpAudio/unitFlanger/src/Flanger-e.vhd
+myvcom ${Root}/grpAudio/unitFlanger/src/Flanger-Rtl-a.vhd
 
-echo ## PwmGen Pack
-myvcom ${Root}/grpPwmGen/pkgPwmGenPack/src/PwmGenPack-p.vhd
+echo ## Flanger
 
-echo ## PwmGen Datapath
-myvcom ${Root}/grpPwmGen/unitPwmGenDatapath/src/PwmGenDatapath-e.vhd
-myvcom ${Root}/grpPwmGen/unitPwmGenDatapath/src/PwmGenDatapath-Rtl-a.vhd
-
-echo ## PwmGen Ctrlpath
-myvcom ${Root}/grpPwmGen/unitPwmGenCtrlpath/src/PwmGenCtrlpath-e.vhd
-myvcom ${Root}/grpPwmGen/unitPwmGenCtrlpath/src/PwmGenCtrlpath-Bhv-a.vhd
-myvcom ${Root}/grpPwmGen/unitPwmGenCtrlpath/src/PwmGenCtrlpath-Mealy-a.vhd
-myvcom ${Root}/grpPwmGen/unitPwmGenCtrlpath/src/PwmGenCtrlpath-Moore-a.vhd
-
-echo ## PwmGen
-myvcom ${Root}/grpPwmGen/unitPwmGen/src/PwmGen-e.vhd
-myvcom ${Root}/grpPwmGen/unitPwmGen/src/PwmGen-Rtl-a.vhd
-
-echo ## PwnGen Testbench
-myvcom ${Root}/grpPwmGen/unitPwmGen/src/tbPwmGen-Bhv-ea.vhd
+echo ## Flanger Testbench
+myvcom ${Root}/grpAudio/unitFlanger/src/tbFlanger-Bhv-ea.vhd

@@ -5,6 +5,7 @@
 *.raw
 *.sfk
 *.ini
+transcript
 
 # quartus
 c5_pin_model_dump.txt

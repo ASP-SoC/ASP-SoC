@@ -1,6 +1,13 @@
 
-.vhd~
+# ignore generatet files from modelsim, emacs
+*.vhd~
+*.wlf
+*.raw
+*.sfk
+*.ini
+transcript
 
+# quartus
 c5_pin_model_dump.txt
 db/
 incremental_db/

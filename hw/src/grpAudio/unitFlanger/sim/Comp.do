@@ -21,10 +21,12 @@ echo ## pkgGlobal
 myvcom ${Root}/grpPackages/pkgGlobal/src/Global-p.vhd
 
 echo ## StrobGen
-myvcom ${Root}/grpAudio/unitFlanger/src/Flanger-e.vhd
-myvcom ${Root}/grpAudio/unitFlanger/src/Flanger-Rtl-a.vhd
+myvcom ${Root}/grpStrobesAndClocks/unitStrobeGen/src/StrobeGen-e.vhd
+myvcom ${Root}/grpStrobesAndClocks/unitStrobeGen/src/StrobeGen-Rtl-a.vhd
 
 echo ## Flanger
+myvcom ${Root}/grpAudio/unitFlanger/src/Flanger-e.vhd
+myvcom ${Root}/grpAudio/unitFlanger/src/Flanger-Rtl-a.vhd
 
 echo ## Flanger Testbench
 myvcom ${Root}/grpAudio/unitFlanger/src/tbFlanger-Bhv-ea.vhd

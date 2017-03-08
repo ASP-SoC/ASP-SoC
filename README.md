@@ -1,4 +1,4 @@
-<img src="https://asp-soc.github.io/Pictures/logo3.png">
+<img src="https://asp-soc.github.io/Pictures/aspsoc1.png">
 
 # About
 

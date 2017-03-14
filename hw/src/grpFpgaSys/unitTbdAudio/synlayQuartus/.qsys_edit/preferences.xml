@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<preferences>
+ <debug showDebugMenu="0" />
+ <systemtable filter="All Interfaces">
+  <columns>
+   <connections preferredWidth="175" />
+   <irq preferredWidth="34" />
+   <name preferredWidth="193" />
+  </columns>
+ </systemtable>
+ <library
+   expandedCategories="Project/My Own IP Cores,Library/University Program,Library,Project,Library/University Program/Audio &amp; Video" />
+ <window width="1936" height="1056" x="-8" y="-8" />
+ <generation synthesis="VHDL" />
+</preferences>

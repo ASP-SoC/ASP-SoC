@@ -5,11 +5,11 @@
  version="1.0"
  fabric="QSYS">
  <!-- Format version 16.1 196 (Future versions may contain additional information.) -->
- <!-- 2017.03.14.19:57:16 -->
+ <!-- 2017.03.14.20:43:06 -->
  <!-- A collection of modules and connections -->
  <parameter name="AUTO_GENERATION_ID">
   <type>java.lang.Integer</type>
-  <value>1489517836</value>
+  <value>1489520586</value>
   <derived>false</derived>
   <enabled>true</enabled>
   <visible>false</visible>
@@ -3482,33 +3482,6 @@ parameters are a RESULT of the module parameters. -->
   <endConnectionPoint>reset</endConnectionPoint>
  </connection>
  <connection
-   name="audio_pll.reset_source/audio.reset"
-   kind="reset"
-   version="16.1"
-   start="audio_pll.reset_source"
-   end="audio.reset">
-  <parameter name="deviceFamily">
-   <type>java.lang.String</type>
-   <value>UNKNOWN</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="generateLegacySim">
-   <type>boolean</type>
-   <value>false</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <startModule>audio_pll</startModule>
-  <startConnectionPoint>reset_source</startConnectionPoint>
-  <endModule>audio</endModule>
-  <endConnectionPoint>reset</endConnectionPoint>
- </connection>
- <connection
    name="audio_pll.reset_source/AudioAvalonStream_0.reset"
    kind="reset"
    version="16.1"
@@ -3533,6 +3506,33 @@ parameters are a RESULT of the module parameters. -->
   <startModule>audio_pll</startModule>
   <startConnectionPoint>reset_source</startConnectionPoint>
   <endModule>AudioAvalonStream_0</endModule>
+  <endConnectionPoint>reset</endConnectionPoint>
+ </connection>
+ <connection
+   name="audio_pll.reset_source/audio.reset"
+   kind="reset"
+   version="16.1"
+   start="audio_pll.reset_source"
+   end="audio.reset">
+  <parameter name="deviceFamily">
+   <type>java.lang.String</type>
+   <value>UNKNOWN</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <parameter name="generateLegacySim">
+   <type>boolean</type>
+   <value>false</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <startModule>audio_pll</startModule>
+  <startConnectionPoint>reset_source</startConnectionPoint>
+  <endModule>audio</endModule>
   <endConnectionPoint>reset</endConnectionPoint>
  </connection>
  <plugin>

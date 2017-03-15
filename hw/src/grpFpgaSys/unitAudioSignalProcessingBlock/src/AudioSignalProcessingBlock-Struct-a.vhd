@@ -21,7 +21,7 @@ begin  -- architecture Struct
       if audio_source_ready = '1' then
         audio_source_valid <= '1';      -- if sink is ready set valid bit
       else
-        audio_source_valid <= '0'
+        audio_source_valid <= '0';
       end if;
 
     end if;
@@ -47,6 +47,19 @@ begin  -- architecture Struct
   -- channel_right_output       - right channel output
   -------------------------------------------------------------------------------
 
+  ShiftReg_1 : entity work.ShiftReg
+    generic map (
+      gRegLength      => 24,
+      gShiftRegLength => 1024)
+    port map (
+      inResetAsync => reset_n,
+      iClk         => clk,
+      iData        => channel_left_input,
+      iSelOutReg   => (others => '1'),
+      oData        => channel_left_output);
+
+  --channel_left_output  <= channel_left_input;
+  channel_right_output <= channel_right_input;
 
 
   -------------------------------------------------------------------------------

@@ -17,6 +17,14 @@
          type = "int";
       }
    }
+   element AudioSignalProcessingBlock_0
+   {
+      datum _sortIndex
+      {
+         value = "5";
+         type = "int";
+      }
+   }
    element audio
    {
       datum _sortIndex
@@ -75,6 +83,11 @@
  <module
    name="AudioAvalonStream_0"
    kind="AudioAvalonStream"
+   version="1.0"
+   enabled="1" />
+ <module
+   name="AudioSignalProcessingBlock_0"
+   kind="AudioSignalProcessingBlock"
    version="1.0"
    enabled="1" />
  <module name="audio" kind="altera_up_avalon_audio" version="16.1" enabled="1">
@@ -137,8 +150,13 @@
  <connection
    kind="avalon_streaming"
    version="16.1"
-   start="AudioAvalonStream_0.avalon_audio_source"
+   start="AudioSignalProcessingBlock_0.audio_source"
    end="AudioAvalonStream_0.avalon_audio_sink" />
+ <connection
+   kind="avalon_streaming"
+   version="16.1"
+   start="AudioAvalonStream_0.avalon_audio_source"
+   end="AudioSignalProcessingBlock_0.audio_sink" />
  <connection
    kind="avalon_streaming"
    version="16.1"
@@ -154,6 +172,11 @@
    version="16.1"
    start="audio_pll.audio_clk"
    end="audio.clk" />
+ <connection
+   kind="clock"
+   version="16.1"
+   start="audio_pll.audio_clk"
+   end="AudioSignalProcessingBlock_0.clk" />
  <connection
    kind="clock"
    version="16.1"
@@ -181,6 +204,11 @@
    version="16.1"
    start="audio_pll.reset_source"
    end="audio.reset" />
+ <connection
+   kind="reset"
+   version="16.1"
+   start="audio_pll.reset_source"
+   end="AudioSignalProcessingBlock_0.reset_n" />
  <interconnectRequirement for="$system" name="qsys_mm.clockCrossingAdapter" value="HANDSHAKE" />
  <interconnectRequirement for="$system" name="qsys_mm.enableEccProtection" value="FALSE" />
  <interconnectRequirement for="$system" name="qsys_mm.insertDefaultSlave" value="FALSE" />

@@ -19,7 +19,7 @@
 library ieee;
 use ieee.std_logic_1164.all;
 
-entity AudiSignalProcessingBlock is
+entity AudioSignalProcessingBlock is
 
   port (
     clk     : in std_logic;             -- clk
@@ -49,4 +49,4 @@ entity AudiSignalProcessingBlock is
 
     );
 
-end entity AudiSignalProcessingBlock;
+end entity AudioSignalProcessingBlock;

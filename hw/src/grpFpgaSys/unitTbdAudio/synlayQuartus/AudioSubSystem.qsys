@@ -13,7 +13,7 @@
    {
       datum _sortIndex
       {
-         value = "4";
+         value = "5";
          type = "int";
       }
    }
@@ -21,7 +21,7 @@
    {
       datum _sortIndex
       {
-         value = "5";
+         value = "6";
          type = "int";
       }
    }
@@ -53,7 +53,7 @@
    {
       datum _sortIndex
       {
-         value = "3";
+         value = "4";
          type = "int";
       }
    }
@@ -82,12 +82,12 @@
    {
       datum _sortIndex
       {
-         value = "6";
+         value = "3";
          type = "int";
       }
       datum sopceditor_expanded
       {
-         value = "0";
+         value = "1";
          type = "boolean";
       }
    }
@@ -153,7 +153,7 @@
   <parameter name="audio_in" value="true" />
   <parameter name="audio_out" value="true" />
   <parameter name="avalon_bus_type" value="Streaming" />
-  <parameter name="dw" value="32" />
+  <parameter name="dw" value="24" />
  </module>
  <module
    name="audio_config"

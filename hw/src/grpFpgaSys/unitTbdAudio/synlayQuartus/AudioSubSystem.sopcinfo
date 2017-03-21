@@ -5,11 +5,11 @@
  version="1.0"
  fabric="QSYS">
  <!-- Format version 16.1 196 (Future versions may contain additional information.) -->
- <!-- 2017.03.21.11:52:39 -->
+ <!-- 2017.03.21.20:26:59 -->
  <!-- A collection of modules and connections -->
  <parameter name="AUTO_GENERATION_ID">
   <type>java.lang.Integer</type>
-  <value>1490093559</value>
+  <value>1490124419</value>
   <derived>false</derived>
   <enabled>true</enabled>
   <visible>false</visible>
@@ -132,7 +132,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="dw">
    <type>int</type>
-   <value>32</value>
+   <value>24</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -410,7 +410,7 @@ parameters are a RESULT of the module parameters. -->
    <port>
     <name>from_adc_left_channel_data</name>
     <direction>Output</direction>
-    <width>32</width>
+    <width>24</width>
     <role>data</role>
    </port>
    <port>
@@ -550,7 +550,7 @@ parameters are a RESULT of the module parameters. -->
    <port>
     <name>from_adc_right_channel_data</name>
     <direction>Output</direction>
-    <width>32</width>
+    <width>24</width>
     <role>data</role>
    </port>
    <port>
@@ -684,7 +684,7 @@ parameters are a RESULT of the module parameters. -->
    <port>
     <name>to_dac_left_channel_data</name>
     <direction>Input</direction>
-    <width>32</width>
+    <width>24</width>
     <role>data</role>
    </port>
    <port>
@@ -824,7 +824,7 @@ parameters are a RESULT of the module parameters. -->
    <port>
     <name>to_dac_right_channel_data</name>
     <direction>Input</direction>
-    <width>32</width>
+    <width>24</width>
     <role>data</role>
    </port>
    <port>

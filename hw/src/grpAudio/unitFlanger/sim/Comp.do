@@ -17,6 +17,10 @@ proc myvcom {filename} {
 }
 
 #-------------------------------------------
+echo ## ieee_proposed
+vcom -work ieee_proposed ${Root}/grpPackages/pkgFixed/src/fixed_float_types_c.vhdl
+vcom -work ieee_proposed ${Root}/grpPackages/pkgFixed/src/fixed_pkg_c.vhdl
+
 echo ## pkgGlobal
 myvcom ${Root}/grpPackages/pkgGlobal/src/Global-p.vhd
 

@@ -3,6 +3,8 @@ architecture Struct of AudioSignalProcessingBlock is
   signal channel_left_input, channel_right_input   : std_ulogic_vector(23 downto 0);
   signal channel_left_output, channel_right_output : std_ulogic_vector(23 downto 0);
 
+  signal sfixed_output : sfixed(-1 downto -24);
+
 begin  -- architecture Struct
 
   SyncProcess : process (clk, reset_n) is
@@ -47,18 +49,33 @@ begin  -- architecture Struct
   -- channel_right_output       - right channel output
   -------------------------------------------------------------------------------
 
-  ShiftReg_1 : entity work.ShiftReg
-    generic map (
-      gRegLength      => 24,
-      gShiftRegLength => 1024)
-    port map (
-      inResetAsync => reset_n,
-      iClk         => clk,
-      iData        => channel_left_input,
-      iSelOutReg   => (others => '1'),
-      oData        => channel_left_output);
+  --ShiftReg_1 : entity work.ShiftReg
+  --  generic map (
+  --    gRegLength      => 24,
+  --    gShiftRegLength => 1024)
+  --  port map (
+  --    inResetAsync => reset_n,
+  --    iClk         => clk,
+  --    iData        => channel_left_input,
+  --    iSelOutReg   => (others => '1'),
+  --    oData        => channel_left_output);
 
-  --channel_left_output  <= channel_left_input;
+
+  --Flanger_1 : entity work.Flanger
+  --  generic map (
+  --    gSigLen      => 24,
+  --    gRegisterLen => 256)
+  --  port map (
+  --    inResetAsync  => reset_n,
+  --    iClk          => clk,
+  --    iEnable       => audio_sink_valid,
+  --    iData         => to_sfixed(channel_left_input, -1, -24),
+  --    iSelFlangeLen => (others => '1'),
+  --    oData         => sfixed_output);
+
+  --channel_left_output <= to_sulv(sfixed_output);  -- convert to std_ulogic_vector
+
+  channel_left_output  <= channel_left_input;
   channel_right_output <= channel_right_input;
 
 

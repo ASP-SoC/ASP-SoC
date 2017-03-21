@@ -25,6 +25,30 @@
          type = "int";
       }
    }
+   element AudioSignalProcessingBlock_0.avalon
+   {
+      datum _lockedAddress
+      {
+         value = "1";
+         type = "boolean";
+      }
+   }
+   element AudioSubSystem
+   {
+      datum _originalDeviceFamily
+      {
+         value = "Cyclone V";
+         type = "String";
+      }
+   }
+   element AudioSubSystem
+   {
+      datum _originalDeviceFamily
+      {
+         value = "Cyclone V";
+         type = "String";
+      }
+   }
    element audio
    {
       datum _sortIndex
@@ -40,6 +64,11 @@
          value = "1";
          type = "int";
       }
+      datum sopceditor_expanded
+      {
+         value = "1";
+         type = "boolean";
+      }
    }
    element audio_pll
    {
@@ -47,6 +76,19 @@
       {
          value = "2";
          type = "int";
+      }
+   }
+   element clock_bridge_0
+   {
+      datum _sortIndex
+      {
+         value = "6";
+         type = "int";
+      }
+      datum sopceditor_expanded
+      {
+         value = "0";
+         type = "boolean";
       }
    }
    element sys
@@ -78,25 +120,40 @@
  <parameter name="timeStamp" value="0" />
  <parameter name="useTestBenchNamingPattern" value="false" />
  <instanceScript></instanceScript>
+ <interface
+   name="audio_clk"
+   internal="clock_bridge_0.out_clk"
+   type="clock"
+   dir="start" />
+ <interface
+   name="audio_config_i2c"
+   internal="audio_config.external_interface"
+   type="conduit"
+   dir="end" />
+ <interface
+   name="audio_i2s"
+   internal="audio.external_interface"
+   type="conduit"
+   dir="end" />
  <interface name="clk" internal="sys.clk_in" type="clock" dir="end" />
  <interface name="reset" internal="sys.clk_in_reset" type="reset" dir="end" />
  <module
    name="AudioAvalonStream_0"
    kind="AudioAvalonStream"
    version="1.0"
-   enabled="1" />
+   enabled="0" />
  <module
    name="AudioSignalProcessingBlock_0"
    kind="AudioSignalProcessingBlock"
    version="1.0"
-   enabled="1" />
+   enabled="0" />
  <module name="audio" kind="altera_up_avalon_audio" version="16.1" enabled="1">
   <parameter name="AUTO_CLK_CLOCK_RATE" value="12288135" />
   <parameter name="AUTO_DEVICE_FAMILY" value="Cyclone V" />
   <parameter name="audio_in" value="true" />
   <parameter name="audio_out" value="true" />
   <parameter name="avalon_bus_type" value="Streaming" />
-  <parameter name="dw" value="24" />
+  <parameter name="dw" value="32" />
  </module>
  <module
    name="audio_config"
@@ -131,22 +188,21 @@
   <parameter name="device_family" value="Cyclone V" />
   <parameter name="gui_refclk" value="50.0" />
  </module>
+ <module
+   name="clock_bridge_0"
+   kind="altera_clock_bridge"
+   version="16.1"
+   enabled="1">
+  <parameter name="DERIVED_CLOCK_RATE" value="12288135" />
+  <parameter name="EXPLICIT_CLOCK_RATE" value="0" />
+  <parameter name="NUM_CLOCK_OUTPUTS" value="1" />
+ </module>
  <module name="sys" kind="clock_source" version="16.1" enabled="1">
   <parameter name="clockFrequency" value="50000000" />
   <parameter name="clockFrequencyKnown" value="true" />
   <parameter name="inputClockFrequency" value="0" />
   <parameter name="resetSynchronousEdges" value="NONE" />
  </module>
- <connection
-   kind="avalon_streaming"
-   version="16.1"
-   start="AudioAvalonStream_0.audio_left_channel_source"
-   end="audio.avalon_left_channel_sink" />
- <connection
-   kind="avalon_streaming"
-   version="16.1"
-   start="AudioAvalonStream_0.audio_right_channel_source"
-   end="audio.avalon_right_channel_sink" />
  <connection
    kind="avalon_streaming"
    version="16.1"
@@ -161,12 +217,12 @@
    kind="avalon_streaming"
    version="16.1"
    start="audio.avalon_left_channel_source"
-   end="AudioAvalonStream_0.audio_left_channel_sink" />
+   end="audio.avalon_right_channel_sink" />
  <connection
    kind="avalon_streaming"
    version="16.1"
    start="audio.avalon_right_channel_source"
-   end="AudioAvalonStream_0.audio_right_channel_sink" />
+   end="audio.avalon_left_channel_sink" />
  <connection
    kind="clock"
    version="16.1"
@@ -182,6 +238,11 @@
    version="16.1"
    start="audio_pll.audio_clk"
    end="AudioAvalonStream_0.clock" />
+ <connection
+   kind="clock"
+   version="16.1"
+   start="audio_pll.audio_clk"
+   end="clock_bridge_0.in_clk" />
  <connection kind="clock" version="16.1" start="sys.clk" end="audio_config.clk" />
  <connection kind="clock" version="16.1" start="sys.clk" end="audio_pll.ref_clk" />
  <connection
@@ -198,12 +259,12 @@
    kind="reset"
    version="16.1"
    start="audio_pll.reset_source"
-   end="AudioAvalonStream_0.reset" />
+   end="audio.reset" />
  <connection
    kind="reset"
    version="16.1"
    start="audio_pll.reset_source"
-   end="audio.reset" />
+   end="AudioAvalonStream_0.reset" />
  <connection
    kind="reset"
    version="16.1"

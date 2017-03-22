@@ -61,21 +61,21 @@ begin  -- architecture Struct
   --    oData        => channel_left_output);
 
 
-  --Flanger_1 : entity work.Flanger
-  --  generic map (
-  --    gSigLen      => 24,
-  --    gRegisterLen => 256)
-  --  port map (
-  --    inResetAsync  => reset_n,
-  --    iClk          => clk,
-  --    iEnable       => audio_sink_valid,
-  --    iData         => to_sfixed(channel_left_input, -1, -24),
-  --    iSelFlangeLen => (others => '1'),
-  --    oData         => sfixed_output);
+  Flanger_1 : entity work.Flanger
+    generic map (
+      gSigLen      => 24,
+      gRegisterLen => 256)
+    port map (
+      inResetAsync  => reset_n,
+      iClk          => clk,
+      iEnable       => audio_sink_valid,
+      iData         => to_sfixed(channel_left_input, -1, -24),
+      iSelFlangeLen => (others => '1'),
+      oData         => sfixed_output);
 
-  --channel_left_output <= to_sulv(sfixed_output);  -- convert to std_ulogic_vector
+  channel_left_output <= to_sulv(sfixed_output);  -- convert to std_ulogic_vector
 
-  channel_left_output  <= channel_left_input;
+  --channel_left_output  <= channel_left_input;
   channel_right_output <= channel_right_input;
 
 

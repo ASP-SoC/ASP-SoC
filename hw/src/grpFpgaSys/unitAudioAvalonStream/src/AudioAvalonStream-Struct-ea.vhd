@@ -58,6 +58,7 @@ entity AudioAvalonStream is
 end entity AudioAvalonStream;
 
 architecture Struct of AudioAvalonStream is
+  signal intern_audio_signal : std_logic_vector(47 downto 0);
 
 begin  -- architecture Struct
 

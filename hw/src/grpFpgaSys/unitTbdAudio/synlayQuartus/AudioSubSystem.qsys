@@ -148,7 +148,7 @@
    version="1.0"
    enabled="0" />
  <module name="audio" kind="altera_up_avalon_audio" version="16.1" enabled="1">
-  <parameter name="AUTO_CLK_CLOCK_RATE" value="12288135" />
+  <parameter name="AUTO_CLK_CLOCK_RATE" value="50000000" />
   <parameter name="AUTO_DEVICE_FAMILY" value="Cyclone V" />
   <parameter name="audio_in" value="true" />
   <parameter name="audio_out" value="true" />
@@ -217,33 +217,29 @@
    kind="avalon_streaming"
    version="16.1"
    start="audio.avalon_left_channel_source"
-   end="audio.avalon_right_channel_sink" />
+   end="audio.avalon_left_channel_sink" />
  <connection
    kind="avalon_streaming"
    version="16.1"
    start="audio.avalon_right_channel_source"
-   end="audio.avalon_left_channel_sink" />
- <connection
-   kind="clock"
-   version="16.1"
-   start="audio_pll.audio_clk"
-   end="audio.clk" />
- <connection
-   kind="clock"
-   version="16.1"
-   start="audio_pll.audio_clk"
-   end="AudioSignalProcessingBlock_0.clk" />
- <connection
-   kind="clock"
-   version="16.1"
-   start="audio_pll.audio_clk"
-   end="AudioAvalonStream_0.clock" />
+   end="audio.avalon_right_channel_sink" />
  <connection
    kind="clock"
    version="16.1"
    start="audio_pll.audio_clk"
    end="clock_bridge_0.in_clk" />
  <connection kind="clock" version="16.1" start="sys.clk" end="audio_config.clk" />
+ <connection kind="clock" version="16.1" start="sys.clk" end="audio.clk" />
+ <connection
+   kind="clock"
+   version="16.1"
+   start="sys.clk"
+   end="AudioSignalProcessingBlock_0.clk" />
+ <connection
+   kind="clock"
+   version="16.1"
+   start="sys.clk"
+   end="AudioAvalonStream_0.clock" />
  <connection kind="clock" version="16.1" start="sys.clk" end="audio_pll.ref_clk" />
  <connection
    kind="reset"
@@ -255,20 +251,16 @@
    version="16.1"
    start="sys.clk_reset"
    end="audio_config.reset" />
+ <connection kind="reset" version="16.1" start="sys.clk_reset" end="audio.reset" />
  <connection
    kind="reset"
    version="16.1"
-   start="audio_pll.reset_source"
-   end="audio.reset" />
- <connection
-   kind="reset"
-   version="16.1"
-   start="audio_pll.reset_source"
+   start="sys.clk_reset"
    end="AudioAvalonStream_0.reset" />
  <connection
    kind="reset"
    version="16.1"
-   start="audio_pll.reset_source"
+   start="sys.clk_reset"
    end="AudioSignalProcessingBlock_0.reset_n" />
  <interconnectRequirement for="$system" name="qsys_mm.clockCrossingAdapter" value="HANDSHAKE" />
  <interconnectRequirement for="$system" name="qsys_mm.enableEccProtection" value="FALSE" />

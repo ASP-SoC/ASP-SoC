@@ -28,19 +28,23 @@ entity AudioSignalProcessingBlock is
     clk     : in std_logic;             -- clk
     reset_n : in std_logic;             -- low active reset
 
-    -- audio avalon streaming source - audio output
-    -- 23 downto 0      left    channel
-    -- 47 downto 24     right   channel
-    audio_source_data  : out std_logic_vector(47 downto 0);  -- left and right channel data
-    audio_source_valid : out std_logic;  -- left and right channel valid
-    audio_source_ready : in  std_logic;  -- left and right channel ready
+    -- to audio avalon streaming source
+    to_audio_left_channel_data  : out std_logic_vector(23 downto 0);  -- left channel data
+    to_audio_left_channel_valid : out std_logic;  -- left channel valid
+    to_audio_left_channel_ready : in  std_logic;  -- left channel ready
 
-    -- audio avalon streaming sink - audio input
-    -- 23 downto 0      left    channel
-    -- 47 downto 24     right   channel
-    audio_sink_data  : in  std_logic_vector(47 downto 0);  -- left and right channel data
-    audio_sink_valid : in  std_logic;   -- left and right channel valid
-    audio_sink_ready : out std_logic;   -- left and right channel ready
+    to_audio_right_channel_data  : out std_logic_vector(23 downto 0);  -- right channel data
+    to_audio_right_channel_valid : out std_logic;  -- right channel valid
+    to_audio_right_channel_ready : in  std_logic;  -- right channel ready
+
+    -- from audio avalon streaming sink
+    from_audio_left_channel_data  : in  std_logic_vector(23 downto 0);  -- left channel data
+    from_audio_left_channel_valid : in  std_logic;  -- left channel valid
+    from_audio_left_channel_ready : out std_logic;  -- left channel ready
+
+    from_audio_right_channel_data  : in  std_logic_vector(23 downto 0);  -- right channel data
+    from_audio_right_channel_valid : in  std_logic;  -- right channel valid
+    from_audio_right_channel_ready : out std_logic;  -- right channel ready
 
     -- memory mapped slave
     avalon_read       : in  std_logic;                      -- read

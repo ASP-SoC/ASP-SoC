@@ -9,28 +9,12 @@
    categories="System" />
  <parameter name="bonusData"><![CDATA[bonusData 
 {
-   element AudioAvalonStream_0
+   element AudioSignalProcessingBlock_0
    {
       datum _sortIndex
       {
          value = "5";
          type = "int";
-      }
-   }
-   element AudioSignalProcessingBlock_0
-   {
-      datum _sortIndex
-      {
-         value = "6";
-         type = "int";
-      }
-   }
-   element AudioSignalProcessingBlock_0.avalon
-   {
-      datum _lockedAddress
-      {
-         value = "1";
-         type = "boolean";
       }
    }
    element AudioSubSystem
@@ -138,15 +122,10 @@
  <interface name="clk" internal="sys.clk_in" type="clock" dir="end" />
  <interface name="reset" internal="sys.clk_in_reset" type="reset" dir="end" />
  <module
-   name="AudioAvalonStream_0"
-   kind="AudioAvalonStream"
-   version="1.0"
-   enabled="0" />
- <module
    name="AudioSignalProcessingBlock_0"
    kind="AudioSignalProcessingBlock"
    version="1.0"
-   enabled="0" />
+   enabled="1" />
  <module name="audio" kind="altera_up_avalon_audio" version="16.1" enabled="1">
   <parameter name="AUTO_CLK_CLOCK_RATE" value="50000000" />
   <parameter name="AUTO_DEVICE_FAMILY" value="Cyclone V" />
@@ -206,23 +185,23 @@
  <connection
    kind="avalon_streaming"
    version="16.1"
-   start="AudioSignalProcessingBlock_0.audio_source"
-   end="AudioAvalonStream_0.avalon_audio_sink" />
- <connection
-   kind="avalon_streaming"
-   version="16.1"
-   start="AudioAvalonStream_0.avalon_audio_source"
-   end="AudioSignalProcessingBlock_0.audio_sink" />
- <connection
-   kind="avalon_streaming"
-   version="16.1"
-   start="audio.avalon_left_channel_source"
+   start="AudioSignalProcessingBlock_0.audio_left_channel_source"
    end="audio.avalon_left_channel_sink" />
  <connection
    kind="avalon_streaming"
    version="16.1"
-   start="audio.avalon_right_channel_source"
+   start="AudioSignalProcessingBlock_0.audio_right_channel_source"
    end="audio.avalon_right_channel_sink" />
+ <connection
+   kind="avalon_streaming"
+   version="16.1"
+   start="audio.avalon_left_channel_source"
+   end="AudioSignalProcessingBlock_0.audio_left_channel_sink" />
+ <connection
+   kind="avalon_streaming"
+   version="16.1"
+   start="audio.avalon_right_channel_source"
+   end="AudioSignalProcessingBlock_0.audio_right_channel_sink" />
  <connection
    kind="clock"
    version="16.1"
@@ -235,11 +214,6 @@
    version="16.1"
    start="sys.clk"
    end="AudioSignalProcessingBlock_0.clk" />
- <connection
-   kind="clock"
-   version="16.1"
-   start="sys.clk"
-   end="AudioAvalonStream_0.clock" />
  <connection kind="clock" version="16.1" start="sys.clk" end="audio_pll.ref_clk" />
  <connection
    kind="reset"
@@ -252,11 +226,6 @@
    start="sys.clk_reset"
    end="audio_config.reset" />
  <connection kind="reset" version="16.1" start="sys.clk_reset" end="audio.reset" />
- <connection
-   kind="reset"
-   version="16.1"
-   start="sys.clk_reset"
-   end="AudioAvalonStream_0.reset" />
  <connection
    kind="reset"
    version="16.1"

@@ -15,6 +15,7 @@ architecture Struct of TbdAudio is
       );
   end component AudioSubSystem;
 
+
 begin  -- architecture Struct
 
   --AudioSystem : entity work.AudioSubSystem

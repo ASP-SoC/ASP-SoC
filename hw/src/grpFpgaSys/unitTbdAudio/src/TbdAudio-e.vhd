@@ -15,7 +15,10 @@ entity TbdAudio is
 
       -- I2C for Audio and Video-In
       FPGA_I2C_SCLK    : out   std_logic;
-      FPGA_I2C_SDAT    : inout std_logic
+      FPGA_I2C_SDAT    : inout std_logic;
+
+      -- GPIO
+      GPIO_1 : inout std_logic_vector(35 downto 0)
     
     );
 end entity TbdAudio;

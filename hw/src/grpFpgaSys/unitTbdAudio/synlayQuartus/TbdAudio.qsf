@@ -929,6 +929,10 @@ set_global_assignment -name POWER_BOARD_THERMAL_MODEL "NONE (CONSERVATIVE)"
 
 # end ENTITY(TbdAudio)
 # --------------------
+set_location_assignment PIN_AA14 -to KEY[0]
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to KEY[0] -entity DE1_SoC
+set_global_assignment -name VHDL_FILE "../../../grpUtils/unitSynchronizer/src/Synchronizer-Rtl-a.vhd"
+set_global_assignment -name VHDL_FILE "../../../grpUtils/unitSynchronizer/src/Synchronizer-e.vhd"
 set_global_assignment -name VHDL_FILE ../../../grpPackages/pkgFixed/src/fixed_pkg_c.vhdl -library ieee_proposed
 set_global_assignment -name VHDL_FILE ../../../grpPackages/pkgFixed/src/fixed_float_types_c.vhdl -library ieee_proposed
 set_global_assignment -name QIP_FILE AudioSubSystem/synthesis/AudioSubSystem.qip

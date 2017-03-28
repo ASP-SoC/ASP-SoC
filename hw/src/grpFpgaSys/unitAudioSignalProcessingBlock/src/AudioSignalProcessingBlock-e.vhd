@@ -27,8 +27,16 @@ use ieee_proposed.fixed_pkg.all;
 entity AudioSignalProcessingBlock is
 
   port (
+    -- clk and reset
     clk     : in std_logic;             -- clk
     reset_n : in std_logic;             -- low active reset
+
+    -- enable effect, '1' effect on else effect off and signal is passed
+    -- without modification
+    iEnable : in std_logic;
+
+    -- debug interface
+    oDebug : out std_logic_vector(23 downto 0);  -- debug vector
 
     -- to audio avalon streaming source
     to_audio_left_channel_data  : out std_logic_vector(23 downto 0);  -- left channel data

@@ -9,14 +9,6 @@
    categories="System" />
  <parameter name="bonusData"><![CDATA[bonusData 
 {
-   element AudioSignalProcessingBlock_0
-   {
-      datum _sortIndex
-      {
-         value = "5";
-         type = "int";
-      }
-   }
    element AudioSubSystem
    {
       datum _originalDeviceFamily
@@ -91,6 +83,22 @@
          type = "boolean";
       }
    }
+   element demultiplexer_0
+   {
+      datum _sortIndex
+      {
+         value = "6";
+         type = "int";
+      }
+   }
+   element multiplexer_0
+   {
+      datum _sortIndex
+      {
+         value = "5";
+         type = "int";
+      }
+   }
    element sys
    {
       datum _sortIndex
@@ -120,17 +128,16 @@
  <parameter name="timeStamp" value="0" />
  <parameter name="useTestBenchNamingPattern" value="false" />
  <instanceScript></instanceScript>
- <interface name="asp" internal="AudioSignalProcessingBlock_0.debug" />
- <interface
-   name="asp_extern"
-   internal="AudioSignalProcessingBlock_0.extern"
-   type="conduit"
-   dir="end" />
  <interface
    name="audio_clk"
    internal="clock_bridge_0.out_clk"
    type="clock"
    dir="start" />
+ <interface
+   name="audio_config_avalon_av_config_slave"
+   internal="audio_config.avalon_av_config_slave"
+   type="avalon"
+   dir="end" />
  <interface
    name="audio_config_i2c"
    internal="audio_config.external_interface"
@@ -141,13 +148,18 @@
    internal="audio.external_interface"
    type="conduit"
    dir="end" />
+ <interface
+   name="audio_sink"
+   internal="demultiplexer_0.in"
+   type="avalon_streaming"
+   dir="end" />
+ <interface
+   name="audio_source"
+   internal="multiplexer_0.out"
+   type="avalon_streaming"
+   dir="start" />
  <interface name="clk" internal="sys.clk_in" type="clock" dir="end" />
  <interface name="reset" internal="sys.clk_in_reset" type="reset" dir="end" />
- <module
-   name="AudioSignalProcessingBlock_0"
-   kind="AudioSignalProcessingBlock"
-   version="1.0"
-   enabled="1" />
  <module name="audio" kind="altera_up_avalon_audio" version="16.1" enabled="1">
   <parameter name="AUTO_CLK_CLOCK_RATE" value="50000000" />
   <parameter name="AUTO_DEVICE_FAMILY" value="Cyclone V" />
@@ -198,6 +210,30 @@
   <parameter name="EXPLICIT_CLOCK_RATE" value="0" />
   <parameter name="NUM_CLOCK_OUTPUTS" value="1" />
  </module>
+ <module
+   name="demultiplexer_0"
+   kind="demultiplexer"
+   version="16.1"
+   enabled="1">
+  <parameter name="bitsPerSymbol" value="8" />
+  <parameter name="errorWidth" value="0" />
+  <parameter name="inChannelWidth" value="1" />
+  <parameter name="numOutputInterfaces" value="2" />
+  <parameter name="symbolsPerBeat" value="3" />
+  <parameter name="useHighBitsOfChannel" value="true" />
+  <parameter name="usePackets" value="false" />
+ </module>
+ <module name="multiplexer_0" kind="multiplexer" version="16.1" enabled="1">
+  <parameter name="bitsPerSymbol" value="8" />
+  <parameter name="errorWidth" value="0" />
+  <parameter name="numInputInterfaces" value="2" />
+  <parameter name="outChannelWidth" value="1" />
+  <parameter name="packetScheduling" value="false" />
+  <parameter name="schedulingSize" value="1" />
+  <parameter name="symbolsPerBeat" value="3" />
+  <parameter name="useHighBitsOfChannel" value="false" />
+  <parameter name="usePackets" value="false" />
+ </module>
  <module name="sys" kind="clock_source" version="16.1" enabled="1">
   <parameter name="clockFrequency" value="50000000" />
   <parameter name="clockFrequencyKnown" value="true" />
@@ -207,23 +243,23 @@
  <connection
    kind="avalon_streaming"
    version="16.1"
-   start="AudioSignalProcessingBlock_0.audio_left_channel_source"
-   end="audio.avalon_left_channel_sink" />
- <connection
-   kind="avalon_streaming"
-   version="16.1"
-   start="AudioSignalProcessingBlock_0.audio_right_channel_source"
-   end="audio.avalon_right_channel_sink" />
- <connection
-   kind="avalon_streaming"
-   version="16.1"
    start="audio.avalon_left_channel_source"
-   end="AudioSignalProcessingBlock_0.audio_left_channel_sink" />
+   end="multiplexer_0.in0" />
  <connection
    kind="avalon_streaming"
    version="16.1"
    start="audio.avalon_right_channel_source"
-   end="AudioSignalProcessingBlock_0.audio_right_channel_sink" />
+   end="multiplexer_0.in1" />
+ <connection
+   kind="avalon_streaming"
+   version="16.1"
+   start="demultiplexer_0.out0"
+   end="audio.avalon_left_channel_sink" />
+ <connection
+   kind="avalon_streaming"
+   version="16.1"
+   start="demultiplexer_0.out1"
+   end="audio.avalon_right_channel_sink" />
  <connection
    kind="clock"
    version="16.1"
@@ -231,11 +267,8 @@
    end="clock_bridge_0.in_clk" />
  <connection kind="clock" version="16.1" start="sys.clk" end="audio_config.clk" />
  <connection kind="clock" version="16.1" start="sys.clk" end="audio.clk" />
- <connection
-   kind="clock"
-   version="16.1"
-   start="sys.clk"
-   end="AudioSignalProcessingBlock_0.clk" />
+ <connection kind="clock" version="16.1" start="sys.clk" end="multiplexer_0.clk" />
+ <connection kind="clock" version="16.1" start="sys.clk" end="demultiplexer_0.clk" />
  <connection kind="clock" version="16.1" start="sys.clk" end="audio_pll.ref_clk" />
  <connection
    kind="reset"
@@ -252,7 +285,12 @@
    kind="reset"
    version="16.1"
    start="sys.clk_reset"
-   end="AudioSignalProcessingBlock_0.reset_n" />
+   end="multiplexer_0.reset" />
+ <connection
+   kind="reset"
+   version="16.1"
+   start="sys.clk_reset"
+   end="demultiplexer_0.reset" />
  <interconnectRequirement for="$system" name="qsys_mm.clockCrossingAdapter" value="HANDSHAKE" />
  <interconnectRequirement for="$system" name="qsys_mm.enableEccProtection" value="FALSE" />
  <interconnectRequirement for="$system" name="qsys_mm.insertDefaultSlave" value="FALSE" />

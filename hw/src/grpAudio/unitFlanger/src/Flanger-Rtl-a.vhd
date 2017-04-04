@@ -18,7 +18,7 @@
 architecture Rtl of Flanger is
 
   type aInternReg is array (gRegisterLen downto 0) of sfixed(-1 downto -gSigLen);
-  signal intern_register : aInternReg := '0';  -- intern shift register
+  signal intern_register : aInternReg;  -- intern shift register
   signal sum             : sfixed(0 downto -gSigLen);  -- sum of two signals, 1 bigger than the signals
 
   constant cIntern_regZero : aInternReg := (others => (others => '0'));

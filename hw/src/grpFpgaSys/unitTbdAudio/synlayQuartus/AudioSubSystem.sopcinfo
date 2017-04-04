@@ -5,11 +5,11 @@
  version="1.0"
  fabric="QSYS">
  <!-- Format version 16.1 196 (Future versions may contain additional information.) -->
- <!-- 2017.03.28.17:10:33 -->
+ <!-- 2017.04.04.10:05:26 -->
  <!-- A collection of modules and connections -->
  <parameter name="AUTO_GENERATION_ID">
   <type>java.lang.Integer</type>
-  <value>1490713833</value>
+  <value>1491293126</value>
   <derived>false</derived>
   <enabled>true</enabled>
   <visible>false</visible>
@@ -340,12 +340,6 @@ parameters are a RESULT of the module parameters. -->
     <role>data</role>
    </port>
    <port>
-    <name>from_audio_left_channel_ready</name>
-    <direction>Output</direction>
-    <width>1</width>
-    <role>ready</role>
-   </port>
-   <port>
     <name>from_audio_left_channel_valid</name>
     <direction>Input</direction>
     <width>1</width>
@@ -478,12 +472,6 @@ parameters are a RESULT of the module parameters. -->
     <direction>Input</direction>
     <width>24</width>
     <role>data</role>
-   </port>
-   <port>
-    <name>from_audio_right_channel_ready</name>
-    <direction>Output</direction>
-    <width>1</width>
-    <role>ready</role>
    </port>
    <port>
     <name>from_audio_right_channel_valid</name>
@@ -620,12 +608,6 @@ parameters are a RESULT of the module parameters. -->
     <role>data</role>
    </port>
    <port>
-    <name>to_audio_left_channel_ready</name>
-    <direction>Input</direction>
-    <width>1</width>
-    <role>ready</role>
-   </port>
-   <port>
     <name>to_audio_left_channel_valid</name>
     <direction>Output</direction>
     <width>1</width>
@@ -758,12 +740,6 @@ parameters are a RESULT of the module parameters. -->
     <direction>Output</direction>
     <width>24</width>
     <role>data</role>
-   </port>
-   <port>
-    <name>to_audio_right_channel_ready</name>
-    <direction>Input</direction>
-    <width>1</width>
-    <role>ready</role>
    </port>
    <port>
     <name>to_audio_right_channel_valid</name>

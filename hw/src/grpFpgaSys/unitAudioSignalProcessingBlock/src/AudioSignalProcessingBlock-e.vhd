@@ -41,20 +41,20 @@ entity AudioSignalProcessingBlock is
     -- to audio avalon streaming source
     to_audio_left_channel_data  : out std_logic_vector(23 downto 0);  -- left channel data
     to_audio_left_channel_valid : out std_logic;  -- left channel valid
-    to_audio_left_channel_ready : in  std_logic;  -- left channel ready
+    --to_audio_left_channel_ready : in  std_logic;  -- left channel ready
 
     to_audio_right_channel_data  : out std_logic_vector(23 downto 0);  -- right channel data
     to_audio_right_channel_valid : out std_logic;  -- right channel valid
-    to_audio_right_channel_ready : in  std_logic;  -- right channel ready
+    --to_audio_right_channel_ready : in  std_logic;  -- right channel ready
 
     -- from audio avalon streaming sink
     from_audio_left_channel_data  : in  std_logic_vector(23 downto 0);  -- left channel data
     from_audio_left_channel_valid : in  std_logic;  -- left channel valid
-    from_audio_left_channel_ready : out std_logic;  -- left channel ready
+    --from_audio_left_channel_ready : out std_logic;  -- left channel ready
 
     from_audio_right_channel_data  : in  std_logic_vector(23 downto 0);  -- right channel data
     from_audio_right_channel_valid : in  std_logic;  -- right channel valid
-    from_audio_right_channel_ready : out std_logic;  -- right channel ready
+    --from_audio_right_channel_ready : out std_logic;  -- right channel ready
 
     -- memory mapped slave
     avalon_read       : in  std_logic;                      -- read

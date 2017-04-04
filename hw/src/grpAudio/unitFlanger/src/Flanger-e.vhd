@@ -33,13 +33,14 @@ entity Flanger is
   port (
     inResetAsync : in std_ulogic;       -- async low active reset
     iClk         : in std_ulogic;       -- clk
-    iEnable      : in std_ulogic;       -- enable audio shift
 
-    iData : in sfixed(-1 downto -gSigLen);  -- audio input
+    iValid : in std_ulogic;                  -- enable audio shift
+    iData  : in sfixed(-1 downto -gSigLen);  -- audio input
 
     -- output register selection
     iSelFlangeLen : in unsigned(LogDualis(gRegisterLen)-1 downto 0);
 
-    oData : out sfixed(-1 downto -gSigLen));  -- audio output
+    oValid : out std_ulogic;
+    oData  : out sfixed(-1 downto -gSigLen));  -- audio output
 
 end Flanger;

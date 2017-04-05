@@ -25,6 +25,9 @@ use ieee_proposed.fixed_float_types.all;
 use ieee_proposed.fixed_pkg.all;
 
 entity AudioSignalProcessingBlock is
+  generic(
+    gDataWidth : natural := 24
+    );
 
   port (
     -- clk and reset
@@ -38,23 +41,15 @@ entity AudioSignalProcessingBlock is
     -- debug interface
     oDebug : out std_logic_vector(23 downto 0);  -- debug vector
 
-    -- to audio avalon streaming source
-    to_audio_left_channel_data  : out std_logic_vector(23 downto 0);  -- left channel data
-    to_audio_left_channel_valid : out std_logic;  -- left channel valid
-    --to_audio_left_channel_ready : in  std_logic;  -- left channel ready
+    -- Avalon ST source
+    source_data    : out std_logic_vector(gDataWidth-1 downto 0);  -- data
+    source_valid   : out std_logic;                                -- valid
+    source_channel : out std_logic;                                -- channel
 
-    to_audio_right_channel_data  : out std_logic_vector(23 downto 0);  -- right channel data
-    to_audio_right_channel_valid : out std_logic;  -- right channel valid
-    --to_audio_right_channel_ready : in  std_logic;  -- right channel ready
-
-    -- from audio avalon streaming sink
-    from_audio_left_channel_data  : in  std_logic_vector(23 downto 0);  -- left channel data
-    from_audio_left_channel_valid : in  std_logic;  -- left channel valid
-    --from_audio_left_channel_ready : out std_logic;  -- left channel ready
-
-    from_audio_right_channel_data  : in  std_logic_vector(23 downto 0);  -- right channel data
-    from_audio_right_channel_valid : in  std_logic;  -- right channel valid
-    --from_audio_right_channel_ready : out std_logic;  -- right channel ready
+    -- Avalon ST sink
+    sink_data    : in std_logic_vector(gDataWidth-1 downto 0);  -- data
+    sink_valid   : in std_logic;                                -- valid
+    sink_channel : in std_logic;                                -- channel
 
     -- memory mapped slave
     avalon_read       : in  std_logic;                      -- read

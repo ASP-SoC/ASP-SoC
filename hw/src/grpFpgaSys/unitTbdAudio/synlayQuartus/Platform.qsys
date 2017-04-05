@@ -6,7 +6,7 @@
    version="1.0"
    description=""
    tags=""
-   categories="" />
+   categories="System" />
  <parameter name="bonusData"><![CDATA[bonusData 
 {
    element AudioSignalProcessingBlock_0
@@ -55,7 +55,7 @@
  <parameter name="useTestBenchNamingPattern" value="false" />
  <instanceScript></instanceScript>
  <interface
-   name="asp_exter"
+   name="asp_extern"
    internal="AudioSignalProcessingBlock_0.extern"
    type="conduit"
    dir="end" />
@@ -71,7 +71,7 @@
  <module
    name="AudioSignalProcessingBlock_0"
    kind="AudioSignalProcessingBlock"
-   version="1.0"
+   version="1.1"
    enabled="1" />
  <module name="audio" kind="AudioSubSystem" version="1.0" enabled="1">
   <parameter name="AUTO_CLK_CLOCK_DOMAIN" value="2" />
@@ -93,6 +93,11 @@
    kind="avalon_streaming"
    version="16.1"
    start="audio.audio_source"
+   end="AudioSignalProcessingBlock_0.sink" />
+ <connection
+   kind="avalon_streaming"
+   version="16.1"
+   start="AudioSignalProcessingBlock_0.source"
    end="audio.audio_sink" />
  <connection kind="clock" version="16.1" start="clk_0.clk" end="audio.clk" />
  <connection

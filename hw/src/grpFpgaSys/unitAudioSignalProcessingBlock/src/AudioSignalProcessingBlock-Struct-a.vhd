@@ -4,8 +4,8 @@ architecture Struct of AudioSignalProcessingBlock is
   signal sfixed_output_left  : sfixed(-1 downto -24);
   signal sample_strobe_right : std_ulogic;
   signal sample_strobe_left  : std_ulogic;
-  signal strobe_right_valid : std_ulogic;
-  signal strobe_left_valid  : std_ulogic;
+  signal strobe_right_valid  : std_ulogic;
+  signal strobe_left_valid   : std_ulogic;
 
 begin  -- architecture Struct
 
@@ -19,8 +19,8 @@ begin  -- architecture Struct
   -------------------------------------------------------------------------------
 
   -- generate strobes
-  sample_strobe_right <= from_audio_right_channel_valid;--to_audio_right_channel_ready; --and from_audio_right_channel_valid;
-  sample_strobe_left  <= from_audio_left_channel_valid;--to_audio_left_channel_ready; -- and from_audio_left_channel_valid;
+  sample_strobe_right <= sink_valid when sink_channel = '1' else '0';
+  sample_strobe_left  <= sink_valid when sink_channel = '0' else '0';
 
   Flanger_right : entity work.Flanger
     generic map (
@@ -29,16 +29,11 @@ begin  -- architecture Struct
     port map (
       inResetAsync  => reset_n,
       iClk          => clk,
-      iValid       => sample_strobe_right,  --from_audio_right_channel_valid,
-      iData         => to_sfixed(from_audio_right_channel_data, -1, -24),
+      iValid        => sample_strobe_right,
+      iData         => to_sfixed(sink_data, -1, -24),
       iSelFlangeLen => (others => '1'),
-      oValid => strobe_right_valid,
+      oValid        => strobe_right_valid,
       oData         => sfixed_output_right);
-
-  -- right channel output
-  to_audio_right_channel_data  <= to_slv(sfixed_output_right) when iEnable = '1'  -- convert to std_ulogic_vector
-                                  else from_audio_right_channel_data; 
-  to_audio_right_channel_valid <= strobe_right_valid when iEnable = '1' else from_audio_right_channel_valid;
 
   Flanger_left : entity work.Flanger
     generic map (
@@ -47,32 +42,30 @@ begin  -- architecture Struct
     port map (
       inResetAsync  => reset_n,
       iClk          => clk,
-      iValid       => sample_strobe_left,
-      iData         => to_sfixed(from_audio_left_channel_data, -1, -24),
+      iValid        => sample_strobe_left,
+      iData         => to_sfixed(sink_data, -1, -24),
       iSelFlangeLen => (others => '1'),
-      oValid => strobe_left_valid,
+      oValid        => strobe_left_valid,
       oData         => sfixed_output_left);
 
-  -- left channel output
-  to_audio_left_channel_data  <= to_slv(sfixed_output_left) when iEnable = '1' -- convert to std_ulogic_vector
-                                 else from_audio_left_channel_data;  
-  to_audio_left_channel_valid <= strobe_left_valid when iEnable = '1' else from_audio_left_channel_valid;
+  -- output
+  source_data <= to_slv(sfixed_output_right) when iEnable = '1' and strobe_right_valid = '1'  -- convert to std_ulogic_vector
+                 else to_slv(sfixed_output_left) when iEnable = '1' and strobe_left_valid = '1'  -- convert to std_ulogic_vector
+                 else sink_data;
 
-  --to_audio_left_channel_data  <= std_logic_vector(signed(from_audio_left_channel_data) / 1);
-  --to_audio_left_channel_valid <= from_audio_left_channel_valid;
+  source_valid <= strobe_right_valid when iEnable = '1' and strobe_right_valid = '1'
+                  else strobe_left_valid when iEnable = '1' and strobe_left_valid = '1'
+                  else sink_valid;
 
-  -- map ready signal from sink to source
-  --from_audio_left_channel_ready  <= to_audio_left_channel_ready;
-  --from_audio_right_channel_ready <= to_audio_right_channel_ready;
+  source_channel <= '1' when strobe_right_valid = '1' else '0';  -- channel selection
+
+
 
   -- debug
-  --oDebug(0) <= to_audio_right_channel_ready;
-  oDebug(1) <= from_audio_right_channel_valid;
+  oDebug(0) <= sink_channel;
+  oDebug(1) <= sink_valid;
   oDebug(2) <= sample_strobe_right;
-
-  --oDebug(3) <= to_audio_left_channel_ready;
-  oDebug(4) <= from_audio_left_channel_valid;
-  oDebug(5) <= sample_strobe_left;
+  oDebug(3) <= sample_strobe_left;
 
   oDebug(6) <= clk;
   oDebug(7) <= reset_n;

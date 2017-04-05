@@ -10,7 +10,7 @@ architecture Struct of TbdAudio is
   -- component
   ------------------------------------------------------------------------------------
 
-  component AudioSubSystem is
+  component Platform is
     port (
       audio_clk_clk         : out   std_logic;                      -- clk
       audio_config_i2c_SDAT : inout std_logic := 'X';               -- SDAT
@@ -25,7 +25,7 @@ architecture Struct of TbdAudio is
       asp_extern_odebug     : out   std_logic_vector(23 downto 0);  -- odebug
       asp_extern_ienable    : in    std_logic := 'X'                -- ienable
       );
-  end component AudioSubSystem;
+  end component Platform;
 
 
 begin  -- architecture Struct
@@ -33,11 +33,9 @@ begin  -- architecture Struct
   ------------------------------------------------------------------------------------
   -- DUT
   ------------------------------------------------------------------------------------
-
-  system : component AudioSubSystem
+  sys_platform : component Platform
     port map (
-      clk_clk               => CLOCK_50,       --              clk.clk
-      reset_reset_n         => KEY(0),         --            reset.reset_n
+      audio_clk_clk         => AUD_XCK,        --        audio_clk.clk
       audio_config_i2c_SDAT => FPGA_I2C_SDAT,  -- audio_config_i2c.SDAT
       audio_config_i2c_SCLK => FPGA_I2C_SCLK,  --                 .SCLK
       audio_i2s_ADCDAT      => AUD_ADCDAT,     --        audio_i2s.ADCDAT
@@ -45,11 +43,11 @@ begin  -- architecture Struct
       audio_i2s_BCLK        => AUD_BCLK,       --                 .BCLK
       audio_i2s_DACDAT      => AUD_DACDAT,     --                 .DACDAT
       audio_i2s_DACLRCK     => AUD_DACLRCK,    --                 .DACLRCK
-      audio_clk_clk         => AUD_XCK,
+      clk_clk               => CLOCK_50,       --              clk.clk
+      reset_reset_n         => KEY(0),         --            reset.reset_n
       asp_extern_odebug     => debug,          --       asp_extern.odebug
       asp_extern_ienable    => nKey1Sync(0)    --                 .ienable
       );
-
   ------------------------------------------------------------------------------------
   -- sync key
   ------------------------------------------------------------------------------------
@@ -58,8 +56,8 @@ begin  -- architecture Struct
       gRange => 1)
     port map (
       iClk       => CLOCK_50,
-      inRstAsync => KEY(0),
-      iAsync     => KEY(1 downto 1),
+      inRstAsync => KEY(0),                    -- KEY0
+      iAsync     => KEY(1 downto 1),           -- KEY1
       oSync      => nKey1Sync);
 
   ------------------------------------------------------------------------------------

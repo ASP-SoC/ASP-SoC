@@ -32,6 +32,8 @@ set_module_property REPORT_TO_TALKBACK false
 set_module_property ALLOW_GREYBOX_GENERATION false
 set_module_property REPORT_HIERARCHY false
 
+set_module_property EDITABLE false
+
 
 # 
 # file sets
@@ -157,7 +159,7 @@ set_interface_property sink associatedReset reset_n
 set_interface_property sink dataBitsPerSymbol 8
 set_interface_property sink errorDescriptor ""
 set_interface_property sink firstSymbolInHighOrderBits true
-set_interface_property sink maxChannel 0
+set_interface_property sink maxChannel 1
 set_interface_property sink readyLatency 0
 set_interface_property sink ENABLED true
 set_interface_property sink EXPORT_OF ""
@@ -170,6 +172,7 @@ add_interface_port sink sink_valid valid Input 1
 add_interface_port sink sink_channel channel Input 1
 
 
+
 # 
 # connection point source
 # 
@@ -179,7 +182,7 @@ set_interface_property source associatedReset reset_n
 set_interface_property source dataBitsPerSymbol 8
 set_interface_property source errorDescriptor ""
 set_interface_property source firstSymbolInHighOrderBits true
-set_interface_property source maxChannel 0
+set_interface_property source maxChannel 1
 set_interface_property source readyLatency 0
 set_interface_property source ENABLED true
 set_interface_property source EXPORT_OF ""

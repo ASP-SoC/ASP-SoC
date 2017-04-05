@@ -59,7 +59,9 @@ begin  -- architecture Struct
 
   source_channel <= '1' when strobe_right_valid = '1' else '0';  -- channel selection
 
-
+  --source_data    <= sink_data;
+  --source_valid   <= sink_valid;
+  --source_channel <= sink_channel;
 
   -- debug
   oDebug(0) <= sink_channel;

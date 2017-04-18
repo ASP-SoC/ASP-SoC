@@ -25,6 +25,38 @@
          type = "String";
       }
    }
+   element Platform
+   {
+      datum _originalDeviceFamily
+      {
+         value = "Cyclone V";
+         type = "String";
+      }
+   }
+   element Platform
+   {
+      datum _originalDeviceFamily
+      {
+         value = "Cyclone V";
+         type = "String";
+      }
+   }
+   element Platform
+   {
+      datum _originalDeviceFamily
+      {
+         value = "Cyclone V";
+         type = "String";
+      }
+   }
+   element Platform
+   {
+      datum _originalDeviceFamily
+      {
+         value = "Cyclone V";
+         type = "String";
+      }
+   }
    element audio
    {
       datum _sortIndex
@@ -81,7 +113,7 @@
    kind="AudioSignalProcessingBlock"
    version="1.2"
    enabled="1">
-  <parameter name="DataWidth" value="24" />
+  <parameter name="gDataWidth" value="24" />
  </module>
  <module name="audio" kind="AudioSubSystem" version="1.0" enabled="1">
   <parameter name="AUTO_CLK_CLOCK_DOMAIN" value="2" />

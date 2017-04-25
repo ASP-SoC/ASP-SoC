@@ -31,8 +31,8 @@ entity AudioSignalProcessingBlock is
 
   port (
     -- clk and reset
-    clk     : in std_logic;             -- clk
-    reset_n : in std_logic;             -- low active reset
+    csi_clk     : in std_logic;             -- clk
+    rsi_reset_n : in std_logic;             -- low active reset
 
     -- enable effect, '1' effect on else effect off and signal is passed
     -- without modification
@@ -41,23 +41,21 @@ entity AudioSignalProcessingBlock is
     -- debug interface
     oDebug : out std_logic_vector(23 downto 0);  -- debug vector
 
-    -- Avalon ST source
-    source_data    : out std_logic_vector(gDataWidth-1 downto 0);  -- data
-    source_valid   : out std_logic;                                -- valid
-    source_channel : out std_logic;                                -- channel
+    -- Avalon ST source (input data)
+    aso_data    : out std_logic_vector(gDataWidth-1 downto 0);  -- data
+    aso_valid   : out std_logic;                                -- valid
+    aso_channel : out std_logic;                                -- channel
 
-    -- Avalon ST sink
-    sink_data    : in std_logic_vector(gDataWidth-1 downto 0);  -- data
-    sink_valid   : in std_logic;                                -- valid
-    sink_channel : in std_logic;                                -- channel
+    -- Avalon ST sink (input data)
+    asi_data    : in std_logic_vector(gDataWidth-1 downto 0);  -- data
+    asi_valid   : in std_logic;                                -- valid
+    asi_channel : in std_logic;                                -- channel
 
-    -- memory mapped slave
-    avalon_read       : in  std_logic;                      -- read
-    avalon_write      : in  std_logic;                      -- write
-    avalon_chipselect : in  std_logic;                      -- chipselect
-    avalon_writedata  : in  std_logic_vector(31 downto 0);  -- writedata
-    avalon_byteenable : in  std_logic_vector(3 downto 0);   -- byteenable
-    avalon_readdata   : out std_logic_vector(31 downto 0)   -- readdata
+    -- Avalon MM Slave Port s0 - provides config parameters
+    avs_s0_write     : in  std_logic;                      -- write
+    avs_s0_address   : in  std_logic_vector(2 downto 0);   -- address
+    avs_s0_writedata : in  std_logic_vector(31 downto 0);  -- writedata
+    avs_s0_readdata  : out std_logic_vector(31 downto 0)   -- readdata
 
     );
 

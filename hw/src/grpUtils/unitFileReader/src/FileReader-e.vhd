@@ -4,7 +4,7 @@
 -- File       : FileReader-e.vhd
 -- Author     : Michael Wurm
 -------------------------------------------------------------------------------
--- Description: reads .txt files with linewise testdata
+-- Description: reads and outputs .txt files linewise testdata with iStrobe
 -------------------------------------------------------------------------------
 -- Copyright (c) 2017 
 -------------------------------------------------------------------------------
@@ -27,6 +27,6 @@ entity FileReader is
    port ( iClk         : in  std_ulogic;
 	      inResetAsync : in  std_ulogic;
 	      iStrobe      : in  std_ulogic;
-          oDataOut     : out std_ulogic_vector(gDataWidth-1 downto 0)
+          oDataOut     : out signed(gDataWidth-1 downto 0)
 		);
 end FileReader;

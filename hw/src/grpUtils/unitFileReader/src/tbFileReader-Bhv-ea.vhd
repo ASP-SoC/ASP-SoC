@@ -1,10 +1,10 @@
 -------------------------------------------------------------------------------
 -- Title      : File Reader for Simulation, Testbench
 -------------------------------------------------------------------------------
--- File       : FileReader-e.vhd
+-- File       : tbFileReader-Bhv-ea.vhd
 -- Author     : Michael Wurm
 -------------------------------------------------------------------------------
--- Description: reads .txt files with linewise testdata, see how to use it
+-- Description: reads .txt files with linewise testdata, example how to use it
 -------------------------------------------------------------------------------
 -- Copyright (c) 2017 
 -------------------------------------------------------------------------------
@@ -15,7 +15,6 @@
 
 library ieee;
 use ieee.std_logic_1164.all;
-use ieee.std_logic_arith.all;
 use ieee.numeric_std.all;
 use work.Global.all;
 
@@ -29,11 +28,11 @@ architecture Bhv of tbFileReader is
 	signal Clk      : std_ulogic := '0';
 	signal Strobe   : std_ulogic := '0';
 	signal nReset   : std_ulogic := '0';
-	signal DataRead : std_ulogic_vector(cDataWidth-1 downto 0);
+	signal DataRead : signed(cDataWidth-1 downto 0);
 
 begin
-   
-	Clk <= not Clk after 10 ns; -- generate 50 MHz
+
+	Clk <= not Clk after 10 ns; -- generate 50 MHz clk
 	nReset <= '0' after  0 ns,
 	          '1' after 50 ns;
 

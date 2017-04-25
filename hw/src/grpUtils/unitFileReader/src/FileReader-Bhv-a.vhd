@@ -4,19 +4,20 @@
 -- File       : FileReader-Bhv-a.vhd
 -- Author     : Michael Wurm
 -------------------------------------------------------------------------------
--- Description: reads .txt files with linewise testdata
+-- Description: reads and outputs .txt files linewise testdata with iStrobe
 -------------------------------------------------------------------------------
 -- Copyright (c) 2017 
 -------------------------------------------------------------------------------
 -- Revisions  :
 -- Date       : Version   Author          Description
 -- 2017-03-28 : 1.0       Michael Wurm    Created
+-- 2017-04-18 : 1.1       Michael Wurm    added report if EOF, to end simulation
 -------------------------------------------------------------------------------
 
 architecture Bhv of FileReader is
  	
-	signal Data    : std_ulogic_vector(gDataWidth-1 downto 0);
-	signal NxData  : std_ulogic_vector(gDataWidth-1 downto 0);
+	signal Data    : signed(gDataWidth-1 downto 0);
+	signal NxData  : signed(gDataWidth-1 downto 0);
 
 	file inputFile : text open read_mode is gInputFileName;
 
@@ -40,9 +41,15 @@ begin
 	begin
 		NxData <= Data;
 		if iStrobe = cActivated then 
-		   readline(inputFile, inputLine);
-		   read(inputLine, inputValue);
-		   NxData <= std_ulogic_vector(to_signed(inputValue,gDataWidth));
+		   if(not endfile(inputFile)) then
+			   readline(inputFile, inputLine);
+			   read(inputLine, inputValue);
+		   else
+   		      report "EOF reached in input file"
+			  severity failure;
+		   end if;
+
+		   NxData <= to_signed(inputValue, gDataWidth);
 		end if;
 	end process;
    

@@ -5,7 +5,9 @@ use ieee.numeric_std.all;
 entity AudioCodecAvalon is
 
   generic (
-    gDataWidth : natural := 24);        -- Avalon ST DatawidthodecAvalon; 
+    gDataWidth    : natural := 24;      -- Avalon ST interface Datawidth
+    gDataWidthLen : natural := 5    -- Number of bits to represent gDataWidth
+    );
 
   port (
 
@@ -14,12 +16,11 @@ entity AudioCodecAvalon is
     rsi_reset_n : in std_logic;         -- low active reset
 
     -- audio codec interface
-    AUD_ADCDAT  : in    std_logic;
-    AUD_ADCLRCK : inout std_logic;
-    AUD_BCLK    : inout std_logic;
-    AUD_DACDAT  : out   std_logic;
-    AUD_DACLRCK : inout std_logic;
-    AUD_XCK     : out   std_logic;
+    AUD_ADCDAT  : in  std_logic;
+    AUD_ADCLRCK : in  std_logic;
+    AUD_BCLK    : in  std_logic;
+    AUD_DACDAT  : out std_logic;
+    AUD_DACLRCK : in  std_logic;
 
     -- Avalon ST sink left and right channel
     asi_left_data  : in std_logic_vector(gDataWidth-1 downto 0);  -- data

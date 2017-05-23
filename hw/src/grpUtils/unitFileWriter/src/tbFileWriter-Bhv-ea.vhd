@@ -1,16 +1,18 @@
 -------------------------------------------------------------------------------
--- Title      : File Reader for Simulation, Testbench
+-- Title      : File Writer for Simulation, Testbench
 -------------------------------------------------------------------------------
--- File       : tbFileReader-Bhv-ea.vhd
+-- File       : tbFileWriter-Bhv-ea.vhd
 -- Author     : Michael Wurm
 -------------------------------------------------------------------------------
--- Description: reads .txt files with linewise testdata, example how to use it
+-- Description: reads .txt files with linewise testdata and 
+--              directly writes it to output .txt file linewise;
+--              example how to use it
 -------------------------------------------------------------------------------
 -- Copyright (c) 2017 
 -------------------------------------------------------------------------------
 -- Revisions  :
 -- Date       : Version   Author          Description
--- 2017-03-28 : 1.0       Michael Wurm    Created
+-- 2017-04-25 : 1.0       Michael Wurm    Created
 -------------------------------------------------------------------------------
 
 library ieee;
@@ -18,17 +20,17 @@ use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 use work.Global.all;
 
-entity tbFileReader is
-end tbFileReader;
+entity tbFileWriter is
+end tbFileWriter;
 
-architecture Bhv of tbFileReader is
+architecture Bhv of tbFileWriter is
 
 	constant cDataWidth : natural := 24;
 
-	signal Clk      : std_ulogic := '0';
-	signal Strobe   : std_ulogic := '0';
-	signal nReset   : std_ulogic := '0';
-	signal DataRead : signed(cDataWidth-1 downto 0);
+	signal Clk         : std_ulogic := '0';
+	signal Strobe      : std_ulogic := '0';
+	signal nReset      : std_ulogic := '0';
+	signal DataRead    : signed(cDataWidth-1 downto 0);
 
 begin
 
@@ -50,7 +52,7 @@ begin
 	ReadFile : entity work.FileReader
 		generic map (
 			gDataWidth     => cDataWidth,
-			gInputFileName => "testfiles/input102.txt"
+			gInputFileName => "testfiles/testinput_sawtooth.txt"
 		)
 		port map (
 			iClk         => Clk,
@@ -58,5 +60,17 @@ begin
 			iStrobe      => Strobe,
 			oDataOut     => DataRead
 		);
-			  
+
+	WriteFile : entity work.FileWriter
+		generic map (
+			gDataWidth     => cDataWidth,
+			gOutputFileName => "testfiles/output.txt"
+		)
+		port map (
+			iClk         => Clk,
+			inResetAsync => nReset,
+			iStrobe      => Strobe,
+			iDataToWrite => DataRead
+		);
+
 end architecture Bhv;

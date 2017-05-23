@@ -1,10 +1,10 @@
 -------------------------------------------------------------------------------
--- Title      : File Reader for Simulation
+-- Title      : FIR Average
 -------------------------------------------------------------------------------
--- File       : FileReader-e.vhd
+-- File       : FIRAverage-e.vhd
 -- Author     : Michael Wurm
 -------------------------------------------------------------------------------
--- Description: reads and outputs .txt files linewise testdata with iStrobe
+-- Description: FIR Average Filter
 -------------------------------------------------------------------------------
 -- Copyright (c) 2017 
 -------------------------------------------------------------------------------
@@ -16,17 +16,16 @@
 library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
-use work.Global.all;
-use std.textio.all;
 
-entity FileReader is
+entity FIRAverage is
    generic (
-		gDataWidth     : natural := 8;
-		gInputFileName : string
+     gNumAverages : natural := 100;
+     gDataWidth   : natural := 8
    );
    port ( iClk         : in  std_ulogic;
 	      inResetAsync : in  std_ulogic;
 	      iStrobe      : in  std_ulogic;
+          iDataIn      : in  signed(gDataWidth-1 downto 0);
           oDataOut     : out signed(gDataWidth-1 downto 0)
 		);
-end FileReader;
+end FIRAverage;

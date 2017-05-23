@@ -1,16 +1,17 @@
 -------------------------------------------------------------------------------
--- Title      : File Reader for Simulation
+-- Title      : File Writer for Simulation
 -------------------------------------------------------------------------------
--- File       : FileReader-e.vhd
+-- File       : FileWriter-e.vhd
 -- Author     : Michael Wurm
 -------------------------------------------------------------------------------
--- Description: reads and outputs .txt files linewise testdata with iStrobe
+-- Description: writes input signal to .txt file with iStrobe;
+--              data written linewise
 -------------------------------------------------------------------------------
 -- Copyright (c) 2017 
 -------------------------------------------------------------------------------
 -- Revisions  :
 -- Date       : Version   Author          Description
--- 2017-03-28 : 1.0       Michael Wurm    Created
+-- 2017-04-25 : 1.0       Michael Wurm    Created
 -------------------------------------------------------------------------------
 
 library ieee;
@@ -19,14 +20,14 @@ use ieee.numeric_std.all;
 use work.Global.all;
 use std.textio.all;
 
-entity FileReader is
+entity FileWriter is
    generic (
 		gDataWidth     : natural := 8;
-		gInputFileName : string
+		gOutputFileName : string
    );
-   port ( iClk         : in  std_ulogic;
-	      inResetAsync : in  std_ulogic;
-	      iStrobe      : in  std_ulogic;
-          oDataOut     : out signed(gDataWidth-1 downto 0)
+   port ( iClk         : in std_ulogic;
+	      inResetAsync : in std_ulogic;
+	      iStrobe      : in std_ulogic;
+          iDataToWrite : in signed(gDataWidth-1 downto 0)
 		);
-end FileReader;
+end FileWriter;

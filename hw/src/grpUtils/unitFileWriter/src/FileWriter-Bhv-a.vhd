@@ -1,55 +1,45 @@
 -------------------------------------------------------------------------------
--- Title      : File Reader for Simulation
+-- Title      : File Writer for Simulation
 -------------------------------------------------------------------------------
--- File       : FileReader-Bhv-a.vhd
+-- File       : FileWriter-Bhv-a.vhd
 -- Author     : Michael Wurm
 -------------------------------------------------------------------------------
--- Description: reads and outputs .txt files linewise testdata with iStrobe
+-- Description: writes input signal to .txt file with iStrobe;
+--              data written linewise
 -------------------------------------------------------------------------------
 -- Copyright (c) 2017 
 -------------------------------------------------------------------------------
 -- Revisions  :
 -- Date       : Version   Author          Description
--- 2017-03-28 : 1.0       Michael Wurm    Created
--- 2017-04-18 : 1.1       Michael Wurm    added report if EOF, to end simulation
+-- 2017-04-25 : 1.0       Michael Wurm    Created
 -------------------------------------------------------------------------------
 
-architecture Bhv of FileReader is
+architecture Bhv of FileWriter is
  	
 	signal Data    : signed(gDataWidth-1 downto 0);
 	signal NxData  : signed(gDataWidth-1 downto 0);
 
-	file inputFile : text open read_mode is gInputFileName;
+	file outputFile : text open write_mode is gOutputFileName;
 
 begin
-
-	oDataOut <= Data;
    
 	Registers : process(inResetAsync, iClk) is
 	begin
 		if inResetAsync = '0' then
 		  Data <= (others => '0');
 		elsif rising_edge(iClk) then
-		  Data <= NxData;
+		  Data <= iDataToWrite;
 		end if;
 	end process;
 
-	-- reads new line from file, which is a new value
-	CombReadFile : process(Data, iStrobe) is
-		variable inputLine  : LINE;
-		variable inputValue : integer;
+	-- writes new line to file
+	CombWriteFile : process(Data, iStrobe) is
+		variable outputLine  : LINE;
+		variable outputValue : integer;
 	begin
-		NxData <= Data;
 		if iStrobe = cActivated then 
-		   if(not endfile(inputFile)) then
-			   readline(inputFile, inputLine);
-			   read(inputLine, inputValue);
-		   else
-   		      report "EOF reached in input file"
-			  severity failure;
-		   end if;
-
-		   NxData <= to_signed(inputValue, gDataWidth);
+		   write(outputLine, to_integer(Data));
+		   writeline(outputFile, outputLine);
 		end if;
 	end process;
    

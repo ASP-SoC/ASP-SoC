@@ -3,13 +3,13 @@ architecture Rtl of I2SToAvalonST is
   type aInputState is (Waiting, ReceivingSerData);
 
   -- bclk set, for sync and delay
-  type aBclkSet is record
+  type aSyncSet is record
     Meta : std_logic;
     Sync : std_logic;
     Dlyd : std_logic;
   end record;
 
-  constant cInitValBclk : aBclkSet := (
+  constant cInitValSync : aSyncSet := (
     Meta => '0',
     Sync => '0',
     Dlyd => '0'
@@ -19,8 +19,8 @@ architecture Rtl of I2SToAvalonST is
     State    : aInputState;             -- current state
     D        : std_logic_vector(gDataWidth-1 downto 0);  -- data
     BitIdx   : unsigned(gDataWidthLen-1 downto 0);  -- current bit index in data
-    Bclk     : aBclkSet;                -- bclk signals
-    LrcDlyd  : std_logic;               -- left or rigth channel delayed
+    Bclk     : aSyncSet;                -- bclk signals
+    Lrc      : aSyncSet;                -- left or rigth channel
     LeftVal  : std_logic;               -- left channel valid
     RightVal : std_logic;               -- right channel valid
   end record;
@@ -28,8 +28,8 @@ architecture Rtl of I2SToAvalonST is
   constant cInitValR : aRegSet := (
     State    => Waiting,
     D        => (others => '0'),
-    Bclk     => cInitValBclk,
-    LrcDlyd  => '0',
+    Bclk     => cInitValSync,
+    Lrc      => cInitValSync,
     LeftVal  => '0',
     RightVal => '0',
     BitIdx   => (others => '0')
@@ -65,16 +65,19 @@ begin  -- architecture Rtl
     NxR.Bclk.Meta <= iBCLK;
     NxR.Bclk.Sync <= R.Bclk.Meta;
     NxR.Bclk.Dlyd <= R.Bclk.Sync;
-    NxR.LrcDlyd   <= iLRC;
+
+    NxR.Lrc.Meta <= iLRC;
+    NxR.Lrc.Sync <= R.Lrc.Meta;
+    NxR.Lrc.Dlyd <= R.Lrc.Sync;
 
     case R.State is
 
       -- waiting for input data
       when Waiting =>
         -- rising edge on LRC - Left Channel
-        if (R.LrcDlyd = '0' and iLRC = '1')
+        if (R.Lrc.Dlyd = '0' and R.Lrc.Sync = '1')
           -- falling edge on LRC - Right Channel
-          or (R.LrcDlyd = '1' and iLRC = '0') then
+          or (R.Lrc.Dlyd = '1' and R.Lrc.Sync = '0') then
 
           NxR.BitIdx <= to_unsigned(gDataWidth-1, NxR.BitIdx'length);
 
@@ -83,18 +86,17 @@ begin  -- architecture Rtl
 
       when ReceivingSerData =>
 
+        -- read input data
+        NxR.D(to_integer(R.BitIdx)) <= iDAT;
+
         -- rising edge on BCLK
         if R.Bclk.Dlyd = '0' and R.Bclk.Sync = '1' then
-          -- read input data
-          NxR.D(to_integer(R.BitIdx)) <= iDAT;
-
-
           -- check bit index
           if R.BitIdx = 0 then
             -- end of frame
             NxR.State <= Waiting;
 
-            if iLRC = '1' then
+            if R.Lrc.Sync = '1' then
               -- left channel valid
               NxR.LeftVal <= '1';
             else

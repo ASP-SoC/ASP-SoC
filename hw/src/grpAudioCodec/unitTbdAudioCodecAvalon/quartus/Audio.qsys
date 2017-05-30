@@ -6,46 +6,14 @@
    version="1.0"
    description=""
    tags=""
-   categories="System" />
+   categories="" />
  <parameter name="bonusData"><![CDATA[bonusData 
 {
-   element AudioSubSystem
-   {
-      datum _originalDeviceFamily
-      {
-         value = "Cyclone V";
-         type = "String";
-      }
-   }
-   element AudioSubSystem
-   {
-      datum _originalDeviceFamily
-      {
-         value = "Cyclone V";
-         type = "String";
-      }
-   }
-   element AudioSubSystem
-   {
-      datum _originalDeviceFamily
-      {
-         value = "Cyclone V";
-         type = "String";
-      }
-   }
-   element AudioSubSystem
-   {
-      datum _originalDeviceFamily
-      {
-         value = "Cyclone V";
-         type = "String";
-      }
-   }
-   element audio
+   element AudioCodecAvalon_0
    {
       datum _sortIndex
       {
-         value = "4";
+         value = "3";
          type = "int";
       }
    }
@@ -53,37 +21,19 @@
    {
       datum _sortIndex
       {
-         value = "1";
+         value = "2";
          type = "int";
-      }
-      datum sopceditor_expanded
-      {
-         value = "1";
-         type = "boolean";
       }
    }
    element audio_pll
    {
       datum _sortIndex
       {
-         value = "2";
-         type = "int";
-      }
-   }
-   element clock_bridge_0
-   {
-      datum _sortIndex
-      {
-         value = "3";
-         type = "int";
-      }
-      datum sopceditor_expanded
-      {
          value = "1";
-         type = "boolean";
+         type = "int";
       }
    }
-   element sys
+   element clk
    {
       datum _sortIndex
       {
@@ -94,9 +44,9 @@
 }
 ]]></parameter>
  <parameter name="clockCrossingAdapter" value="HANDSHAKE" />
- <parameter name="device" value="5CSEMA5F31C6" />
+ <parameter name="device" value="5CSEMA5F31C7" />
  <parameter name="deviceFamily" value="Cyclone V" />
- <parameter name="deviceSpeedGrade" value="6" />
+ <parameter name="deviceSpeedGrade" value="7" />
  <parameter name="fabricMode" value="QSYS" />
  <parameter name="generateLegacySim" value="false" />
  <parameter name="generationId" value="0" />
@@ -105,7 +55,7 @@
  <parameter name="hideFromIPCatalog" value="false" />
  <parameter name="lockedInterfaceDefinition" value="" />
  <parameter name="maxAdditionalLatency" value="1" />
- <parameter name="projectName" value="TbdAudio.qpf" />
+ <parameter name="projectName" value="" />
  <parameter name="sopcBorderPoints" value="false" />
  <parameter name="systemHash" value="0" />
  <parameter name="testBenchDutName" value="" />
@@ -114,53 +64,28 @@
  <instanceScript></instanceScript>
  <interface
    name="audio_clk"
-   internal="clock_bridge_0.out_clk"
+   internal="audio_pll.audio_clk"
    type="clock"
    dir="start" />
+ <interface name="clk" internal="clk.clk_in" type="clock" dir="end" />
  <interface
-   name="audio_config_avalon_av_config_slave"
-   internal="audio_config.avalon_av_config_slave"
-   type="avalon"
-   dir="end" />
- <interface
-   name="audio_config_i2c"
+   name="i2c"
    internal="audio_config.external_interface"
    type="conduit"
    dir="end" />
  <interface
-   name="audio_i2s"
-   internal="audio.external_interface"
+   name="i2s"
+   internal="AudioCodecAvalon_0.conduit_end"
    type="conduit"
    dir="end" />
- <interface name="clk" internal="sys.clk_in" type="clock" dir="end" />
- <interface
-   name="left_sink"
-   internal="audio.avalon_left_channel_sink"
-   type="avalon_streaming"
-   dir="end" />
- <interface
-   name="left_source"
-   internal="audio.avalon_left_channel_source"
-   type="avalon_streaming"
-   dir="start" />
- <interface name="reset" internal="sys.clk_in_reset" type="reset" dir="end" />
- <interface
-   name="right_sink"
-   internal="audio.avalon_right_channel_sink"
-   type="avalon_streaming"
-   dir="end" />
- <interface
-   name="right_source"
-   internal="audio.avalon_right_channel_source"
-   type="avalon_streaming"
-   dir="start" />
- <module name="audio" kind="altera_up_avalon_audio" version="16.1" enabled="1">
-  <parameter name="AUTO_CLK_CLOCK_RATE" value="50000000" />
-  <parameter name="AUTO_DEVICE_FAMILY" value="Cyclone V" />
-  <parameter name="audio_in" value="true" />
-  <parameter name="audio_out" value="true" />
-  <parameter name="avalon_bus_type" value="Streaming" />
-  <parameter name="dw" value="24" />
+ <interface name="reset" internal="clk.clk_in_reset" type="reset" dir="end" />
+ <module
+   name="AudioCodecAvalon_0"
+   kind="AudioCodecAvalon"
+   version="1.0"
+   enabled="1">
+  <parameter name="gDataWidth" value="24" />
+  <parameter name="gDataWidthLen" value="5" />
  </module>
  <module
    name="audio_config"
@@ -189,46 +114,50 @@
    kind="altera_up_avalon_audio_pll"
    version="16.1"
    enabled="1">
-  <parameter name="AUTO_DEVICE" value="5CSEMA5F31C6" />
-  <parameter name="AUTO_DEVICE_SPEEDGRADE" value="6" />
+  <parameter name="AUTO_DEVICE" value="5CSEMA5F31C7" />
+  <parameter name="AUTO_DEVICE_SPEEDGRADE" value="7" />
   <parameter name="audio_clk_freq" value="12.288" />
   <parameter name="device_family" value="Cyclone V" />
   <parameter name="gui_refclk" value="50.0" />
  </module>
- <module
-   name="clock_bridge_0"
-   kind="altera_clock_bridge"
-   version="16.1"
-   enabled="1">
-  <parameter name="DERIVED_CLOCK_RATE" value="12288135" />
-  <parameter name="EXPLICIT_CLOCK_RATE" value="0" />
-  <parameter name="NUM_CLOCK_OUTPUTS" value="1" />
- </module>
- <module name="sys" kind="clock_source" version="16.1" enabled="1">
+ <module name="clk" kind="clock_source" version="16.1" enabled="1">
   <parameter name="clockFrequency" value="50000000" />
   <parameter name="clockFrequencyKnown" value="true" />
   <parameter name="inputClockFrequency" value="0" />
   <parameter name="resetSynchronousEdges" value="NONE" />
  </module>
  <connection
+   kind="avalon_streaming"
+   version="16.1"
+   start="AudioCodecAvalon_0.left_source"
+   end="AudioCodecAvalon_0.left_sink" />
+ <connection
+   kind="avalon_streaming"
+   version="16.1"
+   start="AudioCodecAvalon_0.right_source"
+   end="AudioCodecAvalon_0.right_sink" />
+ <connection kind="clock" version="16.1" start="clk.clk" end="audio_config.clk" />
+ <connection
    kind="clock"
    version="16.1"
-   start="audio_pll.audio_clk"
-   end="clock_bridge_0.in_clk" />
- <connection kind="clock" version="16.1" start="sys.clk" end="audio_config.clk" />
- <connection kind="clock" version="16.1" start="sys.clk" end="audio.clk" />
- <connection kind="clock" version="16.1" start="sys.clk" end="audio_pll.ref_clk" />
+   start="clk.clk"
+   end="AudioCodecAvalon_0.clock" />
+ <connection kind="clock" version="16.1" start="clk.clk" end="audio_pll.ref_clk" />
  <connection
    kind="reset"
    version="16.1"
-   start="sys.clk_reset"
+   start="clk.clk_reset"
    end="audio_pll.ref_reset" />
  <connection
    kind="reset"
    version="16.1"
-   start="sys.clk_reset"
+   start="clk.clk_reset"
    end="audio_config.reset" />
- <connection kind="reset" version="16.1" start="sys.clk_reset" end="audio.reset" />
+ <connection
+   kind="reset"
+   version="16.1"
+   start="clk.clk_reset"
+   end="AudioCodecAvalon_0.reset" />
  <interconnectRequirement for="$system" name="qsys_mm.clockCrossingAdapter" value="HANDSHAKE" />
  <interconnectRequirement for="$system" name="qsys_mm.enableEccProtection" value="FALSE" />
  <interconnectRequirement for="$system" name="qsys_mm.insertDefaultSlave" value="FALSE" />

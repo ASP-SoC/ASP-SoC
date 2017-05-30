@@ -2,7 +2,7 @@
 -- Title      : Audio Signal Processing Block
 -- Project    : ASP-SoC
 -------------------------------------------------------------------------------
--- File       : AudioSignalProcessingBlock-e.vhd
+-- File       : AspBlock-e.vhd
 -- Author     : Franz Steinbacher
 -------------------------------------------------------------------------------
 -- Description: Template for a audio signal processing block
@@ -13,7 +13,7 @@
 -------------------------------------------------------------------------------
 -- Revisions  :
 -- Date        Version  Author  Description
--- 2017-03-14  1.0      fxst    Created
+-- 2017-05-16  1.0      fxst    Created
 -------------------------------------------------------------------------------
 
 library ieee;
@@ -24,32 +24,36 @@ library ieee_proposed;
 use ieee_proposed.fixed_float_types.all;
 use ieee_proposed.fixed_pkg.all;
 
-entity AudioSignalProcessingBlock is
+entity AspBlock is
   generic(
     gDataWidth : natural := 24
     );
 
   port (
     -- clk and reset
-    csi_clk     : in std_logic;             -- clk
-    rsi_reset_n : in std_logic;             -- low active reset
+    csi_clk     : in std_logic;         -- clk
+    rsi_reset_n : in std_logic;         -- low active reset
 
     -- enable effect, '1' effect on else effect off and signal is passed
     -- without modification
-    iEnable : in std_logic;
+    coe_enable : in std_logic;
 
     -- debug interface
-    oDebug : out std_logic_vector(23 downto 0);  -- debug vector
+    coe_debug : out std_logic_vector(23 downto 0);  -- debug vector
 
-    -- Avalon ST source (input data)
-    aso_data    : out std_logic_vector(gDataWidth-1 downto 0);  -- data
-    aso_valid   : out std_logic;                                -- valid
-    aso_channel : out std_logic;                                -- channel
+    -- Avalon ST source (output data)
+    aso_left_data  : out std_logic_vector(gDataWidth-1 downto 0);  -- data
+    aso_left_valid : out std_logic;                                -- valid
+
+    aso_right_data  : out std_logic_vector(gDataWidth-1 downto 0);  -- data
+    aso_right_valid : out std_logic;                                -- valid
 
     -- Avalon ST sink (input data)
-    asi_data    : in std_logic_vector(gDataWidth-1 downto 0);  -- data
-    asi_valid   : in std_logic;                                -- valid
-    asi_channel : in std_logic;                                -- channel
+    asi_left_data  : in std_logic_vector(gDataWidth-1 downto 0);  -- data
+    asi_left_valid : in std_logic;                                -- valid
+
+    asi_right_data  : in std_logic_vector(gDataWidth-1 downto 0);  -- data
+    asi_right_valid : in std_logic;                                -- valid
 
     -- Avalon MM Slave Port s0 - provides config parameters
     avs_s0_write     : in  std_logic;                      -- write
@@ -59,4 +63,4 @@ entity AudioSignalProcessingBlock is
 
     );
 
-end entity AudioSignalProcessingBlock;
+end entity AspBlock;

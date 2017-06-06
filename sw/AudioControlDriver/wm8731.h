@@ -113,6 +113,9 @@
 #define WM8731_DEFAULT_VOLUME_HEADPHONE 121			//0dB
 
 
+/*
+ * Structure that contains the whole register set of the WM8731
+ */
 typedef struct{
 	volatile unsigned int LLineIN;
 	volatile unsigned int RLineIN;
@@ -127,11 +130,29 @@ typedef struct{
 	volatile unsigned int Reset;
 }tWM8731;
 
+
+/*
+ * Typedefs for use with various functions of the driver (select channel, In/Output...)
+ */
 typedef enum channel {LEFT,RIGHT} TChannel;
 typedef enum source_sink {LINE,HEADPHONE} TSourceSink;
 
+/*
+ * Write a 32 bit register to the wm8731 using the Audio/Video-Configuration 
+ * from the altera university program.
+ * returns 0 on success, -1 on error
+ */
 int WriteReg(int addr, int val);
+
+/*
+ * Set the volume of a selected channel and source/sink.
+ */
 int SetVolume(TChannel ch, TSourceSink ss, int vol);
+
+/*
+ * Writes the whole register set (11 Registers) stored in the internal 
+ * structure to the chip.
+ */
 int WriteRegSet();
 
 #endif //WM8731_H_INCLUDED 

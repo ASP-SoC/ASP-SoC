@@ -1,5 +1,8 @@
 #include "wm8731.h"
 
+/*
+ * Pointers to the registers of the Audio/Video-Configuration block.
+ */
 unsigned int volatile * const WM8731IF_STATUS = (unsigned int*) (WM8731_BASE + WM8731IF_STATUS_OFFSET);
 unsigned int volatile * const WM8731IF_ADDR = (unsigned int*) (WM8731_BASE + WM8731IF_ADDR_OFFSET);
 unsigned int volatile * const WM8731IF_DATA = (unsigned int*) (WM8731_BASE + WM8731IF_DATA_OFFSET);
@@ -7,6 +10,10 @@ unsigned int volatile * const WM8731IF_DATA = (unsigned int*) (WM8731_BASE + WM8
 
 // audio pll output clock: 12.288MHz, sample rate: 48kHz, BOSR: 256fs(0), SR: 0x00
 
+/*
+ * Internal structure representing the register set of the wm8711
+ * Default values are entered here.
+ */
 tWM8731 wm8731 = {
 	WM8731_DEFAULT_VOLUME_LINE,			// default volume left line in, unmuted, no simultaneous load
 	WM8731_DEFAULT_VOLUME_LINE,			// default volume right line in, unmuted, no simultaneous load
@@ -22,10 +29,6 @@ tWM8731 wm8731 = {
 };
 
 
-/* 
- * Write data to the registers of the WM8731
- * returns 0 on success, -1 on error
-*/
 int WriteReg(int addr, int val){
 	*WM8731IF_ADDR = addr;
 	while(((*WM8731IF_STATUS) & (1<<WM8731_READY_BIT_OFFS)) == 0);	// wait on Ready bit to be set

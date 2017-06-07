@@ -1,5 +1,6 @@
 architecture Struct of PlatformHps is
 
+  -- qsys component
   component Platform is
     port (
       clk_clk                        : in    std_logic                     := 'X';  -- clk
@@ -39,6 +40,7 @@ architecture Struct of PlatformHps is
   end component Platform;
 
   signal hex0_2, hex3_5 : std_logic_vector(20 downto 0);
+  signal keys_p         : std_logic_vector(2 downto 0);
 
 begin  -- architecture Struct
 
@@ -50,6 +52,10 @@ begin  -- architecture Struct
   HEX4 <= not hex3_5(13 downto 7);
   HEX5 <= not hex3_5(20 downto 14);
 
+  --keys
+  keys_p <= not KEY(3 downto 1);
+
+  -- qsys system
   u0 : component Platform
     port map (
       clk_clk => CLOCK_50,              --      clk.clk
@@ -63,7 +69,7 @@ begin  -- architecture Struct
       i2s_dacdat  => AUD_DACDAT,        --         .dacdat
       i2s_daclrck => AUD_DACLRCK,       --         .daclrck
 
-      keys_export        => KEY(3 downto 1),   --     keys.export
+      keys_export        => keys_p,            --     keys.export
       leds_export        => LEDR,              --     leds.export
       memory_mem_a       => HPS_DDR3_ADDR,     -- memory.mem_a
       memory_mem_ba      => HPS_DDR3_BA,       --       .mem_ba
@@ -94,7 +100,5 @@ begin  -- architecture Struct
       hex0_2_export => hex0_2,          --   hex0_2.export
       hex3_5_export => hex3_5           --   hex3_5.export
       );
-
-
 
 end architecture Struct;

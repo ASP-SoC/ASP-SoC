@@ -9,6 +9,14 @@
    categories="System" />
  <parameter name="bonusData"><![CDATA[bonusData 
 {
+   element ARM_A9_HPS
+   {
+      datum _sortIndex
+      {
+         value = "1";
+         type = "int";
+      }
+   }
    element Audio
    {
       datum _originalDeviceFamily
@@ -97,6 +105,22 @@
          type = "String";
       }
    }
+   element audio
+   {
+      datum _sortIndex
+      {
+         value = "3";
+         type = "int";
+      }
+   }
+   element audio.config
+   {
+      datum baseAddress
+      {
+         value = "80";
+         type = "String";
+      }
+   }
    element clk
    {
       datum _sortIndex
@@ -105,12 +129,52 @@
          type = "int";
       }
    }
-   element hps_0
+   element pio
    {
       datum _sortIndex
       {
-         value = "1";
+         value = "2";
          type = "int";
+      }
+   }
+   element pio.hex0_2_s1
+   {
+      datum baseAddress
+      {
+         value = "32";
+         type = "String";
+      }
+   }
+   element pio.hex3_5_s1
+   {
+      datum baseAddress
+      {
+         value = "16";
+         type = "String";
+      }
+   }
+   element pio.keys_s1
+   {
+      datum baseAddress
+      {
+         value = "48";
+         type = "String";
+      }
+   }
+   element pio.leds_s1
+   {
+      datum baseAddress
+      {
+         value = "64";
+         type = "String";
+      }
+   }
+   element pio.switches_s1
+   {
+      datum _lockedAddress
+      {
+         value = "1";
+         type = "boolean";
       }
    }
 }
@@ -135,15 +199,18 @@
  <parameter name="useTestBenchNamingPattern" value="false" />
  <instanceScript></instanceScript>
  <interface name="clk" internal="clk.clk_in" type="clock" dir="end" />
- <interface name="memory" internal="hps_0.memory" type="conduit" dir="end" />
+ <interface name="hex0_2" internal="pio.hex0_2" type="conduit" dir="end" />
+ <interface name="hex3_5" internal="pio.hex3_5" type="conduit" dir="end" />
+ <interface name="hps_io" internal="ARM_A9_HPS.hps_io" type="conduit" dir="end" />
+ <interface name="i2c" internal="audio.i2c" type="conduit" dir="end" />
+ <interface name="i2s" internal="audio.i2s" type="conduit" dir="end" />
+ <interface name="keys" internal="pio.keys" type="conduit" dir="end" />
+ <interface name="leds" internal="pio.leds" type="conduit" dir="end" />
+ <interface name="memory" internal="ARM_A9_HPS.memory" type="conduit" dir="end" />
  <interface name="reset" internal="clk.clk_in_reset" type="reset" dir="end" />
- <module name="clk" kind="clock_source" version="16.1" enabled="1">
-  <parameter name="clockFrequency" value="50000000" />
-  <parameter name="clockFrequencyKnown" value="true" />
-  <parameter name="inputClockFrequency" value="0" />
-  <parameter name="resetSynchronousEdges" value="NONE" />
- </module>
- <module name="hps_0" kind="altera_hps" version="16.1" enabled="1">
+ <interface name="switches" internal="pio.switches" type="conduit" dir="end" />
+ <interface name="xck" internal="audio.audio_clk" type="clock" dir="start" />
+ <module name="ARM_A9_HPS" kind="altera_hps" version="16.1" enabled="1">
   <parameter name="ABSTRACT_REAL_COMPARE_TEST" value="false" />
   <parameter name="ABS_RAM_MEM_INIT_FILENAME" value="meminit" />
   <parameter name="ACV_PHY_CLK_ADD_FR_PHASE" value="0.0" />
@@ -253,10 +320,10 @@
   <parameter name="F2SCLK_SDRAMCLK_Enable" value="false" />
   <parameter name="F2SCLK_SDRAMCLK_FREQ" value="0" />
   <parameter name="F2SCLK_WARMRST_Enable" value="false" />
-  <parameter name="F2SDRAM_Type" value="AXI-3" />
-  <parameter name="F2SDRAM_Width" value="64" />
+  <parameter name="F2SDRAM_Type" value="" />
+  <parameter name="F2SDRAM_Width" value="" />
   <parameter name="F2SINTERRUPT_Enable" value="false" />
-  <parameter name="F2S_Width" value="2" />
+  <parameter name="F2S_Width" value="0" />
   <parameter name="FIX_READ_LATENCY" value="8" />
   <parameter name="FORCED_NON_LDC_ADDR_CMD_MEM_CK_INVERT" value="false" />
   <parameter name="FORCED_NUM_WRITE_FR_CYCLE_SHIFTS" value="0" />
@@ -292,12 +359,12 @@
   <parameter name="FPGA_PERIPHERAL_OUTPUT_CLOCK_FREQ_SDIO_CCLK" value="100" />
   <parameter name="FPGA_PERIPHERAL_OUTPUT_CLOCK_FREQ_SPIM0_SCLK_OUT" value="100" />
   <parameter name="FPGA_PERIPHERAL_OUTPUT_CLOCK_FREQ_SPIM1_SCLK_OUT" value="100" />
-  <parameter name="GPIO_Enable">No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No</parameter>
+  <parameter name="GPIO_Enable">No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,Yes,Yes,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No</parameter>
   <parameter name="GP_Enable" value="false" />
   <parameter name="H2F_AXI_CLOCK_FREQ" value="100" />
   <parameter name="H2F_CTI_CLOCK_FREQ" value="100" />
   <parameter name="H2F_DEBUG_APB_CLOCK_FREQ" value="100" />
-  <parameter name="H2F_LW_AXI_CLOCK_FREQ" value="100" />
+  <parameter name="H2F_LW_AXI_CLOCK_FREQ" value="50000000" />
   <parameter name="H2F_TPIU_CLOCK_IN_FREQ" value="100" />
   <parameter name="HARD_EMIF" value="true" />
   <parameter name="HCX_COMPAT_MODE" value="false" />
@@ -333,15 +400,15 @@
   <parameter name="MEM_CK_PHASE" value="0.0" />
   <parameter name="MEM_CK_WIDTH" value="1" />
   <parameter name="MEM_CLK_EN_WIDTH" value="1" />
-  <parameter name="MEM_CLK_FREQ" value="300.0" />
-  <parameter name="MEM_CLK_FREQ_MAX" value="400.0" />
-  <parameter name="MEM_COL_ADDR_WIDTH" value="8" />
+  <parameter name="MEM_CLK_FREQ" value="400.0" />
+  <parameter name="MEM_CLK_FREQ_MAX" value="800.0" />
+  <parameter name="MEM_COL_ADDR_WIDTH" value="10" />
   <parameter name="MEM_CS_WIDTH" value="1" />
   <parameter name="MEM_DEVICE" value="MISSING_MODEL" />
   <parameter name="MEM_DLL_EN" value="true" />
   <parameter name="MEM_DQ_PER_DQS" value="8" />
-  <parameter name="MEM_DQ_WIDTH" value="8" />
-  <parameter name="MEM_DRV_STR" value="RZQ/6" />
+  <parameter name="MEM_DQ_WIDTH" value="32" />
+  <parameter name="MEM_DRV_STR" value="RZQ/7" />
   <parameter name="MEM_FORMAT" value="DISCRETE" />
   <parameter name="MEM_GUARANTEED_WRITE_INIT" value="false" />
   <parameter name="MEM_IF_BOARD_BASE_DELAY" value="10" />
@@ -356,29 +423,29 @@
   <parameter name="MEM_NUMBER_OF_RANKS_PER_DIMM" value="1" />
   <parameter name="MEM_PD" value="DLL off" />
   <parameter name="MEM_RANK_MULTIPLICATION_FACTOR" value="1" />
-  <parameter name="MEM_ROW_ADDR_WIDTH" value="12" />
-  <parameter name="MEM_RTT_NOM" value="ODT Disabled" />
-  <parameter name="MEM_RTT_WR" value="Dynamic ODT off" />
+  <parameter name="MEM_ROW_ADDR_WIDTH" value="15" />
+  <parameter name="MEM_RTT_NOM" value="RZQ/4" />
+  <parameter name="MEM_RTT_WR" value="RZQ/4" />
   <parameter name="MEM_SRT" value="Normal" />
-  <parameter name="MEM_TCL" value="7" />
-  <parameter name="MEM_TFAW_NS" value="37.5" />
-  <parameter name="MEM_TINIT_US" value="499" />
-  <parameter name="MEM_TMRD_CK" value="3" />
-  <parameter name="MEM_TRAS_NS" value="40.0" />
-  <parameter name="MEM_TRCD_NS" value="15.0" />
-  <parameter name="MEM_TREFI_US" value="7.0" />
-  <parameter name="MEM_TRFC_NS" value="75.0" />
-  <parameter name="MEM_TRP_NS" value="15.0" />
+  <parameter name="MEM_TCL" value="11" />
+  <parameter name="MEM_TFAW_NS" value="30.0" />
+  <parameter name="MEM_TINIT_US" value="500" />
+  <parameter name="MEM_TMRD_CK" value="4" />
+  <parameter name="MEM_TRAS_NS" value="35.0" />
+  <parameter name="MEM_TRCD_NS" value="13.75" />
+  <parameter name="MEM_TREFI_US" value="7.8" />
+  <parameter name="MEM_TRFC_NS" value="260.0" />
+  <parameter name="MEM_TRP_NS" value="13.75" />
   <parameter name="MEM_TRRD_NS" value="7.5" />
   <parameter name="MEM_TRTP_NS" value="7.5" />
   <parameter name="MEM_TWR_NS" value="15.0" />
-  <parameter name="MEM_TWTR" value="2" />
+  <parameter name="MEM_TWTR" value="4" />
   <parameter name="MEM_USER_LEVELING_MODE" value="Leveling" />
   <parameter name="MEM_VENDOR" value="JEDEC" />
   <parameter name="MEM_VERBOSE" value="true" />
   <parameter name="MEM_VOLTAGE" value="1.5V DDR3" />
-  <parameter name="MEM_WTCL" value="6" />
-  <parameter name="MPU_EVENTS_Enable" value="true" />
+  <parameter name="MEM_WTCL" value="8" />
+  <parameter name="MPU_EVENTS_Enable" value="false" />
   <parameter name="MRS_MIRROR_PING_PONG_ATSO" value="false" />
   <parameter name="MULTICAST_EN" value="false" />
   <parameter name="NAND_Mode" value="N/A" />
@@ -484,7 +551,7 @@
   <parameter name="READ_FIFO_SIZE" value="8" />
   <parameter name="REFRESH_BURST_VALIDATION" value="false" />
   <parameter name="REFRESH_INTERVAL" value="15000" />
-  <parameter name="REF_CLK_FREQ" value="125.0" />
+  <parameter name="REF_CLK_FREQ" value="25.0" />
   <parameter name="REF_CLK_FREQ_MAX_PARAM" value="0.0" />
   <parameter name="REF_CLK_FREQ_MIN_PARAM" value="0.0" />
   <parameter name="REF_CLK_FREQ_PARAM_VALID" value="false" />
@@ -515,7 +582,7 @@
   <parameter name="S2FINTERRUPT_UART_Enable" value="false" />
   <parameter name="S2FINTERRUPT_USB_Enable" value="false" />
   <parameter name="S2FINTERRUPT_WATCHDOG_Enable" value="false" />
-  <parameter name="S2F_Width" value="2" />
+  <parameter name="S2F_Width" value="0" />
   <parameter name="SDIO_Mode" value="N/A" />
   <parameter name="SDIO_PinMuxing" value="Unused" />
   <parameter name="SEQUENCER_TYPE" value="NIOS" />
@@ -537,7 +604,7 @@
   <parameter name="TEST_Enable" value="false" />
   <parameter name="TIMING_BOARD_AC_EYE_REDUCTION_H" value="0.0" />
   <parameter name="TIMING_BOARD_AC_EYE_REDUCTION_SU" value="0.0" />
-  <parameter name="TIMING_BOARD_AC_SKEW" value="0.02" />
+  <parameter name="TIMING_BOARD_AC_SKEW" value="0.03" />
   <parameter name="TIMING_BOARD_AC_SLEW_RATE" value="1.0" />
   <parameter name="TIMING_BOARD_AC_TO_CK_SKEW" value="0.0" />
   <parameter name="TIMING_BOARD_CK_CKN_SLEW_RATE" value="2.0" />
@@ -549,34 +616,34 @@
   <parameter name="TIMING_BOARD_DQ_SLEW_RATE" value="1.0" />
   <parameter name="TIMING_BOARD_DQ_TO_DQS_SKEW" value="0.0" />
   <parameter name="TIMING_BOARD_ISI_METHOD" value="AUTO" />
-  <parameter name="TIMING_BOARD_MAX_CK_DELAY" value="0.6" />
-  <parameter name="TIMING_BOARD_MAX_DQS_DELAY" value="0.6" />
+  <parameter name="TIMING_BOARD_MAX_CK_DELAY" value="0.3" />
+  <parameter name="TIMING_BOARD_MAX_DQS_DELAY" value="0.02" />
   <parameter name="TIMING_BOARD_READ_DQ_EYE_REDUCTION" value="0.0" />
   <parameter name="TIMING_BOARD_SKEW_BETWEEN_DIMMS" value="0.05" />
-  <parameter name="TIMING_BOARD_SKEW_BETWEEN_DQS" value="0.02" />
-  <parameter name="TIMING_BOARD_SKEW_CKDQS_DIMM_MAX" value="0.01" />
-  <parameter name="TIMING_BOARD_SKEW_CKDQS_DIMM_MIN" value="-0.01" />
-  <parameter name="TIMING_BOARD_SKEW_WITHIN_DQS" value="0.02" />
+  <parameter name="TIMING_BOARD_SKEW_BETWEEN_DQS" value="0.08" />
+  <parameter name="TIMING_BOARD_SKEW_CKDQS_DIMM_MAX" value="0.16" />
+  <parameter name="TIMING_BOARD_SKEW_CKDQS_DIMM_MIN" value="0.09" />
+  <parameter name="TIMING_BOARD_SKEW_WITHIN_DQS" value="0.01" />
   <parameter name="TIMING_BOARD_TDH" value="0.0" />
   <parameter name="TIMING_BOARD_TDS" value="0.0" />
   <parameter name="TIMING_BOARD_TIH" value="0.0" />
   <parameter name="TIMING_BOARD_TIS" value="0.0" />
-  <parameter name="TIMING_TDH" value="125" />
-  <parameter name="TIMING_TDQSCK" value="400" />
+  <parameter name="TIMING_TDH" value="65" />
+  <parameter name="TIMING_TDQSCK" value="255" />
   <parameter name="TIMING_TDQSCKDL" value="1200" />
   <parameter name="TIMING_TDQSCKDM" value="900" />
   <parameter name="TIMING_TDQSCKDS" value="450" />
   <parameter name="TIMING_TDQSH" value="0.35" />
-  <parameter name="TIMING_TDQSQ" value="120" />
+  <parameter name="TIMING_TDQSQ" value="125" />
   <parameter name="TIMING_TDQSS" value="0.25" />
-  <parameter name="TIMING_TDS" value="50" />
+  <parameter name="TIMING_TDS" value="30" />
   <parameter name="TIMING_TDSH" value="0.2" />
   <parameter name="TIMING_TDSS" value="0.2" />
-  <parameter name="TIMING_TIH" value="250" />
-  <parameter name="TIMING_TIS" value="175" />
+  <parameter name="TIMING_TIH" value="140" />
+  <parameter name="TIMING_TIS" value="180" />
   <parameter name="TIMING_TQH" value="0.38" />
   <parameter name="TIMING_TQHS" value="300" />
-  <parameter name="TIMING_TQSH" value="0.38" />
+  <parameter name="TIMING_TQSH" value="0.4" />
   <parameter name="TPIUFPGA_Enable" value="false" />
   <parameter name="TPIUFPGA_alt" value="false" />
   <parameter name="TRACE_Mode" value="N/A" />
@@ -611,7 +678,7 @@
   <parameter name="dbg_trace_clk_div" value="0" />
   <parameter name="desired_can0_clk_mhz" value="100.0" />
   <parameter name="desired_can1_clk_mhz" value="100.0" />
-  <parameter name="desired_cfg_clk_mhz" value="100.0" />
+  <parameter name="desired_cfg_clk_mhz" value="97.368421" />
   <parameter name="desired_emac0_clk_mhz" value="250.0" />
   <parameter name="desired_emac1_clk_mhz" value="250.0" />
   <parameter name="desired_gpio_db_clk_hz" value="32000" />
@@ -673,6 +740,115 @@
   <parameter name="usb_mp_clk_div" value="0" />
   <parameter name="use_default_mpu_clk" value="true" />
  </module>
+ <module name="audio" kind="AudioCodecSubSytem" version="1.0" enabled="1">
+  <parameter name="AUTO_CLK_CLOCK_DOMAIN" value="1" />
+  <parameter name="AUTO_CLK_CLOCK_RATE" value="50000000" />
+  <parameter name="AUTO_CLK_RESET_DOMAIN" value="1" />
+  <parameter name="AUTO_DEVICE" value="5CSEMA5F31C6" />
+  <parameter name="AUTO_DEVICE_FAMILY" value="Cyclone V" />
+  <parameter name="AUTO_DEVICE_SPEEDGRADE" value="6" />
+  <parameter name="AUTO_GENERATION_ID" value="0" />
+  <parameter name="AUTO_UNIQUE_ID" value="$${FILENAME}_audio" />
+ </module>
+ <module name="clk" kind="clock_source" version="16.1" enabled="1">
+  <parameter name="clockFrequency" value="50000000" />
+  <parameter name="clockFrequencyKnown" value="true" />
+  <parameter name="inputClockFrequency" value="0" />
+  <parameter name="resetSynchronousEdges" value="NONE" />
+ </module>
+ <module name="pio" kind="pioModules" version="1.0" enabled="1">
+  <parameter name="AUTO_CLK_CLOCK_DOMAIN" value="1" />
+  <parameter name="AUTO_CLK_CLOCK_RATE" value="50000000" />
+  <parameter name="AUTO_CLK_RESET_DOMAIN" value="1" />
+  <parameter name="AUTO_DEVICE" value="5CSEMA5F31C6" />
+  <parameter name="AUTO_DEVICE_FAMILY" value="Cyclone V" />
+  <parameter name="AUTO_DEVICE_SPEEDGRADE" value="6" />
+  <parameter name="AUTO_GENERATION_ID" value="0" />
+  <parameter name="AUTO_UNIQUE_ID" value="$${FILENAME}_pio" />
+ </module>
+ <connection
+   kind="avalon"
+   version="16.1"
+   start="ARM_A9_HPS.h2f_lw_axi_master"
+   end="audio.config">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x0050" />
+  <parameter name="defaultConnection" value="false" />
+ </connection>
+ <connection
+   kind="avalon"
+   version="16.1"
+   start="ARM_A9_HPS.h2f_lw_axi_master"
+   end="pio.hex0_2_s1">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x0020" />
+  <parameter name="defaultConnection" value="false" />
+ </connection>
+ <connection
+   kind="avalon"
+   version="16.1"
+   start="ARM_A9_HPS.h2f_lw_axi_master"
+   end="pio.hex3_5_s1">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x0010" />
+  <parameter name="defaultConnection" value="false" />
+ </connection>
+ <connection
+   kind="avalon"
+   version="16.1"
+   start="ARM_A9_HPS.h2f_lw_axi_master"
+   end="pio.keys_s1">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x0030" />
+  <parameter name="defaultConnection" value="false" />
+ </connection>
+ <connection
+   kind="avalon"
+   version="16.1"
+   start="ARM_A9_HPS.h2f_lw_axi_master"
+   end="pio.leds_s1">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x0040" />
+  <parameter name="defaultConnection" value="false" />
+ </connection>
+ <connection
+   kind="avalon"
+   version="16.1"
+   start="ARM_A9_HPS.h2f_lw_axi_master"
+   end="pio.switches_s1">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x0000" />
+  <parameter name="defaultConnection" value="false" />
+ </connection>
+ <connection
+   kind="avalon_streaming"
+   version="16.1"
+   start="audio.left_source"
+   end="audio.left_sink" />
+ <connection
+   kind="avalon_streaming"
+   version="16.1"
+   start="audio.right_source"
+   end="audio.right_sink" />
+ <connection kind="clock" version="16.1" start="clk.clk" end="audio.clk" />
+ <connection kind="clock" version="16.1" start="clk.clk" end="pio.clk" />
+ <connection
+   kind="clock"
+   version="16.1"
+   start="clk.clk"
+   end="ARM_A9_HPS.h2f_lw_axi_clock" />
+ <connection kind="reset" version="16.1" start="clk.clk_reset" end="audio.reset" />
+ <connection kind="reset" version="16.1" start="clk.clk_reset" end="pio.reset" />
+ <connection
+   kind="reset"
+   version="16.1"
+   start="ARM_A9_HPS.h2f_reset"
+   end="pio.reset" />
+ <connection
+   kind="reset"
+   version="16.1"
+   start="ARM_A9_HPS.h2f_reset"
+   end="audio.reset" />
  <interconnectRequirement for="$system" name="qsys_mm.clockCrossingAdapter" value="HANDSHAKE" />
  <interconnectRequirement for="$system" name="qsys_mm.enableEccProtection" value="FALSE" />
  <interconnectRequirement for="$system" name="qsys_mm.insertDefaultSlave" value="FALSE" />

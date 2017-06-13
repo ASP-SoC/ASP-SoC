@@ -14,6 +14,8 @@
 # 
 package require -exact qsys 16.1
 
+proc NrBitsNeeded {x} {expr int(ceil(log($x)/log(2)))}
+
 
 # 
 # module AudioCodecAvalon
@@ -25,12 +27,14 @@ set_module_property INTERNAL false
 set_module_property OPAQUE_ADDRESS_MAP true
 set_module_property GROUP "ASP-SoC IP/Audio"
 set_module_property AUTHOR "Franz Steinbacher"
-set_module_property DISPLAY_NAME AudioCodecAvalon
+set_module_property DISPLAY_NAME "AudioCodecAvalon: Audio Codec to Avalon ST"
 set_module_property INSTANTIATE_IN_SYSTEM_MODULE true
-set_module_property EDITABLE true
+set_module_property EDITABLE false
 set_module_property REPORT_TO_TALKBACK false
 set_module_property ALLOW_GREYBOX_GENERATION false
 set_module_property REPORT_HIERARCHY false
+
+set_module_property ELABORATION_CALLBACK elaborate
 
 
 # 
@@ -62,27 +66,44 @@ add_fileset_file I2SToAvalonST-e.vhd VHDL PATH ../../unitI2SToAvalonST/hdl/I2STo
 # 
 # parameters
 # 
-add_parameter gDataWidth NATURAL 24 ""
+add_parameter gDataWidth NATURAL 24 
 set_parameter_property gDataWidth DEFAULT_VALUE 24
 set_parameter_property gDataWidth DISPLAY_NAME gDataWidth
+set_parameter_property gDataWidth DESCRIPTION \
+    "Number of Data Bits"
+set_parameter_property gDataWidth LONG_DESCRIPTION \
+    "Number of Data Bits"
 set_parameter_property gDataWidth WIDTH ""
 set_parameter_property gDataWidth TYPE NATURAL
 set_parameter_property gDataWidth UNITS None
-set_parameter_property gDataWidth ALLOWED_RANGES 0:2147483647
-set_parameter_property gDataWidth DESCRIPTION ""
+set_parameter_property gDataWidth ALLOWED_RANGES {16 24 32}
 set_parameter_property gDataWidth HDL_PARAMETER true
+
 add_parameter gDataWidthLen NATURAL 5
 set_parameter_property gDataWidthLen DEFAULT_VALUE 5
 set_parameter_property gDataWidthLen DISPLAY_NAME gDataWidthLen
+set_parameter_property gDataWidthLen DESCRIPTION \
+    "Automatically computed from gDataWidth"
+set_parameter_property gDataWidthLen LONG_DESCRIPTION \
+    "Automatically computed from gDataWidth"
 set_parameter_property gDataWidthLen TYPE NATURAL
 set_parameter_property gDataWidthLen ENABLED false
 set_parameter_property gDataWidthLen UNITS None
 set_parameter_property gDataWidthLen HDL_PARAMETER true
+set_parameter_property gDataWidthLen DERIVED true
 
+
+proc elaborate {} {
+set DataWidth [ get_parameter_value "gDataWidth" ]
+set DataWidthLen [ NrBitsNeeded $DataWidth ]
+set_parameter_value gDataWidthLen $DataWidthLen
+send_message { Info Text } "Elaboration just took place. Nr of Bits for DataWidth $DataWidthLen ."
+}
 
 # 
 # display items
 # 
+
 
 
 # 

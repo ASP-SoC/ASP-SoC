@@ -17,8 +17,6 @@ library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
-use work.Global.all;
-
 entity ShiftRegRam is
 
   generic (
@@ -35,8 +33,8 @@ entity ShiftRegRam is
 	
 	-- Avalon ST Interface (for ShiftReg)
 	iData           : in  std_logic_vector(gWidth-1 downto 0);  -- input data
-    audio_in_valid  : in  std_logic;                             -- input data valid (set for 1 clk cycle)
-	oData           : out std_logic_vector(gWidth-1 downto 0);   -- output data
+    audio_in_valid  : in  std_logic;                            -- input data valid (set for 1 clk cycle)
+	oData           : out std_logic_vector(gWidth-1 downto 0);  -- output data
 	audio_out_valid : out std_logic                             -- output data valid (set for 1 clk cycle)
 );  
 

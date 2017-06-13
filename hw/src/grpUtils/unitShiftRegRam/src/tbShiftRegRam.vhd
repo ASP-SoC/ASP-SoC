@@ -37,7 +37,7 @@ architecture Bhv of tbShiftRegRam is
   signal cfg_data     : std_logic_vector(cWidth-1 downto 0);
   signal inputData    : std_ulogic_vector(cWidth-1 downto 0);
   signal input_valid  : std_ulogic;
-  signal outputData   : std_ulogic_vector(cWidth-1 downto 0);
+  signal outputData   : std_logic_vector(cWidth-1 downto 0);
   signal output_valid : std_ulogic;
 
   -- clock
@@ -57,7 +57,7 @@ begin
 		rsi_reset_n          => nResetAsync,
 		iActualLength        => to_unsigned(cDepth,32),
 		audio_in_valid       => input_valid,
-		iData                => inputData,
+		iData                => std_logic_vector(inputData),
 		audio_out_valid      => output_valid,
 		oData                => outputData
 	);

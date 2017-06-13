@@ -15,8 +15,8 @@
 
 architecture Rtl of ShiftRegRam is
   
-  -- number of values needed to reach gMaxDelay --> compute via _hw.tcl ???????
-  constant cMaxDepth : natural := gMaxDelay*gNewDataFreq/1000;
+  -- number of values needed to reach gMaxDelay
+  constant cMaxDepth : natural := gMaxDelay * gNewDataFreq / 1000;
 
   type aShiftReg is array (0 to cMaxDepth-1) of std_ulogic_vector(gWidth-1 downto 0);
   signal ShiftReg : aShiftReg := (others => (others=>'0')); -- initialize RAM with '0'

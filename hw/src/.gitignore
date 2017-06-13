@@ -1,5 +1,5 @@
 
-# ignore generatet files from modelsim, emacs
+# ignore generated files from modelsim, emacs
 *.vhd~
 *.wlf
 *.raw

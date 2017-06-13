@@ -45,8 +45,8 @@ begin
 			   readline(inputFile, inputLine);
 			   read(inputLine, inputValue);
 		   else
-   		      report "EOF reached in input file"
-			  severity failure;
+			report "EOF reached in input file"
+			severity failure;
 		   end if;
 
 		   NxData <= to_signed(inputValue, gDataWidth);

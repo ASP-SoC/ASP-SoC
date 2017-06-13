@@ -51,7 +51,7 @@ begin  -- architecture Rtl
     end if;
   end process;
 
-  Comb : process (R, iLRC, iBCLK) is
+  Comb : process (R, iLRC, iBCLK, iDAT) is
   begin  -- process
 
     -- default

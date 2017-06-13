@@ -76,7 +76,7 @@ set_parameter_property gDataWidth LONG_DESCRIPTION \
 set_parameter_property gDataWidth WIDTH ""
 set_parameter_property gDataWidth TYPE NATURAL
 set_parameter_property gDataWidth UNITS None
-set_parameter_property gDataWidth ALLOWED_RANGES {16 24 32}
+set_parameter_property gDataWidth ALLOWED_RANGES {16 20 24 32}
 set_parameter_property gDataWidth HDL_PARAMETER true
 
 add_parameter gDataWidthLen NATURAL 5

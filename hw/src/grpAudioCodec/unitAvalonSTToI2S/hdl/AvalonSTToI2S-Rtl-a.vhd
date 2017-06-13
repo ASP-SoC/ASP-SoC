@@ -1,7 +1,7 @@
 architecture Rtl of AvalonSTToI2S is
 
   type aInputState is (Waiting, LeftChannel, RightChannel);
-  type aRegion is (Tx, Idle);
+  type aRegion is (Idle, Tx);
 
   -- bclk set, for sync and delay
   type aSyncSet is record
@@ -54,7 +54,7 @@ begin  -- architecture Rtl
     end if;
   end process;
 
-  Comb : process (R, iLRC, iBCLK, iLeftValid, iRightValid) is
+  Comb : process (R, iLRC, iBCLK, iLeftValid, iRightValid, iLeftData, iRightData) is
   begin  -- process
 
     -- default
@@ -92,6 +92,9 @@ begin  -- architecture Rtl
 
       -- waiting for input data
       when Waiting =>
+        -- default output
+        oDat <= '0';
+        
         -- reset bit index to max index
         NxR.BitIdx <= to_unsigned(gDataWidth-1, NxR.BitIdx'length);
 

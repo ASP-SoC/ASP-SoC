@@ -11,7 +11,10 @@
 #ifndef WM8731_H_INCLUDED
 #define WM8731_H_INCLUDED 
 
-#define WM8731_BASE 0xFF200000
+#ifndef WM8731_BASE
+	#define WM8731_BASE 0xFF200000
+	#warning "WM8731_BASE not defined, defining it as 0xFF200000"
+#endif
 
 #define WM8731IF_STATUS_OFFSET 0x04
 #define WM8731IF_ADDR_OFFSET 0x08

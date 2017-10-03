@@ -1,3 +1,5 @@
+#include "../../../../../../sw/AudioControlDriver/wm8731.h"
+
 #define LED	24
 #define KEY 25
 

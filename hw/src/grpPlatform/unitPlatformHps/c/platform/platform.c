@@ -66,6 +66,11 @@ int main(void){
 				vol = 0;
 			}
 			printHex(HEX0_2,vol);
+
+			SetVolume(LEFT, LINE, vol/3);
+			SetVolume(RIGHT, LINE, vol/3);
+		
+			WriteRegSet();
 		}
 		
 		*LEDS = *SWITCHES;

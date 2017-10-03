@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<system name="$${FILENAME}">
+ <component
+   name="$${FILENAME}"
+   displayName="$${FILENAME}"
+   version="1.0"
+   description=""
+   tags=""
+   categories="" />
+ <parameter name="bonusData"><![CDATA[bonusData 
+{
+   element AudioCodecAvalon_0
+   {
+      datum _sortIndex
+      {
+         value = "3";
+         type = "int";
+      }
+   }
+   element audio_config
+   {
+      datum _sortIndex
+      {
+         value = "2";
+         type = "int";
+      }
+   }
+   element audio_pll
+   {
+      datum _sortIndex
+      {
+         value = "1";
+         type = "int";
+      }
+   }
+   element clk
+   {
+      datum _sortIndex
+      {
+         value = "0";
+         type = "int";
+      }
+   }
+}
+]]></parameter>
+ <parameter name="clockCrossingAdapter" value="HANDSHAKE" />
+ <parameter name="device" value="5CSEMA5F31C6" />
+ <parameter name="deviceFamily" value="Cyclone V" />
+ <parameter name="deviceSpeedGrade" value="6" />
+ <parameter name="fabricMode" value="QSYS" />
+ <parameter name="generateLegacySim" value="false" />
+ <parameter name="generationId" value="0" />
+ <parameter name="globalResetBus" value="false" />
+ <parameter name="hdlLanguage" value="VERILOG" />
+ <parameter name="hideFromIPCatalog" value="false" />
+ <parameter name="lockedInterfaceDefinition" value="" />
+ <parameter name="maxAdditionalLatency" value="1" />
+ <parameter name="projectName" value="" />
+ <parameter name="sopcBorderPoints" value="false" />
+ <parameter name="systemHash" value="0" />
+ <parameter name="testBenchDutName" value="" />
+ <parameter name="timeStamp" value="0" />
+ <parameter name="useTestBenchNamingPattern" value="false" />
+ <instanceScript></instanceScript>
+ <interface
+   name="AudioCodecAvalon_0_clock"
+   internal="AudioCodecAvalon_0.clock"
+   type="clock"
+   dir="end" />
+ <interface
+   name="AudioCodecAvalon_0_conduit_end"
+   internal="AudioCodecAvalon_0.conduit_end"
+   type="conduit"
+   dir="end" />
+ <interface
+   name="AudioCodecAvalon_0_left_sink"
+   internal="AudioCodecAvalon_0.left_sink"
+   type="avalon_streaming"
+   dir="end" />
+ <interface
+   name="AudioCodecAvalon_0_left_source"
+   internal="AudioCodecAvalon_0.left_source"
+   type="avalon_streaming"
+   dir="start" />
+ <interface
+   name="AudioCodecAvalon_0_reset"
+   internal="AudioCodecAvalon_0.reset"
+   type="reset"
+   dir="end" />
+ <interface
+   name="AudioCodecAvalon_0_right_sink"
+   internal="AudioCodecAvalon_0.right_sink"
+   type="avalon_streaming"
+   dir="end" />
+ <interface
+   name="AudioCodecAvalon_0_right_source"
+   internal="AudioCodecAvalon_0.right_source"
+   type="avalon_streaming"
+   dir="start" />
+ <interface
+   name="audio_config_avalon_av_config_slave"
+   internal="audio_config.avalon_av_config_slave"
+   type="avalon"
+   dir="end" />
+ <interface
+   name="audio_config_clk"
+   internal="audio_config.clk"
+   type="clock"
+   dir="end" />
+ <interface
+   name="audio_config_external_interface"
+   internal="audio_config.external_interface"
+   type="conduit"
+   dir="end" />
+ <interface
+   name="audio_config_reset"
+   internal="audio_config.reset"
+   type="reset"
+   dir="end" />
+ <interface
+   name="audio_pll_audio_clk"
+   internal="audio_pll.audio_clk"
+   type="clock"
+   dir="start" />
+ <interface
+   name="audio_pll_reset_source"
+   internal="audio_pll.reset_source"
+   type="reset"
+   dir="start" />
+ <interface name="clk_clk_in" internal="clk.clk_in" type="clock" dir="end" />
+ <interface
+   name="clk_clk_in_reset"
+   internal="clk.clk_in_reset"
+   type="reset"
+   dir="end" />
+ <module
+   name="AudioCodecAvalon_0"
+   kind="AudioCodecAvalon"
+   version="1.0"
+   enabled="1">
+  <parameter name="gDataWidth" value="24" />
+  <parameter name="gDataWidthLen" value="5" />
+ </module>
+ <module
+   name="audio_config"
+   kind="altera_up_avalon_audio_and_video_config"
+   version="16.1"
+   enabled="1">
+  <parameter name="AUTO_CLK_CLOCK_RATE" value="-1" />
+  <parameter name="AUTO_DEVICE_FAMILY" value="Cyclone V" />
+  <parameter name="audio_in" value="Line In to ADC" />
+  <parameter name="bit_length" value="24" />
+  <parameter name="board" value="DE1-SoC" />
+  <parameter name="d5m_resolution" value="2592 x 1944" />
+  <parameter name="dac_enable" value="true" />
+  <parameter name="data_format" value="Left Justified" />
+  <parameter name="device">On-Board Peripherals</parameter>
+  <parameter name="eai" value="true" />
+  <parameter name="exposure" value="false" />
+  <parameter name="line_in_bypass" value="false" />
+  <parameter name="mic_attenuation" value="-6dB" />
+  <parameter name="mic_bypass" value="false" />
+  <parameter name="sampling_rate" value="48 kHz" />
+  <parameter name="video_format" value="NTSC" />
+ </module>
+ <module
+   name="audio_pll"
+   kind="altera_up_avalon_audio_pll"
+   version="16.1"
+   enabled="1">
+  <parameter name="AUTO_DEVICE" value="5CSEMA5F31C6" />
+  <parameter name="AUTO_DEVICE_SPEEDGRADE" value="6" />
+  <parameter name="audio_clk_freq" value="12.288" />
+  <parameter name="device_family" value="Cyclone V" />
+  <parameter name="gui_refclk" value="50.0" />
+ </module>
+ <module name="clk" kind="clock_source" version="16.1" enabled="1">
+  <parameter name="clockFrequency" value="50000000" />
+  <parameter name="clockFrequencyKnown" value="true" />
+  <parameter name="inputClockFrequency" value="0" />
+  <parameter name="resetSynchronousEdges" value="NONE" />
+ </module>
+ <connection kind="clock" version="16.1" start="clk.clk" end="audio_pll.ref_clk" />
+ <connection
+   kind="reset"
+   version="16.1"
+   start="clk.clk_reset"
+   end="audio_pll.ref_reset" />
+ <interconnectRequirement for="$system" name="qsys_mm.clockCrossingAdapter" value="HANDSHAKE" />
+ <interconnectRequirement for="$system" name="qsys_mm.enableEccProtection" value="FALSE" />
+ <interconnectRequirement for="$system" name="qsys_mm.insertDefaultSlave" value="FALSE" />
+ <interconnectRequirement for="$system" name="qsys_mm.maxAdditionalLatency" value="1" />
+</system>

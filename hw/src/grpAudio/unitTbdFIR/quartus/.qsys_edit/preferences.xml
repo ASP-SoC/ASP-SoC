@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<preferences>
+ <debug showDebugMenu="0" />
+ <systemtable filter="All Interfaces">
+  <columns>
+   <connections preferredWidth="223" />
+   <irq preferredWidth="34" />
+   <export preferredWidth="253" />
+  </columns>
+ </systemtable>
+ <library expandedCategories="Library,Library/ASP-SoC IP,Project" />
+ <window width="1920" height="1032" x="0" y="0" />
+ <generation synthesis="VHDL" block_symbol_file="0" />
+ <hdlexample language="VHDL" />
+</preferences>

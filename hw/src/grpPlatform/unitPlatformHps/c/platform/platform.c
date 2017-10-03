@@ -1,3 +1,5 @@
+#include "../../../../../../sw/AudioControlDriver/wm8731.h"
+
 #define LED	24
 #define KEY 25
 
@@ -64,6 +66,11 @@ int main(void){
 				vol = 0;
 			}
 			printHex(HEX0_2,vol);
+
+			SetVolume(LEFT, LINE, vol/3);
+			SetVolume(RIGHT, LINE, vol/3);
+		
+			WriteRegSet();
 		}
 		
 		*LEDS = *SWITCHES;

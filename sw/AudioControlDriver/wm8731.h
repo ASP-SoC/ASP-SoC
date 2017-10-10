@@ -12,7 +12,7 @@
 #define WM8731_H_INCLUDED 
 
 #ifndef WM8731_BASE
-	#define WM8731_BASE 0xFF200000
+	#define WM8731_BASE 0xFF200050
 	#warning "WM8731_BASE not defined, defining it as 0xFF200000"
 #endif
 

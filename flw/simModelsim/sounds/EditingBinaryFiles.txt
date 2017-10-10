@@ -1,3 +1,0 @@
-Use Emacs, load the file and switch to hexl-mode:
-1. Alt-X
-2. hexl-mode

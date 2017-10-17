@@ -1,14 +1,20 @@
 
-# ignore generated files from modelsim, emacs
+# ignore generated files
 *.vhd~
 *.wlf
 *.raw
 *.sfk
+
+#modelsim
 *.ini
 transcript
+work/
 
 # quartus
-c5_pin_model_dump.txt
+.qsys_edit/
 db/
+hps_isw_handoff/
 incremental_db/
 output_files/
+c5_pin_model_dump.txt
+hps_sdram_p0_summary.csv

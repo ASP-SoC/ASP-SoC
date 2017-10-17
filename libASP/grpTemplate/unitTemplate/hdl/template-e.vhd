@@ -10,7 +10,7 @@ library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
-entity Delay is
+entity Template is
 
     generic (
         gMaxDelay    : natural :=   100;    -- [ms] maximum delay (until a value is shifted through)
@@ -39,4 +39,4 @@ entity Delay is
         aso_right_valid : out std_logic
     );
 
-end entity Delay;
+end entity Template;

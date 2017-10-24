@@ -4,7 +4,7 @@ package require ::quartus::project
 load_package flow
 
 # open project
-project_open ../libASP/grpPlatform/unitPlatformHps/synlayQuartus/PlatformHps
+project_open PlatformHps
 
 # start
 execute_flow -compile

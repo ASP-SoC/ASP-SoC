@@ -11,37 +11,30 @@ architecture Rtl of ChannelMux is
   -- Types and constants
   ---------------------------------------------------------------------------
   subtype aMuxSel is std_logic_vector (3 downto 0);
+  signal MuxSel : aMuxSel;
 
   constant cSilence : std_logic_vector(gDataWidth-1 downto 0) := (others => '0');
 
-  ---------------------------------------------------------------------------
-  -- Registers
-  ---------------------------------------------------------------------------
-  signal MuxSel : aMuxSel;
-
-
-  signal L, R : std_logic_vector(gDataWidth-1 downto 0);
 
 begin
 
-  ---------------------------------------------------------------------------
-  -- Output logic
-  ---------------------------------------------------------------------------
+  -- combinatoric output logic
   out_mux : process(MuxSel, asi_left_data, asi_left_valid, asi_right_data, asi_right_valid) is
+    variable L, R : std_logic_vector(gDataWidth-1 downto 0);
   begin  -- process out_mux
 
     -- mute left channel
     case MuxSel(3) is
-      when '0'    => L <= asi_left_data;
-      when '1'    => L <= cSilence;
-      when others => L <= (others => '-');
+      when '0'    => L := asi_left_data;
+      when '1'    => L := cSilence;
+      when others => L := (others => 'X');
     end case;
 
     -- mute right channel
     case MuxSel(2) is
-      when '0'    => R <= asi_right_data;
-      when '1'    => R <= cSilence;
-      when others => R <= (others => '-');
+      when '0'    => R := asi_right_data;
+      when '1'    => R := cSilence;
+      when others => R := (others => 'X');
     end case;
 
     -- function cross or skip
@@ -61,10 +54,10 @@ begin
             aso_right_data  <= L;
             aso_right_valid <= asi_left_valid;
           when others =>
-            aso_left_data   <= (others => '-');
-            aso_left_valid  <= '-';
-            aso_right_data  <= (others => '-');
-            aso_right_valid <= '-';
+            aso_left_data   <= (others => 'X');
+            aso_left_valid  <= 'X';
+            aso_right_data  <= (others => 'X');
+            aso_right_valid <= 'X';
         end case;
 
       -- skip channel
@@ -82,41 +75,28 @@ begin
             aso_right_data  <= R;
             aso_right_valid <= asi_right_valid;
           when others =>
-            aso_left_data   <= (others => '-');
-            aso_left_valid  <= '-';
-            aso_right_data  <= (others => '-');
-            aso_right_valid <= '-';
+            aso_left_data   <= (others => 'X');
+            aso_left_valid  <= 'X';
+            aso_right_data  <= (others => 'X');
+            aso_right_valid <= 'X';
         end case;
 
       when others =>
-        aso_left_data   <= (others => '-');
-        aso_left_valid  <= '-';
-        aso_right_data  <= (others => '-');
-        aso_right_valid <= '-';
+        aso_left_data   <= (others => 'X');
+        aso_left_valid  <= 'X';
+        aso_right_data  <= (others => 'X');
+        aso_right_valid <= 'X';
+
     end case;
-
-
 
   end process out_mux;
 
-
-  aso_left_data   <= asi_left_data;
-  aso_left_valid  <= asi_left_valid;
-  aso_right_data  <= asi_right_data;
-  aso_right_valid <= asi_right_valid;
-
-  ---------------------------------------------------------------------------
-  -- Signal assignments
-  ---------------------------------------------------------------------------
-
-  ---------------------------------------------------------------------------
-  -- Logic
-  ---------------------------------------------------------------------------
-
   -- MM INTERFACE for configuration
-  SetConfigReg : process (csi_clk) is
+  SetConfigReg : process (csi_clk, rsi_reset_n) is
   begin
-    if rising_edge(csi_clk) then
+    if rsi_reset_n = not('1') then      -- low active reset
+      MuxSel <= (others => '0');
+    elsif rising_edge(csi_clk) then     -- rising 
       if avs_s0_write = '1' then
         MuxSel <= avs_s0_writedata(MuxSel'range);
       end if;

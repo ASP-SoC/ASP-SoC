@@ -7,4 +7,7 @@ quartus_sh -t PlatformHps.tcl
 :: start synlay
 quartus_sh -t synlay.tcl
 
+:: start programmer
+quartus_pgmw
+
 pause

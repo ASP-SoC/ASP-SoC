@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <EnsembleReport name="Platform" kind="Platform" version="1.0" fabric="QSYS">
  <!-- Format version 16.1 196 (Future versions may contain additional information.) -->
- <!-- 2017.11.07.19:52:39 -->
+ <!-- 2017.11.07.20:56:46 -->
  <!-- A collection of modules and connections -->
  <parameter name="AUTO_GENERATION_ID">
   <type>java.lang.Integer</type>
-  <value>1510080753</value>
+  <value>1510084604</value>
   <derived>false</derived>
   <enabled>true</enabled>
   <visible>false</visible>
@@ -71760,7 +71760,7 @@ parameters are a RESULT of the module parameters. -->
 the requested settings for a module instance. -->
   <parameter name="AUTO_GENERATION_ID">
    <type>java.lang.Integer</type>
-   <value>1510080753</value>
+   <value>1510084604</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>false</visible>
@@ -75470,7 +75470,7 @@ parameters are a RESULT of the module parameters. -->
 the requested settings for a module instance. -->
   <parameter name="AUTO_GENERATION_ID">
    <type>java.lang.Integer</type>
-   <value>1510080753</value>
+   <value>1510084604</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>false</visible>

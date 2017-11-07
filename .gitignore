@@ -4,6 +4,9 @@
 *.wlf
 *.raw
 *.sfk
+*.qws
+*.do~
+*.tcl~
 
 #modelsim
 *.ini

@@ -15,10 +15,10 @@ volatile int *GPIO1_DDR = (int *) 		0xFF709004;
 volatile int *GPIO1_DR_IN = (int *) 	0xFF709050;
 
 volatile int *SWITCHES = (int *) 		0xFF200000;
-volatile int *KEYS = (int *) 			0xFF200030;
-volatile int *HEX0_2 = (int *) 			0xFF200020;
-volatile int *HEX3_5 = (int *) 			0xFF200010;
-volatile int *LEDS = (int *) 			0xFF200040;
+volatile int *KEYS = (int *) 			0xFF200020;
+volatile int *HEX0_2 = (int *) 			0xFF200040;
+volatile int *HEX3_5 = (int *) 			0xFF200030;
+volatile int *LEDS = (int *) 			0xFF200010;
 
 // function prototypes
 int toHex(int num);

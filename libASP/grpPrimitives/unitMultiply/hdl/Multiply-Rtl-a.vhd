@@ -10,95 +10,52 @@ architecture Rtl of Multiply is
   ---------------------------------------------------------------------------
   -- Types and constants
   ---------------------------------------------------------------------------
-  subtype aMuxSel is std_logic_vector (3 downto 0);
-  signal MuxSel : aMuxSel;
+  subtype audio_data_t is sfixed(0 downto -(gDataWidth-1));
 
-  constant cSilence : std_logic_vector(gDataWidth-1 downto 0) := (others => '0');
+  constant silence_c : audio_data_t := (others => '0');
 
+  signal left_fact  : audio_data_t;
+  signal right_fact : audio_data_t;
+
+  signal left_data, right_data : audio_data_t;
+
+  signal right_buf : audio_data_t;
+  signal right_valid_pending : std_ulogic;
 
 begin
 
-  -- combinatoric output logic
-  out_mux : process(MuxSel, asi_left_data, asi_left_valid, asi_right_data, asi_right_valid) is
-    variable L, R : std_logic_vector(gDataWidth-1 downto 0);
-  begin  -- process out_mux
+  calc : process (csi_clk, rsi_reset_n) is
+  begin  -- process calc
+    if rsi_reset_n = '0' then           -- asynchronous reset (active low)
+      right_buf <= silence_c;
+      right_valid_pending <= '0';
+    elsif rising_edge(csi_clk) then     -- rising clock edge
 
-    -- mute left channel
-    case MuxSel(3) is
-      when '0'    => L := asi_left_data;
-      when '1'    => L := cSilence;
-      when others => L := (others => 'X');
-    end case;
+      right_valid_pending <= '0';
+      
+      
+    end if;
+  end process calc;
 
-    -- mute right channel
-    case MuxSel(2) is
-      when '0'    => R := asi_right_data;
-      when '1'    => R := cSilence;
-      when others => R := (others => 'X');
-    end case;
-
-    -- function cross or skip
-    case MuxSel(1) is
-      -- cross channels
-      when '0' =>
-        -- cross or straight
-        case MuxSel(0) is
-          when '0' =>                   -- straight
-            aso_left_data   <= L;
-            aso_left_valid  <= asi_left_valid;
-            aso_right_data  <= R;
-            aso_right_valid <= asi_right_valid;
-          when '1' =>                   -- cross
-            aso_left_data   <= R;
-            aso_left_valid  <= asi_right_valid;
-            aso_right_data  <= L;
-            aso_right_valid <= asi_left_valid;
-          when others =>
-            aso_left_data   <= (others => 'X');
-            aso_left_valid  <= 'X';
-            aso_right_data  <= (others => 'X');
-            aso_right_valid <= 'X';
-        end case;
-
-      -- skip channel
-      when '1' =>
-        -- both L or R
-        case MuxSel(0) is
-          when '0' =>                   -- both left
-            aso_left_data   <= L;
-            aso_left_valid  <= asi_left_valid;
-            aso_right_data  <= L;
-            aso_right_valid <= asi_left_valid;
-          when '1' =>                   -- both right
-            aso_left_data   <= R;
-            aso_left_valid  <= asi_right_valid;
-            aso_right_data  <= R;
-            aso_right_valid <= asi_right_valid;
-          when others =>
-            aso_left_data   <= (others => 'X');
-            aso_left_valid  <= 'X';
-            aso_right_data  <= (others => 'X');
-            aso_right_valid <= 'X';
-        end case;
-
-      when others =>
-        aso_left_data   <= (others => 'X');
-        aso_left_valid  <= 'X';
-        aso_right_data  <= (others => 'X');
-        aso_right_valid <= 'X';
-
-    end case;
-
-  end process out_mux;
 
   -- MM INTERFACE for configuration
   SetConfigReg : process (csi_clk, rsi_reset_n) is
+    variable factor : audio_data_t := silence_c;
   begin
     if rsi_reset_n = not('1') then      -- low active reset
-      MuxSel <= (others => '0');
+      left_fact  <= silence_c;
+      right_fact <= silence_c;
     elsif rising_edge(csi_clk) then     -- rising 
       if avs_s0_write = '1' then
-        MuxSel <= avs_s0_writedata(MuxSel'range);
+        -- convert std_logic_vector to sfixed
+        factor := to_sfixed(avs_s0_writedata(gDataWidth-1 downto 0), 0, -(gDataWidth-1));
+        case avs_s0_address is
+          when '0' =>                   -- factor of left channel
+            left_fact <= factor;
+          when '1' =>                   -- factor of right channel
+            right_fact <= factor;
+          when others => null;
+        end case;
       end if;
     end if;
   end process;

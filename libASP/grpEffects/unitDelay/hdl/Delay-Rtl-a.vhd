@@ -22,16 +22,18 @@ architecture Rtl of Delay is
   type aMemory is array (0 to gMaxDelay) of std_ulogic_vector(asi_data'range);
   signal ramBlock : aMemory := (others => (others => '0'));
 
-  subtype aRamAddress is integer range 0 to gDelay;
-  signal readAddress, writeAddress : aRamAddress;
+  subtype aRamAddress is integer range 0 to gMaxDelay;
+  signal Address : aRamAddress;
+  signal Offset  : aRamAddress;
 
-  
+
 begin
 
   ---------------------------------------------------------------------------
   -- Outputs
   ---------------------------------------------------------------------------
-  
+  aso_valid <= asi_valid;
+
   ---------------------------------------------------------------------------
   -- Signal assignments
   ---------------------------------------------------------------------------
@@ -39,47 +41,52 @@ begin
   ---------------------------------------------------------------------------
   -- Logic
   ---------------------------------------------------------------------------
-  
+
 
   ------------------------------------------------------------------------------
   -- Read and write RAM
   ------------------------------------------------------------------------------
-  ram_rw : process (iClk) is
+  ram_rw : process (csi_clk) is
+    variable readAddress  : aRamAddress;
+    variable writeAddress : aRamAddress;
   begin  -- process ram_rw
-    if rising_edge(iClk) then
-      if asi_valid = '1' then
-        ramBlock(writeAddress) <= iDdry;
+    if rising_edge(csi_clk) then
+      if Offset = 0 then  -- RAM reads old value when reading and writing at the
+        -- same address
+        aso_data <= asi_data;
+      else
+        readAddress  := Address;
+        writeAddress := (Address + Offset) mod gMaxDelay;
+
+        if asi_valid = '1' then
+          ramBlock(writeAddress) <= asi_data;
+        end if;
+        aso_data <= ramBlock(readAddress);      --TODO: write back silence
       end if;
-      oDwet <= ramBlock(readAddress);
+
     end if;
   end process ram_rw;
 
-  
+
   ------------------------------------------------------------------------------
   -- Address pointer logic
   ------------------------------------------------------------------------------
-  address_p : process (iClk, inResetAsync) is
+  address_p : process (csi_clk, rsi_reset_n) is
+
   begin  -- process address_p
-    if inResetAsync = not('1') then     -- asynchronous reset (active low)
-      readAddress  <= 1;
-      writeAddress <= 0;
-    elsif rising_edge(iClk) then        -- rising clock edge
+    if rsi_reset_n = not('1') then      -- asynchronous reset (active low)
+      Address <= 0;
+    elsif rising_edge(csi_clk) then     -- rising clock edge
       -- wait until data is valid
       if asi_valid = '1' then
 
-        -- increase read address
-        if readAddress = gDelay then
-          readAddress <= 0;
+        -- increase address
+        if Address = gMaxDelay-1 then
+          Address <= 0;
         else
-          readAddress <= readAddress + 1;
+          Address <= Address + 1;
         end if;
 
-        -- increase write address
-        if writeAddress = gDelay then
-          writeAddress <= 0;
-        else
-          writeAddress <= writeAddress + 1;
-        end if;
 
       end if;
     end if;
@@ -92,9 +99,10 @@ begin
   begin
     if rising_edge(csi_clk) then
       if avs_s0_write = '1' then  -- bad implementation (jumps in output signal
-                                  -- and reapeating parts when changing delay)
-        readAddress <= 0;
-        writeAddress <= to_integer(unsigned(avs_s0_writedata(LogDualis(dMaxDelay)-1 downto 0)));
+        -- and reapeating parts when changing delay)
+        --readAddress  <= 0;
+        Offset <= to_integer(unsigned(avs_s0_writedata(LogDualis(gMaxDelay)-1 downto 0)));
+        --TODO: scale output to 0
       end if;
     end if;
   end process;

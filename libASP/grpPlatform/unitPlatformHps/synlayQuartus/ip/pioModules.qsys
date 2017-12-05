@@ -110,13 +110,13 @@
    type="conduit"
    dir="end" />
  <interface name="switches_s1" internal="switches.s1" type="avalon" dir="end" />
- <module name="clk" kind="clock_source" version="16.1" enabled="1">
+ <module name="clk" kind="clock_source" version="17.1" enabled="1">
   <parameter name="clockFrequency" value="50000000" />
   <parameter name="clockFrequencyKnown" value="true" />
   <parameter name="inputClockFrequency" value="0" />
   <parameter name="resetSynchronousEdges" value="NONE" />
  </module>
- <module name="hex0_2" kind="altera_avalon_pio" version="16.1" enabled="1">
+ <module name="hex0_2" kind="altera_avalon_pio" version="17.1" enabled="1">
   <parameter name="bitClearingEdgeCapReg" value="false" />
   <parameter name="bitModifyingOutReg" value="false" />
   <parameter name="captureEdge" value="false" />
@@ -125,12 +125,12 @@
   <parameter name="edgeType" value="RISING" />
   <parameter name="generateIRQ" value="false" />
   <parameter name="irqType" value="LEVEL" />
-  <parameter name="resetValue" value="0" />
+  <parameter name="resetValue" value="15" />
   <parameter name="simDoTestBenchWiring" value="false" />
   <parameter name="simDrivenValue" value="0" />
   <parameter name="width" value="21" />
  </module>
- <module name="hex3_5" kind="altera_avalon_pio" version="16.1" enabled="1">
+ <module name="hex3_5" kind="altera_avalon_pio" version="17.1" enabled="1">
   <parameter name="bitClearingEdgeCapReg" value="false" />
   <parameter name="bitModifyingOutReg" value="false" />
   <parameter name="captureEdge" value="false" />
@@ -139,12 +139,12 @@
   <parameter name="edgeType" value="RISING" />
   <parameter name="generateIRQ" value="false" />
   <parameter name="irqType" value="LEVEL" />
-  <parameter name="resetValue" value="0" />
+  <parameter name="resetValue" value="15" />
   <parameter name="simDoTestBenchWiring" value="false" />
   <parameter name="simDrivenValue" value="0" />
   <parameter name="width" value="21" />
  </module>
- <module name="keys" kind="altera_avalon_pio" version="16.1" enabled="1">
+ <module name="keys" kind="altera_avalon_pio" version="17.1" enabled="1">
   <parameter name="bitClearingEdgeCapReg" value="false" />
   <parameter name="bitModifyingOutReg" value="false" />
   <parameter name="captureEdge" value="false" />
@@ -158,7 +158,7 @@
   <parameter name="simDrivenValue" value="0" />
   <parameter name="width" value="3" />
  </module>
- <module name="leds" kind="altera_avalon_pio" version="16.1" enabled="1">
+ <module name="leds" kind="altera_avalon_pio" version="17.1" enabled="1">
   <parameter name="bitClearingEdgeCapReg" value="false" />
   <parameter name="bitModifyingOutReg" value="false" />
   <parameter name="captureEdge" value="false" />
@@ -167,12 +167,12 @@
   <parameter name="edgeType" value="RISING" />
   <parameter name="generateIRQ" value="false" />
   <parameter name="irqType" value="LEVEL" />
-  <parameter name="resetValue" value="0" />
+  <parameter name="resetValue" value="1" />
   <parameter name="simDoTestBenchWiring" value="false" />
   <parameter name="simDrivenValue" value="0" />
   <parameter name="width" value="10" />
  </module>
- <module name="switches" kind="altera_avalon_pio" version="16.1" enabled="1">
+ <module name="switches" kind="altera_avalon_pio" version="17.1" enabled="1">
   <parameter name="bitClearingEdgeCapReg" value="false" />
   <parameter name="bitModifyingOutReg" value="false" />
   <parameter name="captureEdge" value="false" />
@@ -186,20 +186,20 @@
   <parameter name="simDrivenValue" value="0" />
   <parameter name="width" value="10" />
  </module>
- <connection kind="clock" version="16.1" start="clk.clk" end="leds.clk" />
- <connection kind="clock" version="16.1" start="clk.clk" end="switches.clk" />
- <connection kind="clock" version="16.1" start="clk.clk" end="keys.clk" />
- <connection kind="clock" version="16.1" start="clk.clk" end="hex0_2.clk" />
- <connection kind="clock" version="16.1" start="clk.clk" end="hex3_5.clk" />
- <connection kind="reset" version="16.1" start="clk.clk_reset" end="leds.reset" />
+ <connection kind="clock" version="17.1" start="clk.clk" end="leds.clk" />
+ <connection kind="clock" version="17.1" start="clk.clk" end="switches.clk" />
+ <connection kind="clock" version="17.1" start="clk.clk" end="keys.clk" />
+ <connection kind="clock" version="17.1" start="clk.clk" end="hex0_2.clk" />
+ <connection kind="clock" version="17.1" start="clk.clk" end="hex3_5.clk" />
+ <connection kind="reset" version="17.1" start="clk.clk_reset" end="leds.reset" />
  <connection
    kind="reset"
-   version="16.1"
+   version="17.1"
    start="clk.clk_reset"
    end="switches.reset" />
- <connection kind="reset" version="16.1" start="clk.clk_reset" end="keys.reset" />
- <connection kind="reset" version="16.1" start="clk.clk_reset" end="hex0_2.reset" />
- <connection kind="reset" version="16.1" start="clk.clk_reset" end="hex3_5.reset" />
+ <connection kind="reset" version="17.1" start="clk.clk_reset" end="keys.reset" />
+ <connection kind="reset" version="17.1" start="clk.clk_reset" end="hex0_2.reset" />
+ <connection kind="reset" version="17.1" start="clk.clk_reset" end="hex3_5.reset" />
  <interconnectRequirement for="$system" name="qsys_mm.clockCrossingAdapter" value="HANDSHAKE" />
  <interconnectRequirement for="$system" name="qsys_mm.enableEccProtection" value="FALSE" />
  <interconnectRequirement for="$system" name="qsys_mm.insertDefaultSlave" value="FALSE" />

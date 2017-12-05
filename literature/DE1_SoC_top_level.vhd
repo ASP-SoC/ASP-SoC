@@ -107,7 +107,8 @@ entity DE1_SoC_top_level is
     -- GPIO_1           : inout std_logic_vector(35 downto 0);
 
    -- HPS
-   --HPS_CONV_USB_N   : inout std_logic;
+    --HPS_CONV_USB_N   : inout std_logic;
+    
    --HPS_DDR3_ADDR    : out   std_logic_vector(14 downto 0);
    --HPS_DDR3_BA      : out   std_logic_vector(2 downto 0);
    --HPS_DDR3_CAS_N   : out   std_logic;
@@ -123,7 +124,8 @@ entity DE1_SoC_top_level is
    --HPS_DDR3_RAS_N   : out   std_logic;
    --HPS_DDR3_RESET_N : out   std_logic;
    --HPS_DDR3_RZQ     : in    std_logic;
-   --HPS_DDR3_WE_N    : out   std_logic;
+    --HPS_DDR3_WE_N    : out   std_logic;
+    
    --HPS_ENET_GTX_CLK : out   std_logic;
    --HPS_ENET_INT_N   : inout std_logic;
    --HPS_ENET_MDC     : out   std_logic;

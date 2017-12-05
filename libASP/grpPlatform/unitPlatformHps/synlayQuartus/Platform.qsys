@@ -97,6 +97,32 @@
          type = "String";
       }
    }
+   element ChannelMux_0
+   {
+      datum _sortIndex
+      {
+         value = "4";
+         type = "int";
+      }
+      datum sopceditor_expanded
+      {
+         value = "1";
+         type = "boolean";
+      }
+   }
+   element ChannelMux_0.s0
+   {
+      datum _lockedAddress
+      {
+         value = "1";
+         type = "boolean";
+      }
+      datum baseAddress
+      {
+         value = "96";
+         type = "String";
+      }
+   }
    element Platform
    {
       datum _originalDeviceFamily
@@ -115,6 +141,11 @@
    }
    element audio.config
    {
+      datum _lockedAddress
+      {
+         value = "1";
+         type = "boolean";
+      }
       datum baseAddress
       {
          value = "80";
@@ -144,33 +175,53 @@
    }
    element pio.hex0_2_s1
    {
+      datum _lockedAddress
+      {
+         value = "1";
+         type = "boolean";
+      }
       datum baseAddress
       {
-         value = "32";
+         value = "64";
          type = "String";
       }
    }
    element pio.hex3_5_s1
    {
-      datum baseAddress
+      datum _lockedAddress
       {
-         value = "16";
-         type = "String";
+         value = "1";
+         type = "boolean";
       }
-   }
-   element pio.keys_s1
-   {
       datum baseAddress
       {
          value = "48";
          type = "String";
       }
    }
-   element pio.leds_s1
+   element pio.keys_s1
    {
+      datum _lockedAddress
+      {
+         value = "1";
+         type = "boolean";
+      }
       datum baseAddress
       {
-         value = "64";
+         value = "32";
+         type = "String";
+      }
+   }
+   element pio.leds_s1
+   {
+      datum _lockedAddress
+      {
+         value = "1";
+         type = "boolean";
+      }
+      datum baseAddress
+      {
+         value = "16";
          type = "String";
       }
    }
@@ -745,6 +796,9 @@
   <parameter name="usb_mp_clk_div" value="0" />
   <parameter name="use_default_mpu_clk" value="true" />
  </module>
+ <module name="ChannelMux_0" kind="ChannelMux" version="1.0" enabled="1">
+  <parameter name="gDataWidth" value="24" />
+ </module>
  <module name="audio" kind="AudioCodecSubSytem" version="1.0" enabled="1">
   <parameter name="AUTO_CLK_CLOCK_DOMAIN" value="1" />
   <parameter name="AUTO_CLK_CLOCK_RATE" value="50000000" />
@@ -786,7 +840,7 @@
    start="ARM_A9_HPS.h2f_lw_axi_master"
    end="pio.hex0_2_s1">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x0020" />
+  <parameter name="baseAddress" value="0x0040" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -795,7 +849,7 @@
    start="ARM_A9_HPS.h2f_lw_axi_master"
    end="pio.hex3_5_s1">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x0010" />
+  <parameter name="baseAddress" value="0x0030" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -804,7 +858,7 @@
    start="ARM_A9_HPS.h2f_lw_axi_master"
    end="pio.keys_s1">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x0030" />
+  <parameter name="baseAddress" value="0x0020" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -813,7 +867,16 @@
    start="ARM_A9_HPS.h2f_lw_axi_master"
    end="pio.leds_s1">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x0040" />
+  <parameter name="baseAddress" value="0x0010" />
+  <parameter name="defaultConnection" value="false" />
+ </connection>
+ <connection
+   kind="avalon"
+   version="16.1"
+   start="ARM_A9_HPS.h2f_lw_axi_master"
+   end="ChannelMux_0.s0">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x0060" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -828,15 +891,26 @@
  <connection
    kind="avalon_streaming"
    version="16.1"
-   start="audio.left_source"
+   start="ChannelMux_0.left_source"
    end="audio.left_sink" />
  <connection
    kind="avalon_streaming"
    version="16.1"
+   start="audio.left_source"
+   end="ChannelMux_0.left_sink" />
+ <connection
+   kind="avalon_streaming"
+   version="16.1"
    start="audio.right_source"
+   end="ChannelMux_0.right_sink" />
+ <connection
+   kind="avalon_streaming"
+   version="16.1"
+   start="ChannelMux_0.right_source"
    end="audio.right_sink" />
  <connection kind="clock" version="16.1" start="clk.clk" end="audio.clk" />
  <connection kind="clock" version="16.1" start="clk.clk" end="pio.clk" />
+ <connection kind="clock" version="16.1" start="clk.clk" end="ChannelMux_0.clock" />
  <connection
    kind="clock"
    version="16.1"
@@ -847,6 +921,11 @@
  <connection
    kind="reset"
    version="16.1"
+   start="clk.clk_reset"
+   end="ChannelMux_0.reset" />
+ <connection
+   kind="reset"
+   version="16.1"
    start="ARM_A9_HPS.h2f_reset"
    end="pio.reset" />
  <connection
@@ -854,6 +933,11 @@
    version="16.1"
    start="ARM_A9_HPS.h2f_reset"
    end="audio.reset" />
+ <connection
+   kind="reset"
+   version="16.1"
+   start="ARM_A9_HPS.h2f_reset"
+   end="ChannelMux_0.reset" />
  <interconnectRequirement for="$system" name="qsys_mm.clockCrossingAdapter" value="HANDSHAKE" />
  <interconnectRequirement for="$system" name="qsys_mm.enableEccProtection" value="FALSE" />
  <interconnectRequirement for="$system" name="qsys_mm.insertDefaultSlave" value="FALSE" />

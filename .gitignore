@@ -27,4 +27,5 @@ hps_sdram_p0_summary.csv
 # unit specific
 Platform/
 
-
+# ignore generated files
+build/

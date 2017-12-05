@@ -19,7 +19,7 @@ architecture Rtl of Delay is
   ---------------------------------------------------------------------------
   signal DelayValReg : unsigned(LogDualis(gMaxDelay)-1 downto 0);
 
-  type aMemory is array (0 to gMaxDelay) of std_ulogic_vector(asi_data'range);
+  type aMemory is array (0 to gMaxDelay) of std_logic_vector(asi_data'range);
   signal ramBlock : aMemory := (others => (others => '0'));
 
   subtype aRamAddress is integer range 0 to gMaxDelay;

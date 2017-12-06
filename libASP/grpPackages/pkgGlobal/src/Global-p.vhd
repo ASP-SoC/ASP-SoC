@@ -36,6 +36,11 @@ package Global is
   -- is used.
   constant cResetActive : std_ulogic := cnActivated;
 
+  -- fract_real
+  subtype fract_real is real range
+    -1.0 to 0.99999999999999999999999999999999999999999999999999999999999999999;
+
+  type fract_set_t is array (natural range<>) of fract_real;
   ------------------------------------------------------------------------------
   -- Function Definitions
   ------------------------------------------------------------------------------

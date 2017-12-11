@@ -47,8 +47,8 @@ entity Dds is
 
     -- Avalon MM Slave Port s1 - used for phase increment and enable
     -- not enable also clear the phase register
-    -- address 0 => enable register (1 bit) : '1' => enable, '0' => not enable
-    -- address 1 => phase increment (phase_bits_g bits) => 0 no phase increment
+    -- address + 0 => enable register (1 bit) : '1' => enable, '0' => not enable
+    -- address + 1 => phase increment (phase_bits_g bits) => 0 no phase increment
     avs_s1_write     : in std_logic;
     avs_s1_address   : in std_logic;
     avs_s1_writedata : in std_logic_vector(31 downto 0);

@@ -25,7 +25,11 @@ architecture Rtl of Dds is
     return tmp;
   end init_ram;
 
-  signal wave_table : memory_t := init_ram;
+  -- doesn't work with init ram function, quartus generates no memory
+  signal wave_table : memory_t;-- := init_ram;
+
+  --attribute ramstyle               : string;
+  --attribute ramstyle of wave_table : signal is "MLAB";
 
   signal ram_addr : natural range 0 to wave_table'length-1;
   signal ram_d    : entry_t;

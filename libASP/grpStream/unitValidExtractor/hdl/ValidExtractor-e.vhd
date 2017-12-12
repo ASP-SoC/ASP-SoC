@@ -1,8 +1,8 @@
 -------------------------------------------------------------------------------
--- Title       : Channel Mux
--- Author      : Franz Steinbacher
+-- Title       : Avalon Valid Extractor
+-- Author      : David Haberleitner
 -------------------------------------------------------------------------------
--- Description : Unit Mux left and right channel
+-- Description : Provide valid signal as avalon and also as conduit
 -------------------------------------------------------------------------------
 
 library ieee;

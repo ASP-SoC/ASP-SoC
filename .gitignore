@@ -12,6 +12,7 @@
 *.ini
 transcript
 work/
+ieee_proposed/
 
 # quartus
 .qsys_edit/

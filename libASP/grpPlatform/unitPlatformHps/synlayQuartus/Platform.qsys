@@ -106,7 +106,7 @@
       }
       datum sopceditor_expanded
       {
-         value = "0";
+         value = "1";
          type = "boolean";
       }
    }
@@ -131,6 +131,30 @@
          type = "String";
       }
    }
+   element Platform
+   {
+      datum _originalDeviceFamily
+      {
+         value = "Cyclone V";
+         type = "String";
+      }
+   }
+   element Platform
+   {
+      datum _originalDeviceFamily
+      {
+         value = "Cyclone V";
+         type = "String";
+      }
+   }
+   element Platform
+   {
+      datum _originalDeviceFamily
+      {
+         value = "Cyclone V";
+         type = "String";
+      }
+   }
    element audio
    {
       datum _sortIndex
@@ -140,7 +164,7 @@
       }
       datum sopceditor_expanded
       {
-         value = "0";
+         value = "1";
          type = "boolean";
       }
    }
@@ -151,9 +175,27 @@
          value = "1";
          type = "boolean";
       }
+      datum _tags
+      {
+         value = "";
+         type = "String";
+      }
       datum baseAddress
       {
          value = "80";
+         type = "String";
+      }
+   }
+   element audio.source_mux
+   {
+      datum _lockedAddress
+      {
+         value = "1";
+         type = "boolean";
+      }
+      datum baseAddress
+      {
+         value = "112";
          type = "String";
       }
    }
@@ -264,14 +306,15 @@
  <interface name="hex3_5" internal="pio.hex3_5" type="conduit" dir="end" />
  <interface name="hps_io" internal="ARM_A9_HPS.hps_io" type="conduit" dir="end" />
  <interface name="i2c" internal="audio.i2c" type="conduit" dir="end" />
- <interface name="i2s" internal="audio.i2s" type="conduit" dir="end" />
+ <interface name="i2s_codec" internal="audio.i2s_codec" type="conduit" dir="end" />
+ <interface name="i2s_gpio" internal="audio.i2s_gpio" type="conduit" dir="end" />
  <interface name="keys" internal="pio.keys" type="conduit" dir="end" />
  <interface name="leds" internal="pio.leds" type="conduit" dir="end" />
  <interface name="memory" internal="ARM_A9_HPS.memory" type="conduit" dir="end" />
  <interface name="reset" internal="clk.clk_in_reset" type="reset" dir="end" />
  <interface name="switches" internal="pio.switches" type="conduit" dir="end" />
  <interface name="xck" internal="audio.audio_clk" type="clock" dir="start" />
- <module name="ARM_A9_HPS" kind="altera_hps" version="17.1" enabled="1">
+ <module name="ARM_A9_HPS" kind="altera_hps" version="16.1" enabled="1">
   <parameter name="ABSTRACT_REAL_COMPARE_TEST" value="false" />
   <parameter name="ABS_RAM_MEM_INIT_FILENAME" value="meminit" />
   <parameter name="ACV_PHY_CLK_ADD_FR_PHASE" value="0.0" />
@@ -805,34 +848,34 @@
   <parameter name="gDataWidth" value="24" />
  </module>
  <module name="audio" kind="AudioCodecSubSytem" version="1.0" enabled="1">
-  <parameter name="AUTO_CLK_CLOCK_DOMAIN" value="2" />
+  <parameter name="AUTO_CLK_CLOCK_DOMAIN" value="1" />
   <parameter name="AUTO_CLK_CLOCK_RATE" value="50000000" />
-  <parameter name="AUTO_CLK_RESET_DOMAIN" value="2" />
+  <parameter name="AUTO_CLK_RESET_DOMAIN" value="1" />
   <parameter name="AUTO_DEVICE" value="5CSEMA5F31C6" />
   <parameter name="AUTO_DEVICE_FAMILY" value="Cyclone V" />
   <parameter name="AUTO_DEVICE_SPEEDGRADE" value="6" />
   <parameter name="AUTO_GENERATION_ID" value="0" />
-  <parameter name="AUTO_UNIQUE_ID" value="Platform_audio" />
+  <parameter name="AUTO_UNIQUE_ID" value="$${FILENAME}_audio" />
  </module>
- <module name="clk" kind="clock_source" version="17.1" enabled="1">
+ <module name="clk" kind="clock_source" version="16.1" enabled="1">
   <parameter name="clockFrequency" value="50000000" />
   <parameter name="clockFrequencyKnown" value="true" />
   <parameter name="inputClockFrequency" value="0" />
   <parameter name="resetSynchronousEdges" value="NONE" />
  </module>
  <module name="pio" kind="pioModules" version="1.0" enabled="1">
-  <parameter name="AUTO_CLK_CLOCK_DOMAIN" value="2" />
+  <parameter name="AUTO_CLK_CLOCK_DOMAIN" value="1" />
   <parameter name="AUTO_CLK_CLOCK_RATE" value="50000000" />
-  <parameter name="AUTO_CLK_RESET_DOMAIN" value="2" />
+  <parameter name="AUTO_CLK_RESET_DOMAIN" value="1" />
   <parameter name="AUTO_DEVICE" value="5CSEMA5F31C6" />
   <parameter name="AUTO_DEVICE_FAMILY" value="Cyclone V" />
   <parameter name="AUTO_DEVICE_SPEEDGRADE" value="6" />
   <parameter name="AUTO_GENERATION_ID" value="0" />
-  <parameter name="AUTO_UNIQUE_ID" value="Platform_pio" />
+  <parameter name="AUTO_UNIQUE_ID" value="$${FILENAME}_pio" />
  </module>
  <connection
    kind="avalon"
-   version="17.1"
+   version="16.1"
    start="ARM_A9_HPS.h2f_lw_axi_master"
    end="audio.config">
   <parameter name="arbitrationPriority" value="1" />
@@ -841,7 +884,7 @@
  </connection>
  <connection
    kind="avalon"
-   version="17.1"
+   version="16.1"
    start="ARM_A9_HPS.h2f_lw_axi_master"
    end="pio.hex0_2_s1">
   <parameter name="arbitrationPriority" value="1" />
@@ -850,7 +893,7 @@
  </connection>
  <connection
    kind="avalon"
-   version="17.1"
+   version="16.1"
    start="ARM_A9_HPS.h2f_lw_axi_master"
    end="pio.hex3_5_s1">
   <parameter name="arbitrationPriority" value="1" />
@@ -859,7 +902,7 @@
  </connection>
  <connection
    kind="avalon"
-   version="17.1"
+   version="16.1"
    start="ARM_A9_HPS.h2f_lw_axi_master"
    end="pio.keys_s1">
   <parameter name="arbitrationPriority" value="1" />
@@ -868,7 +911,7 @@
  </connection>
  <connection
    kind="avalon"
-   version="17.1"
+   version="16.1"
    start="ARM_A9_HPS.h2f_lw_axi_master"
    end="pio.leds_s1">
   <parameter name="arbitrationPriority" value="1" />
@@ -877,7 +920,7 @@
  </connection>
  <connection
    kind="avalon"
-   version="17.1"
+   version="16.1"
    start="ARM_A9_HPS.h2f_lw_axi_master"
    end="ChannelMux_0.s0">
   <parameter name="arbitrationPriority" value="1" />
@@ -886,7 +929,16 @@
  </connection>
  <connection
    kind="avalon"
-   version="17.1"
+   version="16.1"
+   start="ARM_A9_HPS.h2f_lw_axi_master"
+   end="audio.source_mux">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x0070" />
+  <parameter name="defaultConnection" value="false" />
+ </connection>
+ <connection
+   kind="avalon"
+   version="16.1"
    start="ARM_A9_HPS.h2f_lw_axi_master"
    end="pio.switches_s1">
   <parameter name="arbitrationPriority" value="1" />
@@ -895,52 +947,52 @@
  </connection>
  <connection
    kind="avalon_streaming"
-   version="17.1"
+   version="16.1"
    start="ChannelMux_0.left_source"
    end="audio.left_sink" />
  <connection
    kind="avalon_streaming"
-   version="17.1"
+   version="16.1"
    start="audio.left_source"
    end="ChannelMux_0.left_sink" />
  <connection
    kind="avalon_streaming"
-   version="17.1"
+   version="16.1"
    start="audio.right_source"
    end="ChannelMux_0.right_sink" />
  <connection
    kind="avalon_streaming"
-   version="17.1"
+   version="16.1"
    start="ChannelMux_0.right_source"
    end="audio.right_sink" />
- <connection kind="clock" version="17.1" start="clk.clk" end="audio.clk" />
- <connection kind="clock" version="17.1" start="clk.clk" end="pio.clk" />
- <connection kind="clock" version="17.1" start="clk.clk" end="ChannelMux_0.clock" />
+ <connection kind="clock" version="16.1" start="clk.clk" end="audio.clk" />
+ <connection kind="clock" version="16.1" start="clk.clk" end="pio.clk" />
+ <connection kind="clock" version="16.1" start="clk.clk" end="ChannelMux_0.clock" />
  <connection
    kind="clock"
-   version="17.1"
+   version="16.1"
    start="clk.clk"
    end="ARM_A9_HPS.h2f_lw_axi_clock" />
- <connection kind="reset" version="17.1" start="clk.clk_reset" end="audio.reset" />
- <connection kind="reset" version="17.1" start="clk.clk_reset" end="pio.reset" />
+ <connection kind="reset" version="16.1" start="clk.clk_reset" end="audio.reset" />
+ <connection kind="reset" version="16.1" start="clk.clk_reset" end="pio.reset" />
  <connection
    kind="reset"
-   version="17.1"
+   version="16.1"
    start="clk.clk_reset"
    end="ChannelMux_0.reset" />
  <connection
    kind="reset"
-   version="17.1"
+   version="16.1"
    start="ARM_A9_HPS.h2f_reset"
    end="pio.reset" />
  <connection
    kind="reset"
-   version="17.1"
+   version="16.1"
    start="ARM_A9_HPS.h2f_reset"
    end="audio.reset" />
  <connection
    kind="reset"
-   version="17.1"
+   version="16.1"
    start="ARM_A9_HPS.h2f_reset"
    end="ChannelMux_0.reset" />
  <interconnectRequirement for="$system" name="qsys_mm.clockCrossingAdapter" value="HANDSHAKE" />

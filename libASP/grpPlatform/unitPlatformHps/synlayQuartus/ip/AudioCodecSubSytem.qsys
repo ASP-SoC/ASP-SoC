@@ -6,9 +6,17 @@
    version="1.0"
    description=""
    tags=""
-   categories="" />
+   categories="System" />
  <parameter name="bonusData"><![CDATA[bonusData 
 {
+   element I2S_Codec_Pin_Multiplex_0
+   {
+      datum _sortIndex
+      {
+         value = "4";
+         type = "int";
+      }
+   }
    element audio_codec
    {
       datum _sortIndex
@@ -79,8 +87,13 @@
    type="conduit"
    dir="end" />
  <interface
-   name="i2s"
-   internal="audio_codec.conduit_end"
+   name="i2s_codec"
+   internal="I2S_Codec_Pin_Multiplex_0.IF_CODEC"
+   type="conduit"
+   dir="end" />
+ <interface
+   name="i2s_gpio"
+   internal="I2S_Codec_Pin_Multiplex_0.IF_GPIO"
    type="conduit"
    dir="end" />
  <interface
@@ -104,6 +117,19 @@
    internal="audio_codec.right_source"
    type="avalon_streaming"
    dir="start" />
+ <interface
+   name="source_mux"
+   internal="I2S_Codec_Pin_Multiplex_0.s0"
+   type="avalon"
+   dir="end" />
+ <module
+   name="I2S_Codec_Pin_Multiplex_0"
+   kind="I2S_Codec_Pin_Multiplex"
+   version="1.0"
+   enabled="1">
+  <parameter name="gDataWidth" value="24" />
+  <parameter name="gDataWidthLen" value="5" />
+ </module>
  <module name="audio_codec" kind="AudioCodecAvalon" version="1.0" enabled="1">
   <parameter name="gDataWidth" value="24" />
  </module>
@@ -148,7 +174,23 @@
  </module>
  <connection kind="clock" version="16.1" start="clk.clk" end="audio_config.clk" />
  <connection kind="clock" version="16.1" start="clk.clk" end="audio_codec.clock" />
+ <connection
+   kind="clock"
+   version="16.1"
+   start="clk.clk"
+   end="I2S_Codec_Pin_Multiplex_0.clock_sink" />
  <connection kind="clock" version="16.1" start="clk.clk" end="audio_pll.ref_clk" />
+ <connection
+   kind="conduit"
+   version="16.1"
+   start="audio_codec.conduit_end"
+   end="I2S_Codec_Pin_Multiplex_0.IF_SYSTEM">
+  <parameter name="endPort" value="" />
+  <parameter name="endPortLSB" value="0" />
+  <parameter name="startPort" value="" />
+  <parameter name="startPortLSB" value="0" />
+  <parameter name="width" value="0" />
+ </connection>
  <connection
    kind="reset"
    version="16.1"
@@ -164,6 +206,11 @@
    version="16.1"
    start="clk.clk_reset"
    end="audio_codec.reset" />
+ <connection
+   kind="reset"
+   version="16.1"
+   start="clk.clk_reset"
+   end="I2S_Codec_Pin_Multiplex_0.reset_sink" />
  <interconnectRequirement for="$system" name="qsys_mm.clockCrossingAdapter" value="HANDSHAKE" />
  <interconnectRequirement for="$system" name="qsys_mm.enableEccProtection" value="FALSE" />
  <interconnectRequirement for="$system" name="qsys_mm.insertDefaultSlave" value="FALSE" />

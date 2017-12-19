@@ -4,3 +4,6 @@
 [submodule "linux/image-de1soc"]
 	path = linux/image-de1soc
 	url = git@github.com:ASP-SoC/image-de1-soc.git
+[submodule "gui"]
+	path = gui
+	url = git@github.com:ASP-SoC/gui.git

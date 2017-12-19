@@ -72,7 +72,7 @@ begin  -- architecture Rtl
   begin  -- process
     a_scaled := ch_a * fact_a_g;
     b_scaled := ch_b * fact_b_g;
-    res <= resize(a_scaled + b_scaled, res); 
+    res <= resize(a_scaled + b_scaled, 0, -(data_width_g-1)); 
   end process;
 
   -- convert result to avalon stream

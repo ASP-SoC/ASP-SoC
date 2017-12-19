@@ -115,18 +115,18 @@ add_interface_port reset rsi_reset_n reset_n Input 1
 
 
 # 
-# connection point conduit_end_0
+# connection point strobe
 # 
-add_interface conduit_end_0 conduit end
-set_interface_property conduit_end_0 associatedClock clock
-set_interface_property conduit_end_0 associatedReset ""
-set_interface_property conduit_end_0 ENABLED true
-set_interface_property conduit_end_0 EXPORT_OF ""
-set_interface_property conduit_end_0 PORT_NAME_MAP ""
-set_interface_property conduit_end_0 CMSIS_SVD_VARIABLES ""
-set_interface_property conduit_end_0 SVD_ADDRESS_GROUP ""
+add_interface strobe conduit end
+set_interface_property strobe associatedClock clock
+set_interface_property strobe associatedReset reset
+set_interface_property strobe ENABLED true
+set_interface_property strobe EXPORT_OF ""
+set_interface_property strobe PORT_NAME_MAP ""
+set_interface_property strobe CMSIS_SVD_VARIABLES ""
+set_interface_property strobe SVD_ADDRESS_GROUP ""
 
-add_interface_port conduit_end_0 coe_sample_strobe export Input 1
+add_interface_port strobe coe_sample_strobe export Input 1
 
 
 # 

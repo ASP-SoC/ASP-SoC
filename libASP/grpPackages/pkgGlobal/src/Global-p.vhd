@@ -1,10 +1,8 @@
 -------------------------------------------------------------------------------
 -- Title      : Global Project Package
--- Project    :
--- $Id: $
+-- Project    : ASP-SoC
 -------------------------------------------------------------------------------
--- Description:
---
+-- Description: Global definitons
 -------------------------------------------------------------------------------
 library ieee;
 use ieee.std_logic_1164.all;
@@ -42,7 +40,13 @@ package Global is
 
   type fract_set_t is array (natural range<>) of fract_real;
 
+  -- default sample rate
   constant default_sample_rate_c : natural := 44117;
+  constant sample_time : time := 1 sec / real(default_sample_rate_c);
+
+  -- data width
+  -- for streaming interface and audio data
+  constant data_width_c : natural := 24;
 
   ------------------------------------------------------------------------------
   -- Function Definitions

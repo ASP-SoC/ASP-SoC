@@ -1,0 +1,6 @@
+[submodule "linux/linux-de1soc"]
+	path = linux/linux-de1soc
+	url = git@github.com:ASP-SoC/linux-socfpga.git
+[submodule "linux/image-de1soc"]
+	path = linux/image-de1soc
+	url = git@github.com:ASP-SoC/image-de1-soc.git

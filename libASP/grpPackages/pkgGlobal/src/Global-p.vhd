@@ -16,8 +16,8 @@ package Global is
   -----------------------------------------------------------------------------
   -- Avoid the traps of inverted logic and make the code more text like by
   -- reducing numbers.
-  constant cActivated    : std_ulogic := '1';
-  constant cInactivated  : std_ulogic := '0';
+  constant cActivated   : std_ulogic := '1';
+  constant cInactivated : std_ulogic := '0';
 
   -- Now the same for inverted logic.
   constant cnActivated   : std_ulogic := '0';
@@ -36,11 +36,19 @@ package Global is
   -- is used.
   constant cResetActive : std_ulogic := cnActivated;
 
+  -- fract_real
+  subtype fract_real is real range
+    -1.0 to 0.99999999999999999999999999999999999999999999999999999999999999999;
+
+  type fract_set_t is array (natural range<>) of fract_real;
+
+  constant default_sample_rate_c : natural := 44117;
+
   ------------------------------------------------------------------------------
   -- Function Definitions
   ------------------------------------------------------------------------------
   -- function log2 returns the logarithm of base 2 as an integer
-  function LogDualis(cNumber     : natural) return natural;
+  function LogDualis(cNumber : natural) return natural;
 
 end Global;
 

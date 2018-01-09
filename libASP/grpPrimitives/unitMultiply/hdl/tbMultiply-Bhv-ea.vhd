@@ -24,7 +24,7 @@ architecture bhv of tbMultiply is
   constant data_width_g : natural := 24;
 
   constant left_fact  : real := 0.5;
-  constant right_fact : real := 0.25;
+  constant right_fact : real := 0.5;
 
   subtype audio_data_t is u_sfixed(0 downto -(data_width_g-1));
 
@@ -44,12 +44,15 @@ architecture bhv of tbMultiply is
   signal aso_right_data   : std_logic_vector(data_width_g-1 downto 0);
   signal aso_right_valid  : std_logic;
 
+  signal left_data  : audio_data_t;
+  signal right_data : audio_data_t;
+
   -- test time
   constant test_time_c : time := 20 ns;
 
   -- audio data
-  signal sample_strobe : std_ulogic                           := '0';
-  signal audio_data    : u_sfixed(0 downto -(data_width_g-1)) := (others => '0');
+  signal sample_strobe, strobe2 : std_ulogic                           := '0';
+  signal audio_data             : u_sfixed(0 downto -(data_width_g-1)) := (others => '0');
 
 
 begin
@@ -72,6 +75,9 @@ begin
       aso_right_data   => aso_right_data,
       aso_right_valid  => aso_right_valid);
 
+  left_data  <= to_sfixed(aso_left_data, 0, -(data_width_g-1));
+  right_data <= to_sfixed(aso_right_data, 0, -(data_width_g-1));
+
   -- clk generation
   csi_clk <= not csi_clk after 10 ns;
 
@@ -85,6 +91,15 @@ begin
     sample_strobe <= '0';
   end process;
 
+  strobe_2 : process is
+  begin
+    wait until sample_strobe = '1';
+    wait until rising_edge(csi_clk);
+    strobe2 <= '1';
+    wait until rising_edge(csi_clk);
+    strobe2 <= '0';
+  end process strobe_2;
+
   -- sinus as audio data
   aud_data : process is
   begin  -- process
@@ -95,10 +110,11 @@ begin
   end process aud_data;
 
   -- channel left and right with sinus
-  asi_right_data <= to_slv(to_sfixed(real(0.5), 0, -(data_width_g-1)));
-  asi_left_data  <= to_slv(audio_data);
-  asi_a_valid    <= sample_strobe;
-  asi_b_valid    <= sample_strobe;
+  --asi_right_data  <= to_slv(to_sfixed(real(0.5), 0, -(data_width_g-1)));
+  asi_right_data   <= to_slv(audio_data);
+  asi_left_data   <= to_slv(audio_data);
+  asi_right_valid <= sample_strobe;
+  asi_left_valid  <= sample_strobe;
 
   test_process : process is
   begin  -- process
@@ -113,18 +129,18 @@ begin
 
     -- left
     avs_s0_address                            <= '0';
-    avs_s0_writedata(data_width_g-1 downto 0) <= to_slv(to_sfixed(left_fact, 0, -(wave_table_width_g-1)));
+    avs_s0_writedata(data_width_g-1 downto 0) <= to_slv(to_sfixed(left_fact, 0, -(data_width_g-1)));
     avs_s0_write                              <= '1';
     wait for 20 ns;
-    avs_s1_write                              <= '0';
+    avs_s0_write                              <= '0';
 
     wait for 20 ns;
     -- right
     avs_s0_address                            <= '1';
-    avs_s0_writedata(data_width_g-1 downto 0) <= to_slv(to_sfixed(right_fact, 0, -(wave_table_width_g-1)));
+    avs_s0_writedata(data_width_g-1 downto 0) <= to_slv(to_sfixed(right_fact, 0, -(data_width_g-1)));
     avs_s0_write                              <= '1';
     wait for 20 ns;
-    avs_s1_write                              <= '0';
+    avs_s0_write                              <= '0';
 
     wait;
 

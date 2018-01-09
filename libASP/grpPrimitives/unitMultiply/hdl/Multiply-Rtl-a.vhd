@@ -49,8 +49,8 @@ begin
   begin  -- process calc
 
     -- default
-    aso_left_data   <= silence_c;
-    aso_right_data  <= silence_c;
+    aso_left_data   <= (others => '0');
+    aso_right_data  <= (others => '0');
     aso_left_valid  <= '0';
     aso_right_valid <= '0';
 

@@ -23,7 +23,7 @@ set_module_property NAME ASP_SoC_FIR
 set_module_property VERSION 1.1
 set_module_property INTERNAL false
 set_module_property OPAQUE_ADDRESS_MAP true
-set_module_property GROUP "ASP-SoC IP"
+set_module_property GROUP "ASP-SoC IP/Filter"
 set_module_property AUTHOR "Martin Steiger"
 set_module_property DISPLAY_NAME ASP_SoC_FIR
 set_module_property INSTANTIATE_IN_SYSTEM_MODULE true

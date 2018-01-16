@@ -94,6 +94,38 @@
          type = "int";
       }
    }
+   element fir_left
+   {
+      datum _sortIndex
+      {
+         value = "13";
+         type = "int";
+      }
+   }
+   element fir_right
+   {
+      datum _sortIndex
+      {
+         value = "14";
+         type = "int";
+      }
+   }
+   element mult_out
+   {
+      datum _sortIndex
+      {
+         value = "15";
+         type = "int";
+      }
+   }
+   element mux_out
+   {
+      datum _sortIndex
+      {
+         value = "16";
+         type = "int";
+      }
+   }
    element strobe_gen
    {
       datum _sortIndex
@@ -181,17 +213,31 @@
    internal="delay_right.s0"
    type="avalon"
    dir="end" />
+ <interface name="fir_left_s0" internal="fir_left.s0" type="avalon" dir="end" />
+ <interface name="fir_right_s0" internal="fir_right.s0" type="avalon" dir="end" />
  <interface
    name="left_sink"
    internal="strobe_gen.sink"
    type="avalon_streaming"
    dir="end" />
+ <interface
+   name="left_source"
+   internal="mux_out.left_source"
+   type="avalon_streaming"
+   dir="start" />
+ <interface name="mult_out_s0" internal="mult_out.s0" type="avalon" dir="end" />
+ <interface name="mux_out_s0" internal="mux_out.s0" type="avalon" dir="end" />
  <interface name="reset" internal="clk.clk_in_reset" type="reset" dir="end" />
  <interface
    name="right_sink"
    internal="channel_mux_in.right_sink"
    type="avalon_streaming"
    dir="end" />
+ <interface
+   name="right_source"
+   internal="mux_out.right_source"
+   type="avalon_streaming"
+   dir="start" />
  <interface name="strobe" internal="strobe_gen.strobe" type="conduit" dir="end" />
  <interface
    name="white_noise_left_s0"
@@ -254,6 +300,22 @@
   <parameter name="gDataWidth" value="24" />
   <parameter name="gMaxDelay" value="1024" />
  </module>
+ <module name="fir_left" kind="ASP_SoC_FIR" version="1.1" enabled="1">
+  <parameter name="gDataWidth" value="24" />
+  <parameter name="gMaxNumCoeffs" value="128" />
+  <parameter name="gNrAddressLines" value="7" />
+ </module>
+ <module name="fir_right" kind="ASP_SoC_FIR" version="1.1" enabled="1">
+  <parameter name="gDataWidth" value="24" />
+  <parameter name="gMaxNumCoeffs" value="128" />
+  <parameter name="gNrAddressLines" value="7" />
+ </module>
+ <module name="mult_out" kind="Multiply" version="1.0" enabled="1">
+  <parameter name="data_width_g" value="24" />
+ </module>
+ <module name="mux_out" kind="ChannelMux" version="1.0" enabled="1">
+  <parameter name="gDataWidth" value="24" />
+ </module>
  <module name="strobe_gen" kind="ValidExtractor" version="1.0" enabled="1">
   <parameter name="data_width_g" value="24" />
  </module>
@@ -268,13 +330,43 @@
  <connection
    kind="avalon_streaming"
    version="17.1"
+   start="fir_left.avalon_streaming_source_0"
+   end="mult_out.left_sink" />
+ <connection
+   kind="avalon_streaming"
+   version="17.1"
+   start="fir_right.avalon_streaming_source_0"
+   end="mult_out.right_sink" />
+ <connection
+   kind="avalon_streaming"
+   version="17.1"
+   start="mult_out.left_source"
+   end="mux_out.left_sink" />
+ <connection
+   kind="avalon_streaming"
+   version="17.1"
    start="channel_mux_in.left_source"
    end="delay_left.sink" />
  <connection
    kind="avalon_streaming"
    version="17.1"
+   start="mult_out.right_source"
+   end="mux_out.right_sink" />
+ <connection
+   kind="avalon_streaming"
+   version="17.1"
    start="channel_mux_in.right_source"
    end="delay_right.sink" />
+ <connection
+   kind="avalon_streaming"
+   version="17.1"
+   start="add_right_dds.source"
+   end="fir_right.avalon_streaming_sink_0" />
+ <connection
+   kind="avalon_streaming"
+   version="17.1"
+   start="add_left_dds.source"
+   end="fir_left.avalon_streaming_sink_0" />
  <connection
    kind="avalon_streaming"
    version="17.1"
@@ -352,6 +444,10 @@
  <connection kind="clock" version="17.1" start="clk.clk" end="dds_right.clock" />
  <connection kind="clock" version="17.1" start="clk.clk" end="add_left_dds.clock" />
  <connection kind="clock" version="17.1" start="clk.clk" end="add_right_dds.clock" />
+ <connection kind="clock" version="17.1" start="clk.clk" end="fir_left.clock" />
+ <connection kind="clock" version="17.1" start="clk.clk" end="fir_right.clock" />
+ <connection kind="clock" version="17.1" start="clk.clk" end="mult_out.clock" />
+ <connection kind="clock" version="17.1" start="clk.clk" end="mux_out.clock" />
  <connection
    kind="reset"
    version="17.1"
@@ -412,6 +508,22 @@
    version="17.1"
    start="clk.clk_reset"
    end="add_right_dds.reset" />
+ <connection
+   kind="reset"
+   version="17.1"
+   start="clk.clk_reset"
+   end="fir_left.reset" />
+ <connection
+   kind="reset"
+   version="17.1"
+   start="clk.clk_reset"
+   end="fir_right.reset" />
+ <connection
+   kind="reset"
+   version="17.1"
+   start="clk.clk_reset"
+   end="mult_out.reset" />
+ <connection kind="reset" version="17.1" start="clk.clk_reset" end="mux_out.reset" />
  <interconnectRequirement for="$system" name="qsys_mm.clockCrossingAdapter" value="HANDSHAKE" />
  <interconnectRequirement for="$system" name="qsys_mm.enableEccProtection" value="FALSE" />
  <interconnectRequirement for="$system" name="qsys_mm.insertDefaultSlave" value="FALSE" />

@@ -25,11 +25,172 @@
          type = "int";
       }
    }
-   element Audio
+   element ASP.channel_mux_in_s0
    {
-      datum _originalDeviceFamily
+      datum _lockedAddress
       {
-         value = "Cyclone V";
+         value = "1";
+         type = "boolean";
+      }
+      datum baseAddress
+      {
+         value = "144";
+         type = "String";
+      }
+   }
+   element ASP.dds_left_s0
+   {
+      datum _lockedAddress
+      {
+         value = "1";
+         type = "boolean";
+      }
+      datum baseAddress
+      {
+         value = "32768";
+         type = "String";
+      }
+   }
+   element ASP.dds_left_s1
+   {
+      datum _lockedAddress
+      {
+         value = "1";
+         type = "boolean";
+      }
+      datum baseAddress
+      {
+         value = "120";
+         type = "String";
+      }
+   }
+   element ASP.dds_right_s0
+   {
+      datum _lockedAddress
+      {
+         value = "1";
+         type = "boolean";
+      }
+      datum baseAddress
+      {
+         value = "16384";
+         type = "String";
+      }
+   }
+   element ASP.dds_right_s1
+   {
+      datum _lockedAddress
+      {
+         value = "1";
+         type = "boolean";
+      }
+      datum baseAddress
+      {
+         value = "112";
+         type = "String";
+      }
+   }
+   element ASP.delay_left_s0
+   {
+      datum _lockedAddress
+      {
+         value = "1";
+         type = "boolean";
+      }
+      datum baseAddress
+      {
+         value = "140";
+         type = "String";
+      }
+   }
+   element ASP.delay_right_s0
+   {
+      datum _lockedAddress
+      {
+         value = "1";
+         type = "boolean";
+      }
+      datum baseAddress
+      {
+         value = "136";
+         type = "String";
+      }
+   }
+   element ASP.fir_left_s0
+   {
+      datum _lockedAddress
+      {
+         value = "1";
+         type = "boolean";
+      }
+      datum baseAddress
+      {
+         value = "1024";
+         type = "String";
+      }
+   }
+   element ASP.fir_right_s0
+   {
+      datum _lockedAddress
+      {
+         value = "1";
+         type = "boolean";
+      }
+      datum baseAddress
+      {
+         value = "512";
+         type = "String";
+      }
+   }
+   element ASP.mult_out_s0
+   {
+      datum _lockedAddress
+      {
+         value = "1";
+         type = "boolean";
+      }
+      datum baseAddress
+      {
+         value = "104";
+         type = "String";
+      }
+   }
+   element ASP.mux_out_s0
+   {
+      datum _lockedAddress
+      {
+         value = "1";
+         type = "boolean";
+      }
+      datum baseAddress
+      {
+         value = "132";
+         type = "String";
+      }
+   }
+   element ASP.white_noise_left_s0
+   {
+      datum _lockedAddress
+      {
+         value = "1";
+         type = "boolean";
+      }
+      datum baseAddress
+      {
+         value = "128";
+         type = "String";
+      }
+   }
+   element ASP.white_noise_right_s0
+   {
+      datum _lockedAddress
+      {
+         value = "1";
+         type = "boolean";
+      }
+      datum baseAddress
+      {
+         value = "100";
          type = "String";
       }
    }
@@ -98,6 +259,22 @@
       }
    }
    element Audio
+   {
+      datum _originalDeviceFamily
+      {
+         value = "Cyclone V";
+         type = "String";
+      }
+   }
+   element Audio
+   {
+      datum _originalDeviceFamily
+      {
+         value = "Cyclone V";
+         type = "String";
+      }
+   }
+   element Platform
    {
       datum _originalDeviceFamily
       {
@@ -154,7 +331,7 @@
       }
       datum sopceditor_expanded
       {
-         value = "0";
+         value = "1";
          type = "boolean";
       }
    }
@@ -185,7 +362,7 @@
       }
       datum baseAddress
       {
-         value = "112";
+         value = "96";
          type = "String";
       }
    }
@@ -211,7 +388,7 @@
       }
       datum sopceditor_expanded
       {
-         value = "0";
+         value = "1";
          type = "boolean";
       }
    }
@@ -297,6 +474,16 @@
  <parameter name="useTestBenchNamingPattern" value="false" />
  <instanceScript></instanceScript>
  <interface name="clk" internal="clk.clk_in" type="clock" dir="end" />
+ <interface
+   name="dds_left_strobe"
+   internal="ASP.dds_left_strobe"
+   type="conduit"
+   dir="end" />
+ <interface
+   name="dds_right_strobe"
+   internal="ASP.dds_right_strobe"
+   type="conduit"
+   dir="end" />
  <interface name="hex0_2" internal="pio.hex0_2" type="conduit" dir="end" />
  <interface name="hex3_5" internal="pio.hex3_5" type="conduit" dir="end" />
  <interface name="hps_io" internal="ARM_A9_HPS.hps_io" type="conduit" dir="end" />
@@ -307,7 +494,18 @@
  <interface name="leds" internal="pio.leds" type="conduit" dir="end" />
  <interface name="memory" internal="ARM_A9_HPS.memory" type="conduit" dir="end" />
  <interface name="reset" internal="clk.clk_in_reset" type="reset" dir="end" />
+ <interface name="strobe" internal="ASP.strobe" type="conduit" dir="end" />
  <interface name="switches" internal="pio.switches" type="conduit" dir="end" />
+ <interface
+   name="white_noise_left_strobe"
+   internal="ASP.white_noise_left_strobe"
+   type="conduit"
+   dir="end" />
+ <interface
+   name="white_noise_right_strobe"
+   internal="ASP.white_noise_right_strobe"
+   type="conduit"
+   dir="end" />
  <interface name="xck" internal="audio.audio_clk" type="clock" dir="start" />
  <module name="ARM_A9_HPS" kind="altera_hps" version="17.1" enabled="1">
   <parameter name="ABSTRACT_REAL_COMPARE_TEST" value="false" />
@@ -840,24 +1038,24 @@
   <parameter name="use_default_mpu_clk" value="false" />
  </module>
  <module name="ASP" kind="subsystemA" version="1.0" enabled="1">
-  <parameter name="AUTO_CLK_CLOCK_DOMAIN" value="-1" />
-  <parameter name="AUTO_CLK_CLOCK_RATE" value="-1" />
-  <parameter name="AUTO_CLK_RESET_DOMAIN" value="-1" />
+  <parameter name="AUTO_CLK_CLOCK_DOMAIN" value="1" />
+  <parameter name="AUTO_CLK_CLOCK_RATE" value="50000000" />
+  <parameter name="AUTO_CLK_RESET_DOMAIN" value="1" />
   <parameter name="AUTO_DEVICE" value="5CSEMA5F31C6" />
   <parameter name="AUTO_DEVICE_FAMILY" value="Cyclone V" />
   <parameter name="AUTO_DEVICE_SPEEDGRADE" value="6" />
   <parameter name="AUTO_GENERATION_ID" value="0" />
-  <parameter name="AUTO_UNIQUE_ID" value="Platform_ASP" />
+  <parameter name="AUTO_UNIQUE_ID" value="$${FILENAME}_ASP" />
  </module>
  <module name="audio" kind="AudioCodecSubSytem" version="1.0" enabled="1">
-  <parameter name="AUTO_CLK_CLOCK_DOMAIN" value="2" />
+  <parameter name="AUTO_CLK_CLOCK_DOMAIN" value="1" />
   <parameter name="AUTO_CLK_CLOCK_RATE" value="50000000" />
-  <parameter name="AUTO_CLK_RESET_DOMAIN" value="2" />
+  <parameter name="AUTO_CLK_RESET_DOMAIN" value="1" />
   <parameter name="AUTO_DEVICE" value="5CSEMA5F31C6" />
   <parameter name="AUTO_DEVICE_FAMILY" value="Cyclone V" />
   <parameter name="AUTO_DEVICE_SPEEDGRADE" value="6" />
   <parameter name="AUTO_GENERATION_ID" value="0" />
-  <parameter name="AUTO_UNIQUE_ID" value="Platform_audio" />
+  <parameter name="AUTO_UNIQUE_ID" value="$${FILENAME}_audio" />
  </module>
  <module name="clk" kind="clock_source" version="17.1" enabled="1">
   <parameter name="clockFrequency" value="50000000" />
@@ -866,15 +1064,24 @@
   <parameter name="resetSynchronousEdges" value="NONE" />
  </module>
  <module name="pio" kind="pioModules" version="1.0" enabled="1">
-  <parameter name="AUTO_CLK_CLOCK_DOMAIN" value="2" />
+  <parameter name="AUTO_CLK_CLOCK_DOMAIN" value="1" />
   <parameter name="AUTO_CLK_CLOCK_RATE" value="50000000" />
-  <parameter name="AUTO_CLK_RESET_DOMAIN" value="2" />
+  <parameter name="AUTO_CLK_RESET_DOMAIN" value="1" />
   <parameter name="AUTO_DEVICE" value="5CSEMA5F31C6" />
   <parameter name="AUTO_DEVICE_FAMILY" value="Cyclone V" />
   <parameter name="AUTO_DEVICE_SPEEDGRADE" value="6" />
   <parameter name="AUTO_GENERATION_ID" value="0" />
-  <parameter name="AUTO_UNIQUE_ID" value="Platform_pio" />
+  <parameter name="AUTO_UNIQUE_ID" value="$${FILENAME}_pio" />
  </module>
+ <connection
+   kind="avalon"
+   version="17.1"
+   start="ARM_A9_HPS.h2f_lw_axi_master"
+   end="ASP.channel_mux_in_s0">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x0090" />
+  <parameter name="defaultConnection" value="false" />
+ </connection>
  <connection
    kind="avalon"
    version="17.1"
@@ -882,6 +1089,78 @@
    end="audio.config">
   <parameter name="arbitrationPriority" value="1" />
   <parameter name="baseAddress" value="0x0050" />
+  <parameter name="defaultConnection" value="false" />
+ </connection>
+ <connection
+   kind="avalon"
+   version="17.1"
+   start="ARM_A9_HPS.h2f_lw_axi_master"
+   end="ASP.dds_left_s0">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x8000" />
+  <parameter name="defaultConnection" value="false" />
+ </connection>
+ <connection
+   kind="avalon"
+   version="17.1"
+   start="ARM_A9_HPS.h2f_lw_axi_master"
+   end="ASP.dds_left_s1">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x0078" />
+  <parameter name="defaultConnection" value="false" />
+ </connection>
+ <connection
+   kind="avalon"
+   version="17.1"
+   start="ARM_A9_HPS.h2f_lw_axi_master"
+   end="ASP.dds_right_s0">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x4000" />
+  <parameter name="defaultConnection" value="false" />
+ </connection>
+ <connection
+   kind="avalon"
+   version="17.1"
+   start="ARM_A9_HPS.h2f_lw_axi_master"
+   end="ASP.dds_right_s1">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x0070" />
+  <parameter name="defaultConnection" value="false" />
+ </connection>
+ <connection
+   kind="avalon"
+   version="17.1"
+   start="ARM_A9_HPS.h2f_lw_axi_master"
+   end="ASP.delay_left_s0">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x008c" />
+  <parameter name="defaultConnection" value="false" />
+ </connection>
+ <connection
+   kind="avalon"
+   version="17.1"
+   start="ARM_A9_HPS.h2f_lw_axi_master"
+   end="ASP.delay_right_s0">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x0088" />
+  <parameter name="defaultConnection" value="false" />
+ </connection>
+ <connection
+   kind="avalon"
+   version="17.1"
+   start="ARM_A9_HPS.h2f_lw_axi_master"
+   end="ASP.fir_left_s0">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x0400" />
+  <parameter name="defaultConnection" value="false" />
+ </connection>
+ <connection
+   kind="avalon"
+   version="17.1"
+   start="ARM_A9_HPS.h2f_lw_axi_master"
+   end="ASP.fir_right_s0">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x0200" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -924,9 +1203,27 @@
    kind="avalon"
    version="17.1"
    start="ARM_A9_HPS.h2f_lw_axi_master"
+   end="ASP.mult_out_s0">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x0068" />
+  <parameter name="defaultConnection" value="false" />
+ </connection>
+ <connection
+   kind="avalon"
+   version="17.1"
+   start="ARM_A9_HPS.h2f_lw_axi_master"
+   end="ASP.mux_out_s0">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x0084" />
+  <parameter name="defaultConnection" value="false" />
+ </connection>
+ <connection
+   kind="avalon"
+   version="17.1"
+   start="ARM_A9_HPS.h2f_lw_axi_master"
    end="audio.source_mux">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x0070" />
+  <parameter name="baseAddress" value="0x0060" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -938,8 +1235,47 @@
   <parameter name="baseAddress" value="0x0000" />
   <parameter name="defaultConnection" value="false" />
  </connection>
+ <connection
+   kind="avalon"
+   version="17.1"
+   start="ARM_A9_HPS.h2f_lw_axi_master"
+   end="ASP.white_noise_left_s0">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x0080" />
+  <parameter name="defaultConnection" value="false" />
+ </connection>
+ <connection
+   kind="avalon"
+   version="17.1"
+   start="ARM_A9_HPS.h2f_lw_axi_master"
+   end="ASP.white_noise_right_s0">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x0064" />
+  <parameter name="defaultConnection" value="false" />
+ </connection>
+ <connection
+   kind="avalon_streaming"
+   version="17.1"
+   start="audio.left_source"
+   end="ASP.left_sink" />
+ <connection
+   kind="avalon_streaming"
+   version="17.1"
+   start="ASP.left_source"
+   end="audio.left_sink" />
+ <connection
+   kind="avalon_streaming"
+   version="17.1"
+   start="audio.right_source"
+   end="ASP.right_sink" />
+ <connection
+   kind="avalon_streaming"
+   version="17.1"
+   start="ASP.right_source"
+   end="audio.right_sink" />
  <connection kind="clock" version="17.1" start="clk.clk" end="audio.clk" />
  <connection kind="clock" version="17.1" start="clk.clk" end="pio.clk" />
+ <connection kind="clock" version="17.1" start="clk.clk" end="ASP.clk" />
  <connection
    kind="clock"
    version="17.1"
@@ -947,6 +1283,7 @@
    end="ARM_A9_HPS.h2f_lw_axi_clock" />
  <connection kind="reset" version="17.1" start="clk.clk_reset" end="audio.reset" />
  <connection kind="reset" version="17.1" start="clk.clk_reset" end="pio.reset" />
+ <connection kind="reset" version="17.1" start="clk.clk_reset" end="ASP.reset" />
  <connection
    kind="reset"
    version="17.1"
@@ -957,6 +1294,11 @@
    version="17.1"
    start="ARM_A9_HPS.h2f_reset"
    end="audio.reset" />
+ <connection
+   kind="reset"
+   version="17.1"
+   start="ARM_A9_HPS.h2f_reset"
+   end="ASP.reset" />
  <interconnectRequirement for="$system" name="qsys_mm.clockCrossingAdapter" value="HANDSHAKE" />
  <interconnectRequirement for="$system" name="qsys_mm.enableEccProtection" value="FALSE" />
  <interconnectRequirement for="$system" name="qsys_mm.insertDefaultSlave" value="FALSE" />

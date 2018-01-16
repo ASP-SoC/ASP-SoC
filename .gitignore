@@ -18,11 +18,13 @@
 *.jdi
 *.pin
 *.sld
+*.qdf
 
 #modelsim
 *.ini
 transcript
 work/
+ieee_proposed/
 
 # quartus
 .qsys_edit/

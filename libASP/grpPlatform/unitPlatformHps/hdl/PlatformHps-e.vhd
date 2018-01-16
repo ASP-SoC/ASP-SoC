@@ -14,7 +14,6 @@ entity PlatformHps is
     KEY : in std_logic_vector(3 downto 0);
 
     -- Switches
-
     SW : in std_logic_vector(9 downto 0);
 
     --7SEG
@@ -32,6 +31,13 @@ entity PlatformHps is
     AUD_DACDAT  : out std_logic;
     AUD_DACLRCK : in  std_logic;
     AUD_XCK     : out std_logic;
+
+    -- GPIOs
+    GPIO_1_D2  : in  std_logic;
+    GPIO_1_D3  : in  std_logic;
+    GPIO_1_D4  : in  std_logic;
+    GPIO_1_D5  : in  std_logic;
+    GPIO_1_D6  : out std_logic;
 
     -- I2C for Audio and Video-In
     FPGA_I2C_SCLK : out   std_logic;
@@ -70,33 +76,33 @@ entity PlatformHps is
     HPS_ENET_RX_DV   : in    std_logic;
     HPS_ENET_TX_DATA : out   std_logic_vector(3 downto 0);
     HPS_ENET_TX_EN   : out   std_logic;
-    
+
     HPS_FLASH_DATA   : inout std_logic_vector(3 downto 0);
     HPS_FLASH_DCLK   : out   std_logic;
     HPS_FLASH_NCSO   : out   std_logic;
-    
+
     HPS_GSENSOR_INT  : inout std_logic;
-    
+
     HPS_I2C_CONTROL  : inout std_logic;
     HPS_I2C1_SCLK    : inout std_logic;
     HPS_I2C1_SDAT    : inout std_logic;
     HPS_I2C2_SCLK    : inout std_logic;
     HPS_I2C2_SDAT    : inout std_logic;
-    
+
     HPS_LTC_GPIO     : inout std_logic;
-    
+
     HPS_SD_CLK       : out   std_logic;
     HPS_SD_CMD       : inout std_logic;
     HPS_SD_DATA      : inout std_logic_vector(3 downto 0);
-    
+
     HPS_SPIM_CLK     : out   std_logic;
     HPS_SPIM_MISO    : in    std_logic;
     HPS_SPIM_MOSI    : out   std_logic;
     HPS_SPIM_SS      : inout std_logic;
-    
+
     HPS_UART_RX      : in    std_logic;
     HPS_UART_TX      : out   std_logic;
-    
+
     HPS_USB_CLKOUT   : in    std_logic;
     HPS_USB_DATA     : inout std_logic_vector(7 downto 0);
     HPS_USB_DIR      : in    std_logic;

@@ -7,6 +7,17 @@
 *.qws
 *.do~
 *.tcl~
+*.bak
+*.axf
+*.objdump
+*.srec
+*.asv
+*.m
+*.done
+*.smsg
+*.jdi
+*.pin
+*.sld
 *.qdf
 
 #modelsim
@@ -23,6 +34,8 @@ incremental_db/
 output_files/
 c5_pin_model_dump.txt
 hps_sdram_p0_summary.csv
+*.rpt
+*.summary
 
 # emacs
 *~

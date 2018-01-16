@@ -45,7 +45,7 @@ begin
   end process reg;
 
   -- calc process
-  calc : process (asi_left_valid, asi_left_data, asi_right_data, asi_right_valid, mult_res) is
+  calc : process (asi_left_valid, asi_left_data, asi_right_data, asi_right_valid, mult_res, left_fact, right_fact, right_buf) is
   begin  -- process calc
 
     -- default
@@ -70,7 +70,7 @@ begin
     elsif right_buf_pending = '1' then
       aso_right_valid <= '1';
       fact            <= right_fact;
-      mult_data       <= to_sfixed(asi_right_data, 0, -(data_width_g-1));
+      mult_data       <= right_buf;
       aso_right_data  <= to_slv(mult_res);
 
     end if;

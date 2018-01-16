@@ -17,91 +17,11 @@
          type = "int";
       }
    }
-   element Audio
-   {
-      datum _originalDeviceFamily
-      {
-         value = "Cyclone V";
-         type = "String";
-      }
-   }
-   element Audio
-   {
-      datum _originalDeviceFamily
-      {
-         value = "Cyclone V";
-         type = "String";
-      }
-   }
-   element Audio
-   {
-      datum _originalDeviceFamily
-      {
-         value = "Cyclone V";
-         type = "String";
-      }
-   }
-   element Audio
-   {
-      datum _originalDeviceFamily
-      {
-         value = "Cyclone V";
-         type = "String";
-      }
-   }
-   element Audio
-   {
-      datum _originalDeviceFamily
-      {
-         value = "Cyclone V";
-         type = "String";
-      }
-   }
-   element Audio
-   {
-      datum _originalDeviceFamily
-      {
-         value = "Cyclone V";
-         type = "String";
-      }
-   }
-   element Audio
-   {
-      datum _originalDeviceFamily
-      {
-         value = "Cyclone V";
-         type = "String";
-      }
-   }
-   element Audio
-   {
-      datum _originalDeviceFamily
-      {
-         value = "Cyclone V";
-         type = "String";
-      }
-   }
-   element Audio
-   {
-      datum _originalDeviceFamily
-      {
-         value = "Cyclone V";
-         type = "String";
-      }
-   }
-   element Audio
-   {
-      datum _originalDeviceFamily
-      {
-         value = "Cyclone V";
-         type = "String";
-      }
-   }
-   element ChannelMux_0
+   element AddChannels_L_DDS0
    {
       datum _sortIndex
       {
-         value = "4";
+         value = "7";
          type = "int";
       }
       datum sopceditor_expanded
@@ -110,7 +30,173 @@
          type = "boolean";
       }
    }
-   element ChannelMux_0.s0
+   element Audio
+   {
+      datum _originalDeviceFamily
+      {
+         value = "Cyclone V";
+         type = "String";
+      }
+   }
+   element Audio
+   {
+      datum _originalDeviceFamily
+      {
+         value = "Cyclone V";
+         type = "String";
+      }
+   }
+   element Audio
+   {
+      datum _originalDeviceFamily
+      {
+         value = "Cyclone V";
+         type = "String";
+      }
+   }
+   element Audio
+   {
+      datum _originalDeviceFamily
+      {
+         value = "Cyclone V";
+         type = "String";
+      }
+   }
+   element Audio
+   {
+      datum _originalDeviceFamily
+      {
+         value = "Cyclone V";
+         type = "String";
+      }
+   }
+   element Audio
+   {
+      datum _originalDeviceFamily
+      {
+         value = "Cyclone V";
+         type = "String";
+      }
+   }
+   element Audio
+   {
+      datum _originalDeviceFamily
+      {
+         value = "Cyclone V";
+         type = "String";
+      }
+   }
+   element Audio
+   {
+      datum _originalDeviceFamily
+      {
+         value = "Cyclone V";
+         type = "String";
+      }
+   }
+   element Audio
+   {
+      datum _originalDeviceFamily
+      {
+         value = "Cyclone V";
+         type = "String";
+      }
+   }
+   element Audio
+   {
+      datum _originalDeviceFamily
+      {
+         value = "Cyclone V";
+         type = "String";
+      }
+   }
+   element DDS_0
+   {
+      datum _sortIndex
+      {
+         value = "6";
+         type = "int";
+      }
+      datum sopceditor_expanded
+      {
+         value = "1";
+         type = "boolean";
+      }
+   }
+   element DDS_0.s0_table
+   {
+      datum _lockedAddress
+      {
+         value = "1";
+         type = "boolean";
+      }
+      datum baseAddress
+      {
+         value = "16384";
+         type = "String";
+      }
+   }
+   element DDS_0.s1_config
+   {
+      datum _lockedAddress
+      {
+         value = "1";
+         type = "boolean";
+      }
+      datum baseAddress
+      {
+         value = "32768";
+         type = "String";
+      }
+   }
+   element Delay_0
+   {
+      datum _sortIndex
+      {
+         value = "8";
+         type = "int";
+      }
+      datum sopceditor_expanded
+      {
+         value = "0";
+         type = "boolean";
+      }
+   }
+   element Delay_0.s0
+   {
+      datum _lockedAddress
+      {
+         value = "1";
+         type = "boolean";
+      }
+      datum baseAddress
+      {
+         value = "128";
+         type = "String";
+      }
+   }
+   element Mux_Ch_L_R
+   {
+      datum _sortIndex
+      {
+         value = "5";
+         type = "int";
+      }
+      datum sopceditor_expanded
+      {
+         value = "0";
+         type = "boolean";
+      }
+   }
+   element Mux_Ch_L_R.reset
+   {
+      datum _tags
+      {
+         value = "";
+         type = "String";
+      }
+   }
+   element Mux_Ch_L_R.s0
    {
       datum _lockedAddress
       {
@@ -129,6 +215,51 @@
       {
          value = "Cyclone V";
          type = "String";
+      }
+   }
+   element Platform
+   {
+      datum _originalDeviceFamily
+      {
+         value = "Cyclone V";
+         type = "String";
+      }
+   }
+   element Platform
+   {
+      datum _originalDeviceFamily
+      {
+         value = "Cyclone V";
+         type = "String";
+      }
+   }
+   element Platform
+   {
+      datum _originalDeviceFamily
+      {
+         value = "Cyclone V";
+         type = "String";
+      }
+   }
+   element Platform
+   {
+      datum _originalDeviceFamily
+      {
+         value = "Cyclone V";
+         type = "String";
+      }
+   }
+   element Strobe_Gen
+   {
+      datum _sortIndex
+      {
+         value = "4";
+         type = "int";
+      }
+      datum sopceditor_expanded
+      {
+         value = "1";
+         type = "boolean";
       }
    }
    element audio
@@ -151,9 +282,27 @@
          value = "1";
          type = "boolean";
       }
+      datum _tags
+      {
+         value = "";
+         type = "String";
+      }
       datum baseAddress
       {
          value = "80";
+         type = "String";
+      }
+   }
+   element audio.source_mux
+   {
+      datum _lockedAddress
+      {
+         value = "1";
+         type = "boolean";
+      }
+      datum baseAddress
+      {
+         value = "112";
          type = "String";
       }
    }
@@ -163,6 +312,11 @@
       {
          value = "0";
          type = "int";
+      }
+      datum sopceditor_expanded
+      {
+         value = "1";
+         type = "boolean";
       }
    }
    element pio
@@ -174,7 +328,7 @@
       }
       datum sopceditor_expanded
       {
-         value = "1";
+         value = "0";
          type = "boolean";
       }
    }
@@ -264,7 +418,8 @@
  <interface name="hex3_5" internal="pio.hex3_5" type="conduit" dir="end" />
  <interface name="hps_io" internal="ARM_A9_HPS.hps_io" type="conduit" dir="end" />
  <interface name="i2c" internal="audio.i2c" type="conduit" dir="end" />
- <interface name="i2s" internal="audio.i2s" type="conduit" dir="end" />
+ <interface name="i2s_codec" internal="audio.i2s_codec" type="conduit" dir="end" />
+ <interface name="i2s_gpio" internal="audio.i2s_gpio" type="conduit" dir="end" />
  <interface name="keys" internal="pio.keys" type="conduit" dir="end" />
  <interface name="leds" internal="pio.leds" type="conduit" dir="end" />
  <interface name="memory" internal="ARM_A9_HPS.memory" type="conduit" dir="end" />
@@ -801,18 +956,38 @@
   <parameter name="usb_mp_clk_div" value="0" />
   <parameter name="use_default_mpu_clk" value="false" />
  </module>
- <module name="ChannelMux_0" kind="ChannelMux" version="1.0" enabled="1">
+ <module
+   name="AddChannels_L_DDS0"
+   kind="AddChannels"
+   version="1.0"
+   enabled="1">
+  <parameter name="data_width_g" value="24" />
+ </module>
+ <module name="DDS_0" kind="Dds" version="1.0" enabled="1">
+  <parameter name="data_width_g" value="24" />
+  <parameter name="phase_bits_g" value="20" />
+  <parameter name="phase_dither_g" value="8" />
+  <parameter name="wave_table_width_g" value="24" />
+ </module>
+ <module name="Delay_0" kind="Delay" version="1.0" enabled="1">
+  <parameter name="gDataWidth" value="24" />
+  <parameter name="gMaxDelay" value="1024" />
+ </module>
+ <module name="Mux_Ch_L_R" kind="ChannelMux" version="1.0" enabled="1">
   <parameter name="gDataWidth" value="24" />
  </module>
+ <module name="Strobe_Gen" kind="ValidExtractor" version="1.0" enabled="1">
+  <parameter name="data_width_g" value="24" />
+ </module>
  <module name="audio" kind="AudioCodecSubSytem" version="1.0" enabled="1">
-  <parameter name="AUTO_CLK_CLOCK_DOMAIN" value="2" />
+  <parameter name="AUTO_CLK_CLOCK_DOMAIN" value="1" />
   <parameter name="AUTO_CLK_CLOCK_RATE" value="50000000" />
-  <parameter name="AUTO_CLK_RESET_DOMAIN" value="2" />
+  <parameter name="AUTO_CLK_RESET_DOMAIN" value="1" />
   <parameter name="AUTO_DEVICE" value="5CSEMA5F31C6" />
   <parameter name="AUTO_DEVICE_FAMILY" value="Cyclone V" />
   <parameter name="AUTO_DEVICE_SPEEDGRADE" value="6" />
   <parameter name="AUTO_GENERATION_ID" value="0" />
-  <parameter name="AUTO_UNIQUE_ID" value="Platform_audio" />
+  <parameter name="AUTO_UNIQUE_ID" value="$${FILENAME}_audio" />
  </module>
  <module name="clk" kind="clock_source" version="17.1" enabled="1">
   <parameter name="clockFrequency" value="50000000" />
@@ -821,14 +996,14 @@
   <parameter name="resetSynchronousEdges" value="NONE" />
  </module>
  <module name="pio" kind="pioModules" version="1.0" enabled="1">
-  <parameter name="AUTO_CLK_CLOCK_DOMAIN" value="2" />
+  <parameter name="AUTO_CLK_CLOCK_DOMAIN" value="1" />
   <parameter name="AUTO_CLK_CLOCK_RATE" value="50000000" />
-  <parameter name="AUTO_CLK_RESET_DOMAIN" value="2" />
+  <parameter name="AUTO_CLK_RESET_DOMAIN" value="1" />
   <parameter name="AUTO_DEVICE" value="5CSEMA5F31C6" />
   <parameter name="AUTO_DEVICE_FAMILY" value="Cyclone V" />
   <parameter name="AUTO_DEVICE_SPEEDGRADE" value="6" />
   <parameter name="AUTO_GENERATION_ID" value="0" />
-  <parameter name="AUTO_UNIQUE_ID" value="Platform_pio" />
+  <parameter name="AUTO_UNIQUE_ID" value="$${FILENAME}_pio" />
  </module>
  <connection
    kind="avalon"
@@ -879,9 +1054,45 @@
    kind="avalon"
    version="17.1"
    start="ARM_A9_HPS.h2f_lw_axi_master"
-   end="ChannelMux_0.s0">
+   end="Mux_Ch_L_R.s0">
   <parameter name="arbitrationPriority" value="1" />
   <parameter name="baseAddress" value="0x0060" />
+  <parameter name="defaultConnection" value="false" />
+ </connection>
+ <connection
+   kind="avalon"
+   version="17.1"
+   start="ARM_A9_HPS.h2f_lw_axi_master"
+   end="Delay_0.s0">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x0080" />
+  <parameter name="defaultConnection" value="false" />
+ </connection>
+ <connection
+   kind="avalon"
+   version="17.1"
+   start="ARM_A9_HPS.h2f_lw_axi_master"
+   end="DDS_0.s0_table">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x4000" />
+  <parameter name="defaultConnection" value="false" />
+ </connection>
+ <connection
+   kind="avalon"
+   version="17.1"
+   start="ARM_A9_HPS.h2f_lw_axi_master"
+   end="DDS_0.s1_config">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x8000" />
+  <parameter name="defaultConnection" value="false" />
+ </connection>
+ <connection
+   kind="avalon"
+   version="17.1"
+   start="ARM_A9_HPS.h2f_lw_axi_master"
+   end="audio.source_mux">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x0070" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -896,38 +1107,89 @@
  <connection
    kind="avalon_streaming"
    version="17.1"
-   start="ChannelMux_0.left_source"
-   end="audio.left_sink" />
+   start="audio.left_source"
+   end="Strobe_Gen.sink" />
  <connection
    kind="avalon_streaming"
    version="17.1"
-   start="audio.left_source"
-   end="ChannelMux_0.left_sink" />
+   start="Mux_Ch_L_R.left_source"
+   end="AddChannels_L_DDS0.sink_b" />
  <connection
    kind="avalon_streaming"
    version="17.1"
    start="audio.right_source"
-   end="ChannelMux_0.right_sink" />
+   end="Mux_Ch_L_R.right_sink" />
  <connection
    kind="avalon_streaming"
    version="17.1"
-   start="ChannelMux_0.right_source"
+   start="Mux_Ch_L_R.right_source"
+   end="Delay_0.sink" />
+ <connection
+   kind="avalon_streaming"
+   version="17.1"
+   start="Strobe_Gen.source"
+   end="Mux_Ch_L_R.left_sink" />
+ <connection
+   kind="avalon_streaming"
+   version="17.1"
+   start="AddChannels_L_DDS0.source"
+   end="audio.left_sink" />
+ <connection
+   kind="avalon_streaming"
+   version="17.1"
+   start="Delay_0.source"
    end="audio.right_sink" />
+ <connection
+   kind="avalon_streaming"
+   version="17.1"
+   start="DDS_0.source"
+   end="AddChannels_L_DDS0.sink_a" />
  <connection kind="clock" version="17.1" start="clk.clk" end="audio.clk" />
  <connection kind="clock" version="17.1" start="clk.clk" end="pio.clk" />
- <connection kind="clock" version="17.1" start="clk.clk" end="ChannelMux_0.clock" />
+ <connection kind="clock" version="17.1" start="clk.clk" end="Mux_Ch_L_R.clock" />
+ <connection kind="clock" version="17.1" start="clk.clk" end="Strobe_Gen.clock" />
+ <connection kind="clock" version="17.1" start="clk.clk" end="DDS_0.clock" />
+ <connection
+   kind="clock"
+   version="17.1"
+   start="clk.clk"
+   end="AddChannels_L_DDS0.clock" />
+ <connection kind="clock" version="17.1" start="clk.clk" end="Delay_0.clock" />
  <connection
    kind="clock"
    version="17.1"
    start="clk.clk"
    end="ARM_A9_HPS.h2f_lw_axi_clock" />
+ <connection
+   kind="conduit"
+   version="17.1"
+   start="DDS_0.strobe"
+   end="Strobe_Gen.strobe">
+  <parameter name="endPort" value="" />
+  <parameter name="endPortLSB" value="0" />
+  <parameter name="startPort" value="" />
+  <parameter name="startPortLSB" value="0" />
+  <parameter name="width" value="0" />
+ </connection>
  <connection kind="reset" version="17.1" start="clk.clk_reset" end="audio.reset" />
  <connection kind="reset" version="17.1" start="clk.clk_reset" end="pio.reset" />
  <connection
    kind="reset"
    version="17.1"
    start="clk.clk_reset"
-   end="ChannelMux_0.reset" />
+   end="Mux_Ch_L_R.reset" />
+ <connection
+   kind="reset"
+   version="17.1"
+   start="clk.clk_reset"
+   end="Strobe_Gen.reset" />
+ <connection kind="reset" version="17.1" start="clk.clk_reset" end="DDS_0.reset" />
+ <connection
+   kind="reset"
+   version="17.1"
+   start="clk.clk_reset"
+   end="AddChannels_L_DDS0.reset" />
+ <connection kind="reset" version="17.1" start="clk.clk_reset" end="Delay_0.reset" />
  <connection
    kind="reset"
    version="17.1"
@@ -942,7 +1204,27 @@
    kind="reset"
    version="17.1"
    start="ARM_A9_HPS.h2f_reset"
-   end="ChannelMux_0.reset" />
+   end="Mux_Ch_L_R.reset" />
+ <connection
+   kind="reset"
+   version="17.1"
+   start="ARM_A9_HPS.h2f_reset"
+   end="Strobe_Gen.reset" />
+ <connection
+   kind="reset"
+   version="17.1"
+   start="ARM_A9_HPS.h2f_reset"
+   end="DDS_0.reset" />
+ <connection
+   kind="reset"
+   version="17.1"
+   start="ARM_A9_HPS.h2f_reset"
+   end="AddChannels_L_DDS0.reset" />
+ <connection
+   kind="reset"
+   version="17.1"
+   start="ARM_A9_HPS.h2f_reset"
+   end="Delay_0.reset" />
  <interconnectRequirement for="$system" name="qsys_mm.clockCrossingAdapter" value="HANDSHAKE" />
  <interconnectRequirement for="$system" name="qsys_mm.enableEccProtection" value="FALSE" />
  <interconnectRequirement for="$system" name="qsys_mm.insertDefaultSlave" value="FALSE" />

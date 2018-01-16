@@ -4,22 +4,32 @@
  
 \begin{document}
 \textbf{unitPlatformHps}
-\\\\
+\\
+
 \textbf{Module Explanation}
 \\
-Here could stand your explanation...\\
-\\
+	Here could stand your explanation...\\
 \textbf{Interface Description}
+\textbf{I2S GPIO Interface}
 \\
-Here could stand your Interface Description...\\
-\\
-\textbf{Technical Documentation}
-\\
-Here could stand your Technical Documentation...\\
-\\
-\textbf{Design Documentation}
-\\
-Here could stand your Design Documentation...\\
-\\
-\end{document}
+	The board supports a external interface for audio data transfer from external ressources. \\
+	This interface uses the I2S protocol as a protocol slave.\\
+	To use this interface, the configuration bit in the source multiplexer's control register must be set accordingly.\\
+	The interfaces uses the DE1-SoC GPIO 1 (JP2) pinhead connector. \\
+	The pins are connected as follows:
+	\begin{itemize}
+		\item ADCDAT \textit{in} (data input) ... GPIO\_1\_D2
+		\item ADCLRC \textit{in} (input data channel select) ... GPIO\_1\_D3
+		\item DACDAT \textit{out} (data output) ... GPIO\_1\_D6
+		\item DACLRC \textit{in} (output data channel select) ... GPIO\_1\_D5
+		\item BCLK   \textit{in} (bit clock) ... GPIO\_1\_D4
+	\end{itemize}
+	All pins use a 3.3V level.
 
+\textbf{Technical Documentation}
+	Here could stand your Technical Documentation...\\
+
+\textbf{Design Documentation}
+	Here could stand your Design Documentation...\\
+
+\end{document}

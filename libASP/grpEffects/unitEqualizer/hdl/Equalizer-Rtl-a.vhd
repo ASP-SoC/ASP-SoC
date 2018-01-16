@@ -22,36 +22,46 @@ architecture Rtl of Equalizer is
   ---------------------------------------------------------------------------
   -- Types
   ---------------------------------------------------------------------------
-  type aCoeffRom is aMemory(0 to cEQBAndpassOrder*cNumberOfBands);
-  type aCoeffRam is aMemory(0 to cEQBAndpassOrder + cNumberOfBands*2);
-  type aGainRam  is aMemory(0 to cNumberOfBands-1);
-  type aBPResults is aMemory(0 to cNumberOfBands-1);
+  type aCoeffRom     is aMemory(0 to cEQBAndpassOrder*cNumberOfBands);
+  type aInputRam     is aMemory(0 to cEQBAndpassOrder);
+  type aGainRam      is aMemory(0 to cNumberOfBands-1);
+  type aFirResReg    is aMemory(0 to cNumberOfBands-1);
+  type aAfterGainReg is aMemory(0 to cNumberOfBands-1);
 
-  type aFirState is (NewVal, FirMultSum, BpResultMult);
+  type aFirState is (NewVal, FirMultSum, MultGains);
 
   type aFirParam is record
-    firState  : aFirStates;
-    writeAdr  : unsigned(LogDualis(gBPCoeff(0)'length)-1 downto 0);
-    readAdr   : unsigned(LogDualis(gBPCoeff(0)'length)-1 downto 0);
-    coeffAdr  : unsigned(LogDualis(gBPCoeff(0)'length)-1 downto 0);
-    valDry    : std_ulogic;
-    dDry      : aFilterCoeff;
-    FirSum    : aFilterCoeff;
-    FirMulRes : aFilterCoeff;
-    GainMulRes : aFilterCoeff;
-    GainSum    : aFilterCoeff;
-    valWet     : std_ulogic;
+    firState     : aFirStates;
+    writeAddrIn  : unsigned(LogDualis(gBPCoeff(0)'length)-1 downto 0);
+    readAddrIn   : unsigned(LogDualis(gBPCoeff(0)'length)-1 downto 0);
+    coeffAdr     : unsigned(LogDualis(gBPCoeff(0)'length)-1 downto 0);
+    gainAdr      : unsigned(LogDualis(gBPCoeff(0)'length)-1 downto 0);
+    activeFir    : unsigned(LogDualis(cNumberOfBands)-1 downto 0);
+    valDry       : std_ulogic;
+    valWet       : std_ulogic;
+    dDry         : aFilterCoeff;
+    FirSum       : aFilterCoeff;
+    FirMulRes    : aFilterCoeff;
+    GainSum      : aFilterCoeff;
+    FirResReg    : aFirResReg;
+    AfterGainReg : aFirResReg;
   end record aFirParam;
 
-  constant cInitFirParam : aFirParam := ( firState  => NewVal,
-                                          writeAdr  => (others => '0'),
-                                          readAdr   => (others => '0'),
-                                          coeffAdr  => (others => '0'),
-                                          valDry    => '0',
-                                          dDry      => (others => '0'),
-                                          FirSum    => (others => '0'),
-                                          FirMulRes => (others => '0'),
-                                          valWet    => '0');
+  constant cInitFirParam : aFirParam := ( firState     => NewVal,
+                                          writeAddrIn  => (others => '0'),
+                                          readAddrIn   => (others => '0'),
+                                          coeffAdr     => (others => '0'),
+                                          gainAdr      => (others => '0'),
+                                          activeFir    => (others => '0'),
+                                          valDry       => '0',
+                                          valWet       => '0',
+                                          dDry         => (others => '0'),
+                                          FirSum       => (others => '0'),
+                                          FirMulRes    => (others => '0'),
+                                          GainSum      => (others => '0'),
+                                          FirResReg    => (others => (others => '0')),
+                                          AfterGainReg => (others => (others => '0'))
+                                        );
 
   function romInit return aRomMem is
     variable rom : aCoeffRom := (others => (others => '0'));
@@ -70,9 +80,9 @@ architecture Rtl of Equalizer is
   -- Registers
   ---------------------------------------------------------------------------
   signal CoeffRom : aCoeffRom    := romInit;
-  signal RAM      : aCoeffRam    := (others => (others => '0'));
-  signal RAM_Gain : aGainRam     := (others => (others => '0'));
-  signal BPResult : aBPResults   := (others => (others => '0'));
+  signal InputRAM : aInputRam    := (others => (others => '0'));
+  signal GainRAM  : aGainRam     := (others => (others => '0'));
+
   signal nxR      : aFirParam    := cInitFirParam;
   signal R        : aFirParam    := cInitFirParam;
 
@@ -90,98 +100,122 @@ begin
   ---------------------------------------------------------------------------
   -- Outputs
   ---------------------------------------------------------------------------
-  aso_data   <= ;
+  aso_data   <= R.GainSum;
   aso_valid  <= ;
 
   ---------------------------------------------------------------------------
   -- Signal assignments
   ---------------------------------------------------------------------------
 
-    ----------------------------------------------------------------------------
-    -- FSMD
-    ----------------------------------------------------------------------------
-    FSM : process (iDdry, iValDry, R) is
-    begin
+  ----------------------------------------------------------------------------
+  -- FSMD
+  ----------------------------------------------------------------------------
+  FSM : process (iDdry, iValDry, R) is
+  begin
 
-        nxR <= R;
+    nxR <= R;
 
-        case R.firState is
-            when NewVal =>
-                nxR.valWet <= '0';
-                nxR.FirSum <= (others => '0');
+    case R.firState is
+      when NewVal =>
+        nxR.valWet <= '0';
+        nxR.FirSum <= (others => '0');
 
-                if iValDry = '1' then
-                    nxR.firState <= MulSum;
+        if iValDry = '1' then
+          nxR.firState <= FirMultSum;
 
-                    if R.readAdr = gBPCoeff(0)'length-1 then
-                        nxR.readAdr <= (others => '0');
-                    else
-                        nxR.readAdr <= R.readAdr + 1;
-                    end if;
-                end if;
+          if R.readAddrIn = gBPCoeff(0)'length-1 then
+            nxR.readAddrIn <= (others => '0');
+          else
+            nxR.readAddrIn <= R.readAddrIn + 1;
+          end if;
+        end if;
 
-            when MulSum =>
-                nxR.FirMulRes <= ResizeTruncAbsVal(readVal * coeffVal, R.FirMulRes);
+      when FirMultSum =>
+        nxR.FirMulRes <= ResizeTruncAbsVal(actInDat * actCoeff, R.FirMulRes);
+        nxR.FirSum    <= ResizeTruncAbsVal(R.FirSum + R.FirMulRes, R.FirSum);
 
-                if R.coeffAdr = gBPCoeff(0)'length-1 then
-                    nxR.firState    <= NewVal;
-                    nxR.coeffAdr    <= (others => '0');
-                    nxR.valWet      <= '1';
+        -- all bandpasses calculated?
+        if R.coeffAdr = gBPCoeff(0)'length-1 then
+          nxR.coeffAdr <= (others => '0');
+          nxR.gainAdr  <= (others => '0');
+          nxR.valWet   <= '1';
+          nxR.firState <= MultGains;
 
-                    if R.writeAdr = gBPCoeff(0)'length-1 then
-                        nxR.writeAdr <= (others => '0');
-                    else
-                        nxR.writeAdr <= R.writeAdr + 1;
-                    end if;
+          if R.writeAddrIn = gBPCoeff(0)'length-1 then
+            nxR.writeAddrIn <= (others => '0');
+          else
+            nxR.writeAddrIn <= R.writeAddrIn + 1;
+          end if;
 
-                else
-                    nxR.coeffAdr <= R.coeffAdr + 1;
+        else
+          nxR.firState <= FirMultSum;
+          nxR.coeffAdr <= R.coeffAdr + 1;
 
-                    if R.readAdr = gBPCoeff(0)'length-1 then
-                        nxR.readAdr <= (others => '0');
-                    else
-                        nxR.readAdr <= R.readAdr + 1;
-                    end if;
-                end if;
+          -- active FIR already calculated all values?
+          if R.readAddrIn = InputRAM'length-1 then
+            nxR.readAddrIn <= (others => '0');
+            nxR.activeFir <= R.activeFir + 1;
+          else
+            nxR.readAddrIn <= R.readAddrIn + 1;
+          end if;
+        end if;
 
-                nxR.FirSum <= ResizeTruncAbsVal(R.FirSum + R.FirMulRes, R.FirSum);
+      when MultGains =>
+        -- multiply FirResult with respective gain
+        nxR.AfterGainReg(R.gainAdr) <= ResizeTruncAbsVal(
+            R.FirResReg(R.gainAdr) * actGain, R.AfterGainReg(R.gainAdr));
 
-            when BpResultMult =>
-                nxR.GainMulRes <= ResizeTruncAbsVal(BPResult(i) * actGain, R.GainMulRes);
-                nxR.GainSum    <= ResizeTruncAbsVal(R.Gain + R.GainMulRes, R.GainSum);
+        -- sum up gained values
+        nxR.GainSum <= ResizeTruncAbsVal(R.GainSum + R.AfterGainReg(R.gainAdr), R.GainSum);
 
-            when others =>
-                nxR.firState <= NewVal;
-        end case;
-    end process FSM;
+        if max gainAdr reached
+         nxR.gainAdr <= others 0
+         nxR.firState <= NewVal;
+        else
+          nxR.gainAdr <= R.gainAdr + 1;
+        end if;
+
+        when others =>
+        nxR.firState <= NewVal;
+    end case;
+  end process FSM;
 
   ---------------------------------------------------------------------------
-  -- Register process
+  -- Memory processes
   ---------------------------------------------------------------------------
 
-  -- Read and write RAM
-  CoeffRAM : process (iClk) is
+  -- RAM that holds input values
+  Input_RAM : process (iClk) is
   begin
     if rising_edge(iClk) then
       if iValDry = '1' then
-        RAM(to_integer(R.writeAdr)) <= iDdry;
+        InputRAM(to_integer(R.writeAddrIn)) <= iDdry;
       end if;
-     readVal <= RAM(to_integer(R.readAdr));
+     actInDat <= InputRAM(to_integer(R.readAddrIn));
     end if;
-  end process CoeffRAM;
+  end process Input_RAM;
+
+    -- ROM that holds filter coefficients
+  Coeff_ROM : process (iClk) is
+  begin
+    if rising_edge(iClk) then
+     actCoeff <= CoeffROM(to_integer(R.coeffAdr));
+    end if;
+  end process Coeff_ROM;
 
   -- MM INTERFACE for gain configuration, memory is part of RAM
   ConfigGains : process (csi_clk) is
   begin
     if rising_edge(csi_clk) then
       if avs_s0_write = '1' then
-        RAM_Gain(to_integer(unsigned(avs_s0_address)))
-            <= to_sfixed(avs_s0_writedata, RAM_Gain(0);
+        GainRAM(to_integer(unsigned(avs_s0_address)))
+            <= to_sfixed(avs_s0_writedata, GainRAM(0);
       end if;
-    actGain <= RAM_Gain(to_integer(R.readAddr));
+    actGain <= GainRAM(to_integer(R.gainAdr));
     end if;
   end process ConfigGains;
 
+  -- Register process
   Reg : process (iClk, inResetAsync) is
   begin
     if (inResetAsync = cResetActive) then

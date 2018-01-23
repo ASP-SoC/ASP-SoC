@@ -331,12 +331,27 @@
    kind="avalon_streaming"
    version="17.1"
    start="fir_left.avalon_streaming_source_0"
+   end="mult_out.left_sink" />
+ <connection
+   kind="avalon_streaming"
+   version="17.1"
+   start="fir_right.avalon_streaming_source_0"
+   end="mult_out.right_sink" />
+ <connection
+   kind="avalon_streaming"
+   version="17.1"
+   start="mult_out.left_source"
    end="mux_out.left_sink" />
  <connection
    kind="avalon_streaming"
    version="17.1"
    start="channel_mux_in.left_source"
    end="delay_left.sink" />
+ <connection
+   kind="avalon_streaming"
+   version="17.1"
+   start="mult_out.right_source"
+   end="mux_out.right_sink" />
  <connection
    kind="avalon_streaming"
    version="17.1"
@@ -350,13 +365,13 @@
  <connection
    kind="avalon_streaming"
    version="17.1"
-   start="strobe_gen.source"
-   end="channel_mux_in.left_sink" />
+   start="add_right_dds.source"
+   end="fir_right.avalon_streaming_sink_0" />
  <connection
    kind="avalon_streaming"
    version="17.1"
-   start="add_right_dds.source"
-   end="mux_out.right_sink" />
+   start="strobe_gen.source"
+   end="channel_mux_in.left_sink" />
  <connection
    kind="avalon_streaming"
    version="17.1"

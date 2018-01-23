@@ -8,6 +8,9 @@ library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
+library ieee_proposed;
+use ieee_proposed.fixed_pkg.all;
+
 package Global is
   -----------------------------------------------------------------------------
   -- Definitions that are not project specific.
@@ -42,11 +45,18 @@ package Global is
 
   -- default sample rate
   constant default_sample_rate_c : natural := 44117;
-  constant sample_time : time := 1 sec / real(default_sample_rate_c);
+  constant sample_time           : time    := 1 sec / real(default_sample_rate_c);
 
   -- data width
   -- for streaming interface and audio data
   constant data_width_c : natural := 24;
+
+  -- intern data type for audio signals and coeffs
+  subtype audio_data_t is u_sfixed(0 downto -(data_width_c-1));
+
+  -- constant for audio data
+  constant silence_c : audio_data_t := (others => '0');
+  constant one_c     : audio_data_t := (0      => '0', others => '1');
 
   ------------------------------------------------------------------------------
   -- Function Definitions

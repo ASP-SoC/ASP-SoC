@@ -172,6 +172,26 @@
  <parameter name="useTestBenchNamingPattern" value="false" />
  <instanceScript></instanceScript>
  <interface
+   name="add_left_dds_s0"
+   internal="add_left_dds.s0_config"
+   type="avalon"
+   dir="end" />
+ <interface
+   name="add_left_noise_s0"
+   internal="add_left_noise.s0_config"
+   type="avalon"
+   dir="end" />
+ <interface
+   name="add_right_dds_s0"
+   internal="add_right_dds.s0_config"
+   type="avalon"
+   dir="end" />
+ <interface
+   name="add_right_noise_s0"
+   internal="add_right_noise.s0_config"
+   type="avalon"
+   dir="end" />
+ <interface
    name="channel_mux_in_s0"
    internal="channel_mux_in.s0"
    type="avalon"

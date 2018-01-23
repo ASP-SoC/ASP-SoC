@@ -6,25 +6,26 @@
 -- coeffs configuration.
 -------------------------------------------------------------------------------
 
-architecture RtlRam of DspFir is
+architecture Rtl of FirFilter is
 
   ----------------------------------------------------------------------------
   -- Types
   ----------------------------------------------------------------------------
-  type aMemory is array (0 to gB'length-1) of
-    aAudioData(0 downto -(gAudioBitWidth-1));
+  type aMemory is array (0 to coeff_num_g-1) of audio_data_t;
+
+  subtype audio_data_t is u_sfixed(0 downto -(data_width_g-1));
 
   type aFirStates is (NewVal, MulSum);
 
   type aFirParam is record
     firState : aFirStates;
-    writeAdr : unsigned(LogDualis(gB'length)-1 downto 0);
-    readAdr  : unsigned(LogDualis(gB'length)-1 downto 0);
-    coeffAdr : unsigned(LogDualis(gB'length)-1 downto 0);
+    writeAdr : unsigned(coeff_addr_width_g-1 downto 0);
+    readAdr  : unsigned(coeff_addr_width_g-1 downto 0);
+    coeffAdr : unsigned(coeff_addr_width_g-1 downto 0);
     valDry   : std_ulogic;
-    dDry     : aAudioData(0 downto -(gAudioBitWidth-1));
-    sum      : aAudioData(0 downto -(gAudioBitWidth-1));
-    mulRes   : aAudioData(0 downto -(gAudioBitWidth-1));
+    dDry     : audio_data_t;
+    sum      : audio_data_t;
+    mulRes   : audio_data_t;
     valWet   : std_ulogic;
   end record aFirParam;
 
@@ -45,21 +46,14 @@ architecture RtlRam of DspFir is
   ----------------------------------------------------------------------------
   -- Functions
   ----------------------------------------------------------------------------
-  function romInit return aMemory is
-    variable rom : aMemory := (others => (others => '0'));
-  begin
-    for adr in rom'range loop
-      rom(adr) := to_sfixed(gB(adr), rom(adr));
-    end loop;
-    return rom;
-  end romInit;
+
 
   procedure incr_addr (
-    signal in_addr  : in  unsigned(LogDualis(gB'length)-1 downto 0);
-    signal out_addr : out unsigned(LogDualis(gB'length)-1 downto 0)
+    signal in_addr  : in  unsigned(coeff_addr_width_g-1 downto 0);
+    signal out_addr : out unsigned(coeff_addr_width_g-1 downto 0)
     ) is
   begin
-    if (in_addr = (gB'length - 1)) then
+    if (in_addr = (coeff_num_g - 1)) then
       out_addr <= (others => '0');
     else
       out_addr <= in_addr + 1;
@@ -69,25 +63,83 @@ architecture RtlRam of DspFir is
   ----------------------------------------------------------------------------
   -- Signals
   ----------------------------------------------------------------------------
-  signal InputRam : aMemory                                  := (others => (others => '0'));
-  signal CoeffRom : aMemory                                  := romInit;
-  signal R        : aFirParam                                := cInitFirParam;
-  signal nxR      : aFirParam                                := cInitFirParam;
-  signal readVal  : aAudioData(0 downto -(gAudioBitWidth-1)) := (others => '0');
-  signal coeffVal : aAudioData(0 downto -(gAudioBitWidth-1)) := (others => '0');
+  signal InputRam : aMemory      := (others => (others => '0'));
+  signal CoeffRam : aMemory;
+  signal R        : aFirParam    := cInitFirParam;
+  signal nxR      : aFirParam    := cInitFirParam;
+  signal readVal  : audio_data_t := (others => '0');
+  signal coeffVal : audio_data_t := (others => '0');
+
+  -- enable register
+  signal enable : std_ulogic;
+
+  constant pass_in_to_out_c : std_ulogic := '0';
+  constant filter_c         : std_ulogic := '1';
 
 begin
+
+  -----------------------------------------------------------------------------
+  -- MM slave for enable
+  -----------------------------------------------------------------------------
+  s1_enable : process (csi_clk, rsi_reset_n) is
+  begin  -- process
+    if rsi_reset_n = '0' then           -- asynchronous reset (active low)
+      enable <= '0';
+    elsif rising_edge(csi_clk) then     -- rising clock edge
+      if avs_s1_write = '1' then
+        enable <= avs_s1_writedata(0);
+      end if;
+    end if;
+  end process;
+
+  -----------------------------------------------------------------------------
+  -- Coeff RAM 
+  -----------------------------------------------------------------------------
+
+  -- write ram
+  ram_wr : process (csi_clk) is
+  begin  -- process ram_wr
+    if rising_edge(csi_clk) then        -- rising clock edge
+      if avs_s0_write = '1' then
+        CoeffRam(to_integer(unsigned(avs_s0_address))) <=
+          to_sfixed(avs_s0_writedata(data_width_g-1 downto 0), CoeffRam(0));
+      end if;
+    end if;
+  end process ram_wr;
+
+  -- read ram
+  ram_rd : process (csi_clk) is
+  begin  -- process ram_rd
+    if rising_edge(csi_clk) then        -- rising clock edge
+      coeffVal <= CoeffRam(to_integer(R.coeffAdr));
+    end if;
+  end process ram_rd;
+
+  -----------------------------------------------------------------------------
 
   ----------------------------------------------------------------------------
   -- Outputs
   ----------------------------------------------------------------------------
-  oDwet   <= R.sum;
-  oValWet <= R.valWet;
+
+  -- valid
+  with enable select
+    aso_valid <=
+    asi_valid when pass_in_to_out_c,
+    R.valWet  when filter_c,
+    'X'       when others;
+
+  -- data
+  with enable select
+    aso_data <=
+    asi_data        when pass_in_to_out_c,
+    to_slv(R.sum)   when filter_c,
+    (others => 'X') when others;
+
 
   ----------------------------------------------------------------------------
   -- FSMD
   ----------------------------------------------------------------------------
-  Comb : process (R, iValDry, readVal, coeffVal) is
+  Comb : process (R, asi_valid, readVal, coeffVal) is
   begin
 
     nxR <= R;
@@ -98,7 +150,7 @@ begin
         nxR.sum    <= (others => '0');
 
         -- wait here for new sample
-        if iValDry = '1' then
+        if asi_valid = '1' then
           nxR.firState <= MulSum;
 
           incr_addr(R.readAdr, nxR.readAdr);
@@ -108,7 +160,7 @@ begin
         nxR.mulRes <= ResizeTruncAbsVal(readVal * coeffVal, nxR.mulRes);
         nxR.sum    <= ResizeTruncAbsVal(R.sum + R.mulRes, nxR.sum);
 
-        if R.coeffAdr = gB'length-1 then
+        if R.coeffAdr = coeff_num_g-1 then
           nxR.firState <= NewVal;
           nxR.coeffAdr <= (others => '0');
           nxR.valWet   <= '1';
@@ -127,11 +179,11 @@ begin
   ----------------------------------------------------------------------------
   -- Read and write RAM
   ----------------------------------------------------------------------------
-  AccessInputRam : process (iClk) is
+  AccessInputRam : process (csi_clk) is
   begin
-    if rising_edge(iClk) then
-      if iValDry = '1' then
-        InputRam(to_integer(R.writeAdr)) <= iDdry;
+    if rising_edge(csi_clk) then
+      if asi_valid = '1' then
+        InputRam(to_integer(R.writeAdr)) <= to_sfixed(asi_data, InputRam(0));
       end if;
 
       readVal <= InputRam(to_integer(R.readAdr));
@@ -139,25 +191,15 @@ begin
   end process AccessInputRam;
 
   ----------------------------------------------------------------------------
-  -- ROM
-  ----------------------------------------------------------------------------
-  AccessRom : process (iClk) is
-  begin
-    if rising_edge(iClk) then
-      coeffVal <= CoeffRom(to_integer(R.coeffAdr));
-    end if;
-  end process AccessRom;
-
-  ----------------------------------------------------------------------------
   -- Register process
   ----------------------------------------------------------------------------
-  Regs : process (iClk, inResetAsync) is
+  reg : process (csi_clk, rsi_reset_n) is
   begin
-    if inResetAsync = cResetActive then
+    if rsi_reset_n = '0' then
       R <= cInitFirParam;
-    elsif rising_edge(iClk) then
+    elsif rising_edge(csi_clk) then
       R <= nxR;
     end if;
-  end process Regs;
+  end process reg;
 
 end architecture;

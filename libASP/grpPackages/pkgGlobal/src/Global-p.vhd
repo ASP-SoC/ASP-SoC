@@ -9,6 +9,7 @@ use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
 library ieee_proposed;
+use ieee_proposed.fixed_float_types.all;
 use ieee_proposed.fixed_pkg.all;
 
 package Global is
@@ -64,6 +65,8 @@ package Global is
   -- function log2 returns the logarithm of base 2 as an integer
   function LogDualis(cNumber : natural) return natural;
 
+  function ResizeTruncAbsVal(arg : u_sfixed; size_res : u_sfixed) return sfixed;
+
 end Global;
 
 
@@ -85,6 +88,26 @@ package body Global is
     end loop;
     return vResult;
   end LogDualis;
+
+  function ResizeTruncAbsVal(arg      : u_sfixed;  -- input
+                             size_res : u_sfixed)  -- for size only
+    return sfixed is
+
+    variable vLSB : u_sfixed(arg'range) := (size_res'right => '1', others => '0');
+    variable vTmp : u_sfixed(arg'left + 1 downto arg'right);
+    variable vRes : u_sfixed(size_res'range);
+  begin
+
+    if (size_res'length < arg'length) and arg(arg'left) = '1' then
+      vTmp := arg + vLSB;
+    else
+      vTmp := '0' & arg;
+    end if;
+
+    vRes := resize(vTmp, size_res, fixed_saturate, fixed_truncate);
+
+    return vRes;
+  end function;
 
 
 end Global;

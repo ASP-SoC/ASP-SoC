@@ -1,14 +1,15 @@
 -------------------------------------------------------------------------------
--- Title       : Signal Delay Left and Right
+-- Title       : Testbench Equalizer
 -- Author      : Michael Wurm <michael.wurm@students.fh-hagenberg.at>
 -------------------------------------------------------------------------------
--- Description : Testing registers and function of unit
+-- Description : Bandpasses equally distributed on frequency range (10Hz-20kHz)
+--               each with a configurable factor
 -------------------------------------------------------------------------------
 
-entity tbDelay is
-end entity tbDelay;
+entity tbEqualizer is
+end entity tbEqualizer;
 
-architecture bhv of tbDelay is
+architecture bhv of tbEqualizer is
     ---------------------------------------------------------------------------
     -- Constants
     ---------------------------------------------------------------------------

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <EnsembleReport name="Platform" kind="Platform" version="1.0" fabric="QSYS">
  <!-- Format version 17.1 590 (Future versions may contain additional information.) -->
- <!-- 2018.01.16.14:46:16 -->
+ <!-- 2018.01.23.13:28:24 -->
  <!-- A collection of modules and connections -->
  <parameter name="AUTO_GENERATION_ID">
   <type>java.lang.Integer</type>
-  <value>1516110373</value>
+  <value>1516710503</value>
   <derived>false</derived>
   <enabled>true</enabled>
   <visible>false</visible>
@@ -71807,7 +71807,7 @@ parameters are a RESULT of the module parameters. -->
 the requested settings for a module instance. -->
   <parameter name="AUTO_GENERATION_ID">
    <type>java.lang.Integer</type>
-   <value>1516110373</value>
+   <value>1516710503</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>false</visible>
@@ -89585,7 +89585,7 @@ parameters are a RESULT of the module parameters. -->
 the requested settings for a module instance. -->
   <parameter name="AUTO_GENERATION_ID">
    <type>java.lang.Integer</type>
-   <value>1516110373</value>
+   <value>1516710503</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>false</visible>
@@ -94503,7 +94503,7 @@ parameters are a RESULT of the module parameters. -->
 the requested settings for a module instance. -->
   <parameter name="AUTO_GENERATION_ID">
    <type>java.lang.Integer</type>
-   <value>1516110373</value>
+   <value>1516710503</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>false</visible>
@@ -97107,7 +97107,7 @@ the requested settings for a module instance. -->
   </assignment>
   <assignment>
    <name>embeddedsw.CMacro.RESET_VALUE</name>
-   <value>15</value>
+   <value>1797689</value>
   </assignment>
   <assignment>
    <name>embeddedsw.dts.compatible</name>
@@ -97127,7 +97127,7 @@ the requested settings for a module instance. -->
   </assignment>
   <assignment>
    <name>embeddedsw.dts.params.resetvalue</name>
-   <value>15</value>
+   <value>1797689</value>
   </assignment>
   <assignment>
    <name>embeddedsw.dts.vendor</name>
@@ -97191,7 +97191,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="resetValue">
    <type>long</type>
-   <value>15</value>
+   <value>1797689</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -97885,7 +97885,7 @@ the requested settings for a module instance. -->
   </assignment>
   <assignment>
    <name>embeddedsw.CMacro.RESET_VALUE</name>
-   <value>15</value>
+   <value>1963763</value>
   </assignment>
   <assignment>
    <name>embeddedsw.dts.compatible</name>
@@ -97905,7 +97905,7 @@ the requested settings for a module instance. -->
   </assignment>
   <assignment>
    <name>embeddedsw.dts.params.resetvalue</name>
-   <value>15</value>
+   <value>1963763</value>
   </assignment>
   <assignment>
    <name>embeddedsw.dts.vendor</name>
@@ -97969,7 +97969,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="resetValue">
    <type>long</type>
-   <value>15</value>
+   <value>1963763</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -108916,33 +108916,6 @@ parameters are a RESULT of the module parameters. -->
   <endConnectionPoint>left_sink</endConnectionPoint>
  </connection>
  <connection
-   name="ASP_fir_right.avalon_streaming_source_0/ASP_mult_out.right_sink"
-   kind="avalon_streaming"
-   version="17.1"
-   start="ASP_fir_right.avalon_streaming_source_0"
-   end="ASP_mult_out.right_sink">
-  <parameter name="deviceFamily">
-   <type>java.lang.String</type>
-   <value>UNKNOWN</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="generateLegacySim">
-   <type>boolean</type>
-   <value>false</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <startModule>ASP_fir_right</startModule>
-  <startConnectionPoint>avalon_streaming_source_0</startConnectionPoint>
-  <endModule>ASP_mult_out</endModule>
-  <endConnectionPoint>right_sink</endConnectionPoint>
- </connection>
- <connection
    name="ASP_mult_out.left_source/ASP_mux_out.left_sink"
    kind="avalon_streaming"
    version="17.1"
@@ -109051,33 +109024,6 @@ parameters are a RESULT of the module parameters. -->
   <endConnectionPoint>sink</endConnectionPoint>
  </connection>
  <connection
-   name="ASP_add_right_dds.source/ASP_fir_right.avalon_streaming_sink_0"
-   kind="avalon_streaming"
-   version="17.1"
-   start="ASP_add_right_dds.source"
-   end="ASP_fir_right.avalon_streaming_sink_0">
-  <parameter name="deviceFamily">
-   <type>java.lang.String</type>
-   <value>UNKNOWN</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="generateLegacySim">
-   <type>boolean</type>
-   <value>false</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <startModule>ASP_add_right_dds</startModule>
-  <startConnectionPoint>source</startConnectionPoint>
-  <endModule>ASP_fir_right</endModule>
-  <endConnectionPoint>avalon_streaming_sink_0</endConnectionPoint>
- </connection>
- <connection
    name="ASP_add_left_dds.source/ASP_fir_left.avalon_streaming_sink_0"
    kind="avalon_streaming"
    version="17.1"
@@ -109130,6 +109076,33 @@ parameters are a RESULT of the module parameters. -->
   <startConnectionPoint>source</startConnectionPoint>
   <endModule>ASP_channel_mux_in</endModule>
   <endConnectionPoint>left_sink</endConnectionPoint>
+ </connection>
+ <connection
+   name="ASP_add_right_dds.source/ASP_mult_out.right_sink"
+   kind="avalon_streaming"
+   version="17.1"
+   start="ASP_add_right_dds.source"
+   end="ASP_mult_out.right_sink">
+  <parameter name="deviceFamily">
+   <type>java.lang.String</type>
+   <value>UNKNOWN</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <parameter name="generateLegacySim">
+   <type>boolean</type>
+   <value>false</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <startModule>ASP_add_right_dds</startModule>
+  <startConnectionPoint>source</startConnectionPoint>
+  <endModule>ASP_mult_out</endModule>
+  <endConnectionPoint>right_sink</endConnectionPoint>
  </connection>
  <connection
    name="ASP_delay_left.source/ASP_add_left_noise.sink_a"
@@ -112723,7 +112696,7 @@ parameters are a RESULT of the module parameters. -->
   <version>17.1</version>
  </plugin>
  <plugin>
-  <instanceCount>21</instanceCount>
+  <instanceCount>20</instanceCount>
   <name>avalon_streaming</name>
   <type>com.altera.entityinterfaces.IElementClass</type>
   <subtype>com.altera.entityinterfaces.IConnection</subtype>

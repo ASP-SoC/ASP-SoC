@@ -13,83 +13,94 @@ architecture Rtl of Multiply is
   subtype audio_data_t is sfixed(0 downto -(data_width_g-1));
 
   constant silence_c : audio_data_t := (others => '0');
+  constant one_c     : audio_data_t := (0      => '0', others => '1');
 
   signal left_fact  : audio_data_t;
   signal right_fact : audio_data_t;
 
   signal left_data, right_data : audio_data_t;
 
-  signal right_buf         : audio_data_t;
-  signal right_buf_pending : std_ulogic;
+  --signal right_buf         : audio_data_t;
+  --signal right_buf_pending : std_ulogic;
 
-  signal fact      : audio_data_t;
-  signal mult_data : audio_data_t;
-  signal mult_res  : audio_data_t;
+  --signal fact      : audio_data_t;
+  --signal mult_data : audio_data_t;
+  --signal mult_res  : audio_data_t;
 
 begin
 
   -- register process
-  reg : process (csi_clk, rsi_reset_n) is
-  begin  -- process calc
-    if rsi_reset_n = '0' then           -- asynchronous reset (active low)
-      right_buf         <= silence_c;
-      right_buf_pending <= '0';
-    elsif rising_edge(csi_clk) then     -- rising clock edge
-      if asi_left_valid = '1' and asi_right_valid = '1' then
-        right_buf         <= to_sfixed(asi_right_data, 0, -(data_width_g-1));
-        right_buf_pending <= '1';
-      else
-        right_buf_pending <= '0';
-      end if;
-    end if;
-  end process reg;
+  --reg : process (csi_clk, rsi_reset_n) is
+  --begin  -- process calc
+  --  if rsi_reset_n = '0' then           -- asynchronous reset (active low)
+  --    right_buf         <= silence_c;
+  --    right_buf_pending <= '0';
+  --  elsif rising_edge(csi_clk) then     -- rising clock edge
+  --    if asi_left_valid = '1' and asi_right_valid = '1' then
+  --      right_buf         <= to_sfixed(asi_right_data, 0, -(data_width_g-1));
+  --      right_buf_pending <= '1';
+  --    else
+  --      right_buf_pending <= '0';
+  --    end if;
+  --  end if;
+  --end process reg;
 
   -- calc process
-  calc : process (asi_left_valid, asi_left_data, asi_right_data, asi_right_valid, mult_res, left_fact, right_fact, right_buf) is
-  begin  -- process calc
+  --calc : process (asi_left_valid, asi_left_data, asi_right_data, asi_right_valid, mult_res, left_fact, right_fact, right_buf) is
+  --begin  -- process calc
 
-    -- default
-    aso_left_data   <= (others => '0');
-    aso_right_data  <= (others => '0');
-    aso_left_valid  <= '0';
-    aso_right_valid <= '0';
+  --  -- default
+  --  aso_left_data   <= (others => '0');
+  --  aso_right_data  <= (others => '0');
+  --  aso_left_valid  <= '0';
+  --  aso_right_valid <= '0';
 
-    fact      <= left_fact;
-    mult_data <= to_sfixed(asi_left_data, 0, -(data_width_g-1));
+  --  fact      <= left_fact;
+  --  mult_data <= to_sfixed(asi_left_data, 0, -(data_width_g-1));
 
-    if asi_left_valid = '1' then
-      aso_left_valid <= '1';
-      aso_left_data  <= to_slv(mult_res);
+  --  if asi_left_valid = '1' then
+  --    aso_left_valid <= '1';
+  --    aso_left_data  <= to_slv(mult_res);
 
-    elsif asi_right_valid = '1' then
-      aso_right_valid <= '1';
-      fact            <= right_fact;
-      mult_data       <= to_sfixed(asi_right_data, 0, -(data_width_g-1));
-      aso_right_data  <= to_slv(mult_res);
+  --  elsif asi_right_valid = '1' then
+  --    aso_right_valid <= '1';
+  --    fact            <= right_fact;
+  --    mult_data       <= to_sfixed(asi_right_data, 0, -(data_width_g-1));
+  --    aso_right_data  <= to_slv(mult_res);
 
-    elsif right_buf_pending = '1' then
-      aso_right_valid <= '1';
-      fact            <= right_fact;
-      mult_data       <= right_buf;
-      aso_right_data  <= to_slv(mult_res);
+  --  elsif right_buf_pending = '1' then
+  --    aso_right_valid <= '1';
+  --    fact            <= right_fact;
+  --    mult_data       <= right_buf;
+  --    aso_right_data  <= to_slv(mult_res);
 
-    end if;
+  --  end if;
 
-  end process calc;
+  --end process calc;
 
-  mult : process (fact, mult_data) is
-  begin  -- process mult
-    mult_res <= resize(mult_data * fact, 0, -(data_width_g-1));
-  end process mult;
+  --mult : process (fact, mult_data) is
+  --begin  -- process mult
+  --  mult_res <= resize(mult_data * fact, 0, -(data_width_g-1));
+  --end process mult;
 
-  
+  -- two multiplication operations
+  left_data      <= to_sfixed(asi_left_data, 0, -(data_width_g-1));
+  aso_left_valid <= asi_left_valid;
+  aso_left_data  <= to_slv(resize(left_data * left_fact, 0, -(data_width_g-1)));
+
+
+  right_data      <= to_sfixed(asi_right_data, 0, -(data_width_g-1));
+  aso_right_valid <= asi_right_valid;
+  aso_right_data  <= to_slv(resize(right_data * right_fact, 0, -(data_width_g-1)));
+
+
   -- MM INTERFACE for configuration
   SetConfigReg : process (csi_clk, rsi_reset_n) is
     variable factor : audio_data_t := silence_c;
   begin
     if rsi_reset_n = not('1') then      -- low active reset
-      left_fact  <= silence_c;
-      right_fact <= silence_c;
+      left_fact  <= one_c;
+      right_fact <= one_c;
     elsif rising_edge(csi_clk) then     -- rising 
       if avs_s0_write = '1' then
         -- convert std_logic_vector to sfixed

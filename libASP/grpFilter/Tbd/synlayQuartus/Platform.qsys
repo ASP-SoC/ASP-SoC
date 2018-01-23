@@ -17,7 +17,87 @@
          type = "int";
       }
    }
-   element ASP_SoC_FIR_0
+   element Audio
+   {
+      datum _originalDeviceFamily
+      {
+         value = "Cyclone V";
+         type = "String";
+      }
+   }
+   element Audio
+   {
+      datum _originalDeviceFamily
+      {
+         value = "Cyclone V";
+         type = "String";
+      }
+   }
+   element Audio
+   {
+      datum _originalDeviceFamily
+      {
+         value = "Cyclone V";
+         type = "String";
+      }
+   }
+   element Audio
+   {
+      datum _originalDeviceFamily
+      {
+         value = "Cyclone V";
+         type = "String";
+      }
+   }
+   element Audio
+   {
+      datum _originalDeviceFamily
+      {
+         value = "Cyclone V";
+         type = "String";
+      }
+   }
+   element Audio
+   {
+      datum _originalDeviceFamily
+      {
+         value = "Cyclone V";
+         type = "String";
+      }
+   }
+   element Audio
+   {
+      datum _originalDeviceFamily
+      {
+         value = "Cyclone V";
+         type = "String";
+      }
+   }
+   element Audio
+   {
+      datum _originalDeviceFamily
+      {
+         value = "Cyclone V";
+         type = "String";
+      }
+   }
+   element Audio
+   {
+      datum _originalDeviceFamily
+      {
+         value = "Cyclone V";
+         type = "String";
+      }
+   }
+   element Audio
+   {
+      datum _originalDeviceFamily
+      {
+         value = "Cyclone V";
+         type = "String";
+      }
+   }
+   element Avalon_FIR_left
    {
       datum _sortIndex
       {
@@ -25,7 +105,28 @@
          type = "int";
       }
    }
-   element ASP_SoC_FIR_0.s0
+   element Avalon_FIR_left.s0
+   {
+      datum _lockedAddress
+      {
+         value = "1";
+         type = "boolean";
+      }
+      datum baseAddress
+      {
+         value = "12288";
+         type = "String";
+      }
+   }
+   element Avalon_FIR_right
+   {
+      datum _sortIndex
+      {
+         value = "4";
+         type = "int";
+      }
+   }
+   element Avalon_FIR_right.s0
    {
       datum _lockedAddress
       {
@@ -38,100 +139,7 @@
          type = "String";
       }
    }
-   element ASP_SoC_FIR_1
-   {
-      datum _sortIndex
-      {
-         value = "6";
-         type = "int";
-      }
-   }
-   element ASP_SoC_FIR_1.s0
-   {
-      datum _lockedAddress
-      {
-         value = "0";
-         type = "boolean";
-      }
-      datum baseAddress
-      {
-         value = "12288";
-         type = "String";
-      }
-   }
-   element Audio
-   {
-      datum _originalDeviceFamily
-      {
-         value = "Cyclone V";
-         type = "String";
-      }
-   }
-   element Audio
-   {
-      datum _originalDeviceFamily
-      {
-         value = "Cyclone V";
-         type = "String";
-      }
-   }
-   element Audio
-   {
-      datum _originalDeviceFamily
-      {
-         value = "Cyclone V";
-         type = "String";
-      }
-   }
-   element Audio
-   {
-      datum _originalDeviceFamily
-      {
-         value = "Cyclone V";
-         type = "String";
-      }
-   }
-   element Audio
-   {
-      datum _originalDeviceFamily
-      {
-         value = "Cyclone V";
-         type = "String";
-      }
-   }
-   element Audio
-   {
-      datum _originalDeviceFamily
-      {
-         value = "Cyclone V";
-         type = "String";
-      }
-   }
-   element Audio
-   {
-      datum _originalDeviceFamily
-      {
-         value = "Cyclone V";
-         type = "String";
-      }
-   }
-   element Audio
-   {
-      datum _originalDeviceFamily
-      {
-         value = "Cyclone V";
-         type = "String";
-      }
-   }
-   element Audio
-   {
-      datum _originalDeviceFamily
-      {
-         value = "Cyclone V";
-         type = "String";
-      }
-   }
-   element Audio
+   element Platform
    {
       datum _originalDeviceFamily
       {
@@ -160,22 +168,6 @@
       datum _originalDeviceFamily
       {
          value = "Cyclone V";
-         type = "String";
-      }
-   }
-   element Template_0
-   {
-      datum _sortIndex
-      {
-         value = "4";
-         type = "int";
-      }
-   }
-   element Template_0.s0
-   {
-      datum baseAddress
-      {
-         value = "32";
          type = "String";
       }
    }
@@ -186,12 +178,17 @@
          value = "3";
          type = "int";
       }
+      datum sopceditor_expanded
+      {
+         value = "1";
+         type = "boolean";
+      }
    }
    element audio.config
    {
       datum baseAddress
       {
-         value = "80";
+         value = "208";
          type = "String";
       }
    }
@@ -220,7 +217,7 @@
    {
       datum baseAddress
       {
-         value = "64";
+         value = "192";
          type = "String";
       }
    }
@@ -819,20 +816,13 @@
   <parameter name="usb_mp_clk_div" value="0" />
   <parameter name="use_default_mpu_clk" value="true" />
  </module>
- <module name="ASP_SoC_FIR_0" kind="ASP_SoC_FIR" version="1.1" enabled="0">
+ <module name="Avalon_FIR_left" kind="Avalon_FIR" version="1.1" enabled="1">
   <parameter name="gDataWidth" value="24" />
-  <parameter name="gNrAddressLines" value="4" />
-  <parameter name="gNumberOfCoeffs" value="16" />
+  <parameter name="gMaxNumCoeffs" value="16" />
  </module>
- <module name="ASP_SoC_FIR_1" kind="ASP_SoC_FIR" version="1.1" enabled="0">
+ <module name="Avalon_FIR_right" kind="Avalon_FIR" version="1.1" enabled="1">
   <parameter name="gDataWidth" value="24" />
-  <parameter name="gNrAddressLines" value="4" />
-  <parameter name="gNumberOfCoeffs" value="16" />
- </module>
- <module name="Template_0" kind="Template" version="1.0" enabled="0">
-  <parameter name="gDataWidth" value="24" />
-  <parameter name="gMaxDelay" value="100" />
-  <parameter name="gNewDataFreq" value="48000" />
+  <parameter name="gMaxNumCoeffs" value="16" />
  </module>
  <module name="audio" kind="AudioCodecSubSytem" version="1.0" enabled="1">
   <parameter name="AUTO_CLK_CLOCK_DOMAIN" value="1" />
@@ -866,7 +856,7 @@
    start="ARM_A9_HPS.h2f_lw_axi_master"
    end="audio.config">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x0050" />
+  <parameter name="baseAddress" value="0x00d0" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -875,7 +865,7 @@
    start="ARM_A9_HPS.h2f_lw_axi_master"
    end="pio.hex0_2_s1">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x0040" />
+  <parameter name="baseAddress" value="0x00c0" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -909,27 +899,18 @@
    kind="avalon"
    version="16.1"
    start="ARM_A9_HPS.h2f_lw_axi_master"
-   end="Template_0.s0">
-  <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x0020" />
-  <parameter name="defaultConnection" value="false" />
- </connection>
- <connection
-   kind="avalon"
-   version="16.1"
-   start="ARM_A9_HPS.h2f_lw_axi_master"
-   end="ASP_SoC_FIR_0.s0">
-  <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x1000" />
-  <parameter name="defaultConnection" value="false" />
- </connection>
- <connection
-   kind="avalon"
-   version="16.1"
-   start="ARM_A9_HPS.h2f_lw_axi_master"
-   end="ASP_SoC_FIR_1.s0">
+   end="Avalon_FIR_left.s0">
   <parameter name="arbitrationPriority" value="1" />
   <parameter name="baseAddress" value="0x3000" />
+  <parameter name="defaultConnection" value="false" />
+ </connection>
+ <connection
+   kind="avalon"
+   version="16.1"
+   start="ARM_A9_HPS.h2f_lw_axi_master"
+   end="Avalon_FIR_right.s0">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x1000" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -944,18 +925,35 @@
  <connection
    kind="avalon_streaming"
    version="16.1"
-   start="audio.left_source"
+   start="Avalon_FIR_left.avalon_streaming_source_0"
    end="audio.left_sink" />
  <connection
    kind="avalon_streaming"
    version="16.1"
-   start="audio.right_source"
+   start="Avalon_FIR_right.avalon_streaming_source_0"
    end="audio.right_sink" />
+ <connection
+   kind="avalon_streaming"
+   version="16.1"
+   start="audio.left_source"
+   end="Avalon_FIR_left.avalon_streaming_sink_0" />
+ <connection
+   kind="avalon_streaming"
+   version="16.1"
+   start="audio.right_source"
+   end="Avalon_FIR_right.avalon_streaming_sink_0" />
  <connection kind="clock" version="16.1" start="clk.clk" end="audio.clk" />
  <connection kind="clock" version="16.1" start="clk.clk" end="pio.clk" />
- <connection kind="clock" version="16.1" start="clk.clk" end="Template_0.clock" />
- <connection kind="clock" version="16.1" start="clk.clk" end="ASP_SoC_FIR_0.clock" />
- <connection kind="clock" version="16.1" start="clk.clk" end="ASP_SoC_FIR_1.clock" />
+ <connection
+   kind="clock"
+   version="16.1"
+   start="clk.clk"
+   end="Avalon_FIR_right.clock" />
+ <connection
+   kind="clock"
+   version="16.1"
+   start="clk.clk"
+   end="Avalon_FIR_left.clock" />
  <connection
    kind="clock"
    version="16.1"
@@ -967,7 +965,12 @@
    kind="reset"
    version="16.1"
    start="clk.clk_reset"
-   end="Template_0.reset" />
+   end="Avalon_FIR_right.reset" />
+ <connection
+   kind="reset"
+   version="16.1"
+   start="clk.clk_reset"
+   end="Avalon_FIR_left.reset" />
  <connection
    kind="reset"
    version="16.1"
@@ -978,21 +981,6 @@
    version="16.1"
    start="ARM_A9_HPS.h2f_reset"
    end="audio.reset" />
- <connection
-   kind="reset"
-   version="16.1"
-   start="ARM_A9_HPS.h2f_reset"
-   end="Template_0.reset" />
- <connection
-   kind="reset"
-   version="16.1"
-   start="ARM_A9_HPS.h2f_reset"
-   end="ASP_SoC_FIR_0.reset" />
- <connection
-   kind="reset"
-   version="16.1"
-   start="ARM_A9_HPS.h2f_reset"
-   end="ASP_SoC_FIR_1.reset" />
  <interconnectRequirement for="$system" name="qsys_mm.clockCrossingAdapter" value="HANDSHAKE" />
  <interconnectRequirement for="$system" name="qsys_mm.enableEccProtection" value="FALSE" />
  <interconnectRequirement for="$system" name="qsys_mm.insertDefaultSlave" value="FALSE" />

@@ -13,7 +13,7 @@
    {
       datum _sortIndex
       {
-         value = "11";
+         value = "10";
          type = "int";
       }
    }
@@ -21,7 +21,7 @@
    {
       datum _sortIndex
       {
-         value = "7";
+         value = "6";
          type = "int";
       }
    }
@@ -37,7 +37,7 @@
    {
       datum _sortIndex
       {
-         value = "9";
+         value = "8";
          type = "int";
       }
    }
@@ -45,7 +45,7 @@
    {
       datum _sortIndex
       {
-         value = "3";
+         value = "2";
          type = "int";
       }
       datum sopceditor_expanded
@@ -58,7 +58,7 @@
    {
       datum _sortIndex
       {
-         value = "1";
+         value = "0";
          type = "int";
       }
    }
@@ -66,7 +66,7 @@
    {
       datum _sortIndex
       {
-         value = "10";
+         value = "9";
          type = "int";
       }
    }
@@ -82,7 +82,7 @@
    {
       datum _sortIndex
       {
-         value = "4";
+         value = "3";
          type = "int";
       }
    }
@@ -90,7 +90,7 @@
    {
       datum _sortIndex
       {
-         value = "5";
+         value = "4";
          type = "int";
       }
    }
@@ -98,7 +98,7 @@
    {
       datum _sortIndex
       {
-         value = "0";
+         value = "11";
          type = "int";
       }
    }
@@ -130,7 +130,7 @@
    {
       datum _sortIndex
       {
-         value = "2";
+         value = "1";
          type = "int";
       }
    }
@@ -138,7 +138,7 @@
    {
       datum _sortIndex
       {
-         value = "6";
+         value = "5";
          type = "int";
       }
    }
@@ -146,7 +146,7 @@
    {
       datum _sortIndex
       {
-         value = "8";
+         value = "7";
          type = "int";
       }
    }
@@ -331,22 +331,12 @@
    kind="avalon_streaming"
    version="17.1"
    start="fir_left.avalon_streaming_source_0"
-   end="mult_out.left_sink" />
- <connection
-   kind="avalon_streaming"
-   version="17.1"
-   start="mult_out.left_source"
    end="mux_out.left_sink" />
  <connection
    kind="avalon_streaming"
    version="17.1"
    start="channel_mux_in.left_source"
    end="delay_left.sink" />
- <connection
-   kind="avalon_streaming"
-   version="17.1"
-   start="mult_out.right_source"
-   end="mux_out.right_sink" />
  <connection
    kind="avalon_streaming"
    version="17.1"
@@ -366,7 +356,7 @@
    kind="avalon_streaming"
    version="17.1"
    start="add_right_dds.source"
-   end="mult_out.right_sink" />
+   end="mux_out.right_sink" />
  <connection
    kind="avalon_streaming"
    version="17.1"

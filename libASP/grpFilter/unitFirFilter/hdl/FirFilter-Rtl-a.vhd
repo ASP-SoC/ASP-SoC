@@ -157,8 +157,8 @@ begin
         end if;
 
       when MulSum =>
-        nxR.mulRes <= ResizeTruncAbsVal(readVal * coeffVal, nxR.mulRes);
-        nxR.sum    <= ResizeTruncAbsVal(R.sum + R.mulRes, nxR.sum);
+        nxR.mulRes <= ResizeTruncAbsVal(readVal * coeffVal, R.mulRes);
+        nxR.sum    <= ResizeTruncAbsVal(R.sum + R.mulRes, R.sum);
 
         if R.coeffAdr = coeff_num_g-1 then
           nxR.firState <= NewVal;

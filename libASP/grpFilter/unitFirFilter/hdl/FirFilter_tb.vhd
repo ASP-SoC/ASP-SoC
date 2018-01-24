@@ -1,22 +1,10 @@
 -------------------------------------------------------------------------------
 -- Title      : Testbench for design "FirFilter"
--- Project    : 
 -------------------------------------------------------------------------------
 -- File       : FirFilter_tb.vhd
--- Author     :   <fxst@FXST-PC>
--- Company    : 
--- Created    : 2018-01-23
--- Last update: 2018-01-23
--- Platform   : 
--- Standard   : VHDL'93/02
--------------------------------------------------------------------------------
--- Description: 
+-- Author     : Franz Steinbacher
 -------------------------------------------------------------------------------
 -- Copyright (c) 2018 
--------------------------------------------------------------------------------
--- Revisions  :
--- Date        Version  Author  Description
--- 2018-01-23  1.0      fxst    Created
 -------------------------------------------------------------------------------
 
 library ieee;
@@ -42,9 +30,12 @@ architecture Bhv of FirFilter_tb is
   constant strobe_time : time       := 200 ns;
   signal sample_strobe : std_ulogic := '0';
 
+  -- filter coeffs
+  constant fir_coeffs_c : fract_set_t := (0.5, 0.0, 0.0, 0.0);
+
   -- component generics
   constant data_width_g       : natural := data_width_c;
-  constant coeff_num_g        : natural := 16;
+  constant coeff_num_g        : natural := fir_coeffs_c'length;
   constant coeff_addr_width_g : natural := 4;
 
   -- component ports
@@ -92,23 +83,32 @@ begin  -- architecture Bhv
   csi_clk <= not csi_clk after 10 ns;
 
   -- sample strobe generation
-  strobe : process is
-  begin  -- process
-    wait for strobe_time;
-    wait until rising_edge(csi_clk);
-    sample_strobe <= '1';
-    wait until rising_edge(csi_clk);
-    sample_strobe <= '0';
-  end process;
+  --strobe : process is
+  --begin  -- process
+  --  wait for strobe_time;
+  --  wait until rising_edge(csi_clk);
+  --  sample_strobe <= '1';
+  --  wait until rising_edge(csi_clk);
+  --  sample_strobe <= '0';
+  --end process;
+
+  SinGen_1: entity work.SinGen
+    generic map (
+      periode_g     => 100 us,
+      sample_time_g => strobe_time)
+    port map (
+      clk_i        => csi_clk,
+      data_o       => data_in,
+      data_valid_o => sample_strobe);
 
   -- sinus as audio data
-  aud_data : process is
-  begin  -- process
-    for idx in 0 to sin_table_c'length-1 loop
-      wait until rising_edge(sample_strobe);
-      data_in <= to_sfixed(sin_table_c(idx), 0, -(data_width_g-1));
-    end loop;  -- idx
-  end process aud_data;
+  --aud_data : process is
+  --begin  -- process
+  --  for idx in 0 to sin_table_c'length-1 loop
+  --    wait until rising_edge(sample_strobe);
+  --    data_in <= to_sfixed(sin_table_c(idx), 0, -(data_width_g-1));
+  --  end loop;  -- idx
+  --end process aud_data;
 
   asi_data  <= to_slv(data_in);
   asi_valid <= sample_strobe;
@@ -120,7 +120,7 @@ begin  -- architecture Bhv
       wait until rising_edge(csi_clk);
       avs_s0_address                            <= std_logic_vector(to_unsigned(idx, avs_s0_address'length));
       avs_s0_write                              <= '1';
-      avs_s0_writedata(data_width_g-1 downto 0) <= (others => '0');
+      avs_s0_writedata(data_width_g-1 downto 0) <= to_slv(to_sfixed(fir_coeffs_c(idx), 0, -(data_width_g-1)));
     end loop;  -- idx
   end process avs_s0;
 

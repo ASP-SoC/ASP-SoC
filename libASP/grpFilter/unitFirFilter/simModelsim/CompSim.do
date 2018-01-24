@@ -7,6 +7,7 @@ vlib work
 vcom ../../../grpPackages/pkgFixed/src/fixed_pkg_c.vhdl
 vcom ../../../grpPackages/pkgGlobal/src/Global-p.vhd
 vcom ../../../grpPackages/pkgSin/sin_4096-p.vhd
+vcom ../../../grpSimulation/unitSinGen/hdl/SinGen-Bhv-ea.vhd
 vcom ../hdl/FirFilter-e.vhd
 vcom ../hdl/FirFilter-Rtl-a.vhd
 vcom ../hdl/FirFilter_tb.vhd

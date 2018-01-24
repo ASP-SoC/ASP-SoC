@@ -1,20 +1,19 @@
 -------------------------------------------------------------------------------
--- Title       : Testbench Equalizer
+-- Title       : Testbench Equalizer Single Channel
 -- Author      : Michael Wurm <michael.wurm@students.fh-hagenberg.at>
 -------------------------------------------------------------------------------
 -- Description : Bandpasses equally distributed on frequency range (10Hz-20kHz)
 --               each with a configurable factor
---               Handles two channels, left and right.
 -------------------------------------------------------------------------------
 
 library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
-entity tbEqualizer is
-end entity tbEqualizer;
+entity tbEqualizerSingleCh is
+end entity tbEqualizerSingleCh;
 
-architecture bhv of tbEqualizer is
+architecture bhv of tbEqualizerSingleCh is
   ---------------------------------------------------------------------------
   -- Constants
   ---------------------------------------------------------------------------

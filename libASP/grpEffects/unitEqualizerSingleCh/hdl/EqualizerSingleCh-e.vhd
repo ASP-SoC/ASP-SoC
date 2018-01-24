@@ -1,10 +1,10 @@
 -------------------------------------------------------------------------------
--- Title       : Equalizer
+-- Title       : Equalizer Single Channel
 -- Author      : Michael Wurm <michael.wurm@students.fh-hagenberg.at>
 -------------------------------------------------------------------------------
 -- Description : Bandpasses equally distributed on frequency range (10Hz-20kHz)
 --               each with a configurable factor
---               Handles two channels, left and right.
+--               Can only handle a single channel.
 -------------------------------------------------------------------------------
 
 library ieee;
@@ -17,7 +17,7 @@ library ieee_proposed;
 use ieee_proposed.fixed_pkg.all;
 use ieee_proposed.fixed_float_types.all;
 
-entity Equalizer is
+entity EqualizerSingleCh is
   generic (
       gDataWidth : natural := 24;       -- bitwidth of a single register
       gBPCoeff   : aEQBandpassSet := (  -- filter coefficients
@@ -41,16 +41,12 @@ entity Equalizer is
       avs_s0_address   : in  std_logic_vector( 2 downto 0);
       avs_s0_writedata : in  std_logic_vector(31 downto 0);
 
-      -- Avalon ST sink left and right channel
-      asi_left_data   : in std_logic_vector(gDataWidth-1 downto 0);
-      asi_left_valid  : in std_logic;
-      asi_right_data  : in std_logic_vector(gDataWidth-1 downto 0);
-      asi_right_valid : in std_logic;
+      -- Avalon ST sink, single channel
+      asi_data   : in std_logic_vector(gDataWidth-1 downto 0);
+      asi_valid  : in std_logic;
 
-      -- Avalon ST source left and right channel
-      aso_left_data   : out std_logic_vector(gDataWidth-1 downto 0);
-      aso_left_valid  : out std_logic;
-      aso_right_data  : out std_logic_vector(gDataWidth-1 downto 0);
-      aso_right_valid : out std_logic
+      -- Avalon ST source, single channel
+      aso_data   : out std_logic_vector(gDataWidth-1 downto 0);
+      aso_valid  : out std_logic
   );
-end entity Equalizer;
+end entity EqualizerSingleCh;

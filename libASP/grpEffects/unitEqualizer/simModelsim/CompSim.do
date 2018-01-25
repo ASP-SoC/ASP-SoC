@@ -17,4 +17,4 @@ vsim tbEqualizer
 
 do wave.do
 
-run 100 ms
+run 1 us

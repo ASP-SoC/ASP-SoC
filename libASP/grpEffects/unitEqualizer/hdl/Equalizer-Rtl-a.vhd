@@ -7,18 +7,6 @@
 --               Handles two channels, left and right.
 -------------------------------------------------------------------------------
 
--- ROM Structure
---  All Filter Coefficients : cNumberOfBands*cEQBAndpassOrder
---
--- RAM1 Structure "RAM_Gain" (Memory Mapped Configuration)
---  Gain Values : cNumberOfBands
---
--- RAM2 Structure "RAM"
---  Fir Calc Values : cEQBAndpassOrder
---
--- Registers
---  cNumberOfBands : BP Results
-
 architecture Rtl of Equalizer is
   ---------------------------------------------------------------------------
   -- Types
@@ -32,8 +20,8 @@ architecture Rtl of Equalizer is
   ---------------------------------------------------------------------------
   -- Registers
   ---------------------------------------------------------------------------
-  signal nxR : aRegister := cInitFirParam;
   signal R   : aRegister := cInitFirParam;
+  signal nxR : aRegister := cInitFirParam;
 
   ---------------------------------------------------------------------------
   -- Wires
@@ -54,17 +42,13 @@ begin
   aso_right_valid <= right_valid;
 
   ---------------------------------------------------------------------------
-  -- Signal assignments
-  ---------------------------------------------------------------------------
-
-  ---------------------------------------------------------------------------
   -- Instantiations
   ---------------------------------------------------------------------------
   -- left channel
   LeftEqInst : entity work.EqualizerSingleCh
     port map (
-        csi_clk          => csi_clk,
-        rsi_reset_n      => rsi_reset_n,
+        csi_clk     => csi_clk,
+        rsi_reset_n => rsi_reset_n,
 
        -- Avalon MM Slave Port s0
         avs_s0_write     => avs_s0_write,
@@ -72,19 +56,19 @@ begin
         avs_s0_writedata => avs_s0_writedata,
 
         -- Avalon ST sink
-        asi_data   => asi_left_data,
-        asi_valid  => asi_left_valid,
+        asi_data  => asi_left_data,
+        asi_valid => asi_left_valid,
 
         -- Avalon ST source
-        aso_data   => left_data,
-        aso_valid  => left_valid
+        aso_data  => left_data,
+        aso_valid => left_valid
     );
 
   -- right channel
   RightEqInst : entity work.EqualizerSingleCh
     port map (
-        csi_clk          => csi_clk,
-        rsi_reset_n      => rsi_reset_n,
+        csi_clk     => csi_clk,
+        rsi_reset_n => rsi_reset_n,
 
        -- Avalon MM Slave Port s0
         avs_s0_write     => avs_s0_write,
@@ -92,12 +76,12 @@ begin
         avs_s0_writedata => avs_s0_writedata,
 
         -- Avalon ST sink
-        asi_data   => asi_right_data,
-        asi_valid  => asi_right_valid,
+        asi_data  => asi_right_data,
+        asi_valid => asi_right_valid,
 
         -- Avalon ST source
-        aso_data   => right_data,
-        aso_valid  => right_valid
+        aso_data  => right_data,
+        aso_valid => right_valid
     );
 
   ---------------------------------------------------------------------------

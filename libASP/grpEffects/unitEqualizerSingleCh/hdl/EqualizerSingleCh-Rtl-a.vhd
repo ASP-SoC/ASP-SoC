@@ -3,8 +3,10 @@
 -- Author      : Michael Wurm <michael.wurm@students.fh-hagenberg.at>
 -------------------------------------------------------------------------------
 -- Description : Bandpasses equally distributed on frequency range (10Hz-20kHz)
---               each with a configurable factor
+--               each with a configurable gain factor
 --               Can only handle a single channel.
+--               Multiplications are all serialized, so that only 1 hardware
+--               multiplier is utilized.
 -------------------------------------------------------------------------------
 
 -- ROM Structure
@@ -31,7 +33,7 @@ architecture Rtl of EqualizerSingleCh is
     readAddrIn   : natural range 0 to LogDualis(gBPCoeff(0)'length)-1;
     coeffAdr     : natural range 0 to LogDualis(gBPCoeff(0)'length)-1;
     gainAdr      : natural range 0 to LogDualis(cNumberOfBands)-1;
-    activeFir    : natural range 0 to LogDualis(cNumberOfBands)-1;
+    activeFir    : natural range 0 to cNumberOfBands-1;
     valDry       : std_ulogic;
     valWet       : std_ulogic;
     dDry         : aFilterCoeff;
@@ -58,18 +60,29 @@ architecture Rtl of EqualizerSingleCh is
                                           AfterGainReg => (others => (others => '0'))
                                         );
 
+  -- initializes ROM with filter coefficients of bandpasses
   function romInit return aMemory is
-    variable rom : aMemory(0 to cEQBAndpassOrder*cNumberOfBands);
+    variable rom : aMemory(0 to (cEQBAndpassOrder+1)*cNumberOfBands);
     variable idx : natural := 0;
   begin
     for i in 0 to cNumberOfBands-1 loop
       for adr in 0 to cEQBAndpassOrder loop
-        --rom(idx) := to_sfixed(gBPCoeff(i)(adr), rom(idx));
+        rom(idx) := to_sfixed(gBPCoeff(i)(adr), rom(idx));
         idx      := idx + 1;
       end loop;
     end loop;
     return rom;
   end romInit;
+
+  -- initializes RAM with gain values of 1
+  function ramGainInit return aMemory is
+    variable ram : aMemory(0 to cNumberOfBands-1);
+  begin
+    for i in ram'range loop
+      ram(i) := to_sfixed(0.99999999999999,ram(i));
+    end loop;
+    return ram;
+  end ramGainInit;
 
   procedure incr_addr (
     signal in_addr  	: in  natural;
@@ -85,9 +98,9 @@ architecture Rtl of EqualizerSingleCh is
   ---------------------------------------------------------------------------
   -- Registers
   ---------------------------------------------------------------------------
-  signal CoeffRom : aMemory(0 to cEQBAndpassOrder) := romInit;
+  signal CoeffRom : aMemory(0 to (cEQBAndpassOrder+1)*cNumberOfBands) := romInit;
+  signal GainRAM  : aMemory(0 to cNumberOfBands-1) := ramGainInit;
   signal InputRAM : aMemory(0 to cEQBAndpassOrder) := (others => (others => '0'));
-  signal GainRAM  : aMemory(0 to cNumberOfBands-1) := (others => (others => '0'));
 
   signal nxR      : aFirParam    := cInitFirParam;
   signal R        : aFirParam    := cInitFirParam;
@@ -123,8 +136,12 @@ begin
 
     case R.firState is
       when NewVal =>
-        nxR.valWet <= '0';
-        nxR.FirSum <= (others => '0');
+        ------------------------------------------------------------
+        -- Wait for new value to arrive.
+        ------------------------------------------------------------
+        nxR.valWet    <= '0';
+        nxR.FirSum    <= (others => '0');
+        nxR.activeFir <= 0;
 
         if asi_valid = '1' then
           nxR.firState <= FirMultSum;
@@ -132,6 +149,10 @@ begin
         end if;
 
       when FirMultSum =>
+        ------------------------------------------------------------
+        -- Multiply input data samples with respective coefficients.
+        -- All bandpasses calculate their values in this state.
+        ------------------------------------------------------------
         nxR.FirMulRes <= ResizeTruncAbsVal(actInDat * actCoeff, R.FirMulRes);
         nxR.FirSum    <= ResizeTruncAbsVal(R.FirSum + R.FirMulRes, R.FirSum);
 
@@ -139,7 +160,7 @@ begin
         incr_addr(R.readAddrIn, nxR.readAddrIn);
 
         -- all bandpasses calculated?
-        if R.coeffAdr = gBPCoeff(0)'length-1 then
+        if R.coeffAdr = CoeffRom'length-1 then
           nxR.coeffAdr <= 0;
           nxR.gainAdr  <= 0;
           nxR.firState <= MultGains;
@@ -149,11 +170,17 @@ begin
 
         -- active FIR already calculated all values?
         if R.readAddrIn = InputRAM'length-1 then
-          nxR.activeFir <= R.activeFir + 1;
+          if R.activeFir = cNumberOfBands-1 then -- last bandpasses finished?
+            nxR.activeFir <= 0;
+          else
+            nxR.activeFir <= R.activeFir + 1;
+          end if;
         end if;
 
       when MultGains =>
-        -- multiply FirResult with respective gain
+        ------------------------------------------------------------
+        -- Multiply each FIR result with respective gain
+        ------------------------------------------------------------
         nxR.AfterGainReg(R.gainAdr) <= ResizeTruncAbsVal(
             R.FirResReg(R.gainAdr) * actGain, R.AfterGainReg(R.gainAdr));
 

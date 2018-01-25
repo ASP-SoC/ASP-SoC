@@ -181,6 +181,19 @@
          type = "String";
       }
    }
+   element ASP.fir_left_s1
+   {
+      datum _lockedAddress
+      {
+         value = "1";
+         type = "boolean";
+      }
+      datum baseAddress
+      {
+         value = "164";
+         type = "String";
+      }
+   }
    element ASP.fir_right_s0
    {
       datum _lockedAddress
@@ -191,6 +204,19 @@
       datum baseAddress
       {
          value = "512";
+         type = "String";
+      }
+   }
+   element ASP.fir_right_s1
+   {
+      datum _lockedAddress
+      {
+         value = "1";
+         type = "boolean";
+      }
+      datum baseAddress
+      {
+         value = "168";
          type = "String";
       }
    }
@@ -1090,6 +1116,9 @@
   <parameter name="use_default_mpu_clk" value="false" />
  </module>
  <module name="ASP" kind="subsystemA" version="1.0" enabled="1">
+  <parameter name="AUTO_CLK_0_CLOCK_DOMAIN" value="-1" />
+  <parameter name="AUTO_CLK_0_CLOCK_RATE" value="-1" />
+  <parameter name="AUTO_CLK_0_RESET_DOMAIN" value="-1" />
   <parameter name="AUTO_CLK_CLOCK_DOMAIN" value="1" />
   <parameter name="AUTO_CLK_CLOCK_RATE" value="50000000" />
   <parameter name="AUTO_CLK_RESET_DOMAIN" value="1" />
@@ -1246,9 +1275,27 @@
    kind="avalon"
    version="17.1"
    start="ARM_A9_HPS.h2f_lw_axi_master"
+   end="ASP.fir_left_s1">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x00a4" />
+  <parameter name="defaultConnection" value="false" />
+ </connection>
+ <connection
+   kind="avalon"
+   version="17.1"
+   start="ARM_A9_HPS.h2f_lw_axi_master"
    end="ASP.fir_right_s0">
   <parameter name="arbitrationPriority" value="1" />
   <parameter name="baseAddress" value="0x0200" />
+  <parameter name="defaultConnection" value="false" />
+ </connection>
+ <connection
+   kind="avalon"
+   version="17.1"
+   start="ARM_A9_HPS.h2f_lw_axi_master"
+   end="ASP.fir_right_s1">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x00a8" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection

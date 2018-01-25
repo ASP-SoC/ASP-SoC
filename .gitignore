@@ -44,6 +44,7 @@ hps_sdram_p0_summary.csv
 
 # unit specific
 Platform/
+subSystemA/
 
 # ignore generated files
 build/

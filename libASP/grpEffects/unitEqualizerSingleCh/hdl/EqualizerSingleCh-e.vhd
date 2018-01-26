@@ -41,7 +41,7 @@ entity EqualizerSingleCh is
       -- Avalon MM Slave Port s0 - used for config parameters
       avs_s0_write     : in  std_logic;
       avs_s0_address   : in  std_logic_vector( 3 downto 0);
-      avs_s0_writedata : in  std_logic_vector(31 downto 0);
+      avs_s0_writedata : in  std_logic_vector(23 downto 0);
 
       -- Avalon ST sink, single channel
       asi_data   : in std_logic_vector(gDataWidth-1 downto 0);

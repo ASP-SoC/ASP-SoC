@@ -10,18 +10,23 @@
 -------------------------------------------------------------------------------
 
 -- ROM Structure
---  All Filter Coefficients : cNumberOfBands*cEQBAndpassOrder
+--  All Filter Coefficients : cNumOfBands*cEQBAndpassOrder
 --
 -- RAM1 Structure "RAM_Gain" (Memory Mapped Configuration)
---  Gain Values : cNumberOfBands
+--  Gain Values : cNumOfBands
 --
 -- RAM2 Structure "RAM"
 --  Fir Calc Values : cEQBAndpassOrder
 --
 -- Registers
---  cNumberOfBands : BP Results
+--  cNumOfBands : BP Results
 
 architecture Rtl of EqualizerSingleCh is
+  ---------------------------------------------------------------------------
+  -- Constants
+  ---------------------------------------------------------------------------
+  constant cNumCoeffsPerFIR : natural := cEQBAndpassOrder + 1;
+
   ---------------------------------------------------------------------------
   -- Types
   ---------------------------------------------------------------------------
@@ -29,19 +34,19 @@ architecture Rtl of EqualizerSingleCh is
 
   type aFirParam is record
     firState     : aFirState;
-    writeAddrIn  : natural range 0 to LogDualis(gBPCoeff(0)'length)-1;
-    readAddrIn   : natural range 0 to LogDualis(gBPCoeff(0)'length)-1;
-    coeffAdr     : natural range 0 to LogDualis(gBPCoeff(0)'length)-1;
-    gainAdr      : natural range 0 to LogDualis(cNumberOfBands)-1;
-    activeFir    : natural range 0 to cNumberOfBands-1;
+    writeAddrIn  : natural;-- range 0 to cNumCoeffsPerFIR-1;
+    readAddrIn   : natural;-- range 0 to cNumCoeffsPerFIR-1;
+    coeffAdr     : natural;-- range 0 to cNumCoeffsPerFIR-1;
+    gainAdr      : natural range 0 to cNumOfBands-1;
+    activeFir    : natural range 0 to cNumOfBands-1;
     valDry       : std_ulogic;
     valWet       : std_ulogic;
     dDry         : aFilterCoeff;
     FirSum       : aFilterCoeff;
     FirMulRes    : aFilterCoeff;
     GainSum      : aFilterCoeff;
-    FirResReg    : aMemory(0 to cNumberOfBands-1);
-    AfterGainReg : aMemory(0 to cNumberOfBands-1);
+    FirResReg    : aMemory(0 to cNumOfBands-1);
+    AfterGainReg : aMemory(0 to cNumOfBands-1);
   end record aFirParam;
 
   constant cInitFirParam : aFirParam := ( firState     => NewVal,
@@ -60,13 +65,17 @@ architecture Rtl of EqualizerSingleCh is
                                           AfterGainReg => (others => (others => '0'))
                                         );
 
+  ---------------------------------------------------------------------------
+  -- Functions and Procedures
+  ---------------------------------------------------------------------------
+
   -- initializes ROM with filter coefficients of bandpasses
   function romInit return aMemory is
-    variable rom : aMemory(0 to (cEQBAndpassOrder+1)*cNumberOfBands);
+    variable rom : aMemory(0 to cNumCoeffsPerFIR*cNumOfBands-1);
     variable idx : natural := 0;
   begin
-    for i in 0 to cNumberOfBands-1 loop
-      for adr in 0 to cEQBAndpassOrder loop
+    for i in 0 to cNumOfBands-1 loop
+      for adr in 0 to cNumCoeffsPerFIR-1 loop
         rom(idx) := to_sfixed(gBPCoeff(i)(adr), rom(idx));
         idx      := idx + 1;
       end loop;
@@ -76,7 +85,7 @@ architecture Rtl of EqualizerSingleCh is
 
   -- initializes RAM with gain values of 1
   function ramGainInit return aMemory is
-    variable ram : aMemory(0 to cNumberOfBands-1);
+    variable ram : aMemory(0 to cNumOfBands-1);
   begin
     for i in ram'range loop
       ram(i) := to_sfixed(0.99999999999999,ram(i));
@@ -84,11 +93,13 @@ architecture Rtl of EqualizerSingleCh is
     return ram;
   end ramGainInit;
 
+  -- increments a value to maximum, with overflow handling
   procedure incr_addr (
-    signal in_addr  	: in  natural;
-    signal out_addr 	: out natural) is
+    signal in_addr   : in  natural;
+    signal out_addr  : out natural;
+    constant maximum : in  natural) is
   begin
-    if (in_addr = (gBPCoeff(0)'length-1)) then
+    if in_addr = (maximum - 1) then
       out_addr <= 0;
     else
       out_addr <= in_addr + 1;
@@ -98,9 +109,9 @@ architecture Rtl of EqualizerSingleCh is
   ---------------------------------------------------------------------------
   -- Registers
   ---------------------------------------------------------------------------
-  signal CoeffRom : aMemory(0 to (cEQBAndpassOrder+1)*cNumberOfBands) := romInit;
-  signal GainRAM  : aMemory(0 to cNumberOfBands-1) := ramGainInit;
-  signal InputRAM : aMemory(0 to cEQBAndpassOrder) := (others => (others => '0'));
+  signal CoeffRom : aMemory(0 to cNumCoeffsPerFIR*cNumOfBands-1) := romInit;
+  signal GainRAM  : aMemory(0 to cNumOfBands-1)                  := ramGainInit;
+  signal InputRAM : aMemory(0 to cNumCoeffsPerFIR-1)             := (others => (others => '0'));
 
   signal nxR      : aFirParam    := cInitFirParam;
   signal R        : aFirParam    := cInitFirParam;
@@ -112,7 +123,7 @@ architecture Rtl of EqualizerSingleCh is
   ---------------------------------------------------------------------------
   -- Wires
   ---------------------------------------------------------------------------
-  signal bp_valid : std_ulogic;
+
 
 begin
 
@@ -129,7 +140,7 @@ begin
   ----------------------------------------------------------------------------
   -- FSMD
   ----------------------------------------------------------------------------
-  FSM : process (asi_data, asi_valid, R) is
+  FSM : process (R, asi_valid, actInDat, actCoeff, actGain) is
   begin
 
     nxR <= R;
@@ -140,12 +151,12 @@ begin
         -- Wait for new value to arrive.
         ------------------------------------------------------------
         nxR.valWet    <= '0';
-        nxR.FirSum    <= (others => '0');
+        nxR.FirSum <= (others => '0');
         nxR.activeFir <= 0;
 
         if asi_valid = '1' then
           nxR.firState <= FirMultSum;
-          incr_addr(R.readAddrIn,nxR.readAddrIn);
+          incr_addr(R.readAddrIn, nxR.readAddrIn, cNumCoeffsPerFIR);
         end if;
 
       when FirMultSum =>
@@ -156,8 +167,8 @@ begin
         nxR.FirMulRes <= ResizeTruncAbsVal(actInDat * actCoeff, R.FirMulRes);
         nxR.FirSum    <= ResizeTruncAbsVal(R.FirSum + R.FirMulRes, R.FirSum);
 
-        incr_addr(R.coeffAdr, nxR.coeffAdr);
-        incr_addr(R.readAddrIn, nxR.readAddrIn);
+        incr_addr(R.coeffAdr, nxR.coeffAdr, CoeffRom'length);
+        incr_addr(R.readAddrIn, nxR.readAddrIn, cNumCoeffsPerFIR);
 
         -- all bandpasses calculated?
         if R.coeffAdr = CoeffRom'length-1 then
@@ -165,12 +176,14 @@ begin
           nxR.gainAdr  <= 0;
           nxR.firState <= MultGains;
 
-          incr_addr(R.writeAddrIn, nxR.writeAddrIn);
+          incr_addr(R.writeAddrIn, nxR.writeAddrIn, cNumCoeffsPerFIR);
         end if;
 
         -- active FIR already calculated all values?
         if R.readAddrIn = InputRAM'length-1 then
-          if R.activeFir = cNumberOfBands-1 then -- last bandpasses finished?
+          nxR.FirResReg(R.activeFir) <= R.FirSum; -- store active FIR's result
+
+          if R.activeFir = cNumOfBands-1 then  -- last bandpasses finished?
             nxR.activeFir <= 0;
           else
             nxR.activeFir <= R.activeFir + 1;
@@ -189,8 +202,8 @@ begin
 
         if R.gainAdr = GainRam'length-1 then
           nxR.gainAdr  <= 0;
-          nxR.firState <= NewVal;
           nxR.valWet   <= '1';
+          nxR.firState <= NewVal;
         else
           nxR.gainAdr <= R.gainAdr + 1;
         end if;
@@ -229,7 +242,7 @@ begin
     if rising_edge(csi_clk) then
       if avs_s0_write = '1' then
         GainRAM(to_integer(unsigned(avs_s0_address)))
-            <= to_sfixed(avs_s0_writedata, GainRAM(0));
+            <= to_sfixed(avs_s0_writedata(GainRAM(0)'length-1 downto 0), GainRAM(0));
       end if;
     actGain <= GainRAM(R.gainAdr);
     end if;

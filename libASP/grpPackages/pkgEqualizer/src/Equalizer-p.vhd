@@ -14,7 +14,7 @@ use ieee_proposed.fixed_float_types.all;
 
 package PkgEqualizer is
 
-  constant cNumberOfBands    : natural :=  10;
+  constant cNumOfBands       : natural :=  10;
   constant cFilterCoeffWidth : natural :=  24;
   constant cEQBandpassOrder  : natural :=  79;
 

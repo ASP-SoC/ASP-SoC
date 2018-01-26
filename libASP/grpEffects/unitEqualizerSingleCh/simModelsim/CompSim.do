@@ -14,9 +14,9 @@ vcom -2008 ../hdl/tbEqualizerSingleCh-Bhv-ea.vhd
 
 ###### START SIMULATION ########
 
-set simEndTime "20000 ns"
+set simEndTime "2 ms"
 
-vsim tbEqualizerSingleCh
+vsim tbEqCh
 do fastsim_hack.do
 do wave.do $simEndTime
 

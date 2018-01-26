@@ -10,10 +10,10 @@ library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
-entity tbEqualizerSingleCh is
-end entity tbEqualizerSingleCh;
+entity tbEqCh is
+end entity tbEqCh;
 
-architecture bhv of tbEqualizerSingleCh is
+architecture bhv of tbEqCh is
   ---------------------------------------------------------------------------
   -- Constants
   ---------------------------------------------------------------------------
@@ -23,9 +23,9 @@ architecture bhv of tbEqualizerSingleCh is
   ---------------------------------------------------------------------------
   signal Clk       : std_ulogic := '0';
   signal nReset    : std_ulogic := '0';
-  signal s0_write  : std_ulogic;
+  signal s0_write  : std_ulogic := '0';
   signal s0_addr   : std_ulogic_vector( 3 downto 0) := (others => '0');
-  signal s0_wrdata : std_ulogic_vector(31 downto 0) := (others => '0');
+  signal s0_wrdata : std_ulogic_vector(23 downto 0) := (others => '0');
   signal dryValid  : std_ulogic := '0';
   signal dryData   : std_ulogic_vector(cDataWidth-1 downto 0) := (others => '0');
   signal wetValid  : std_ulogic := '0';
@@ -38,7 +38,24 @@ begin
   ---------------------------------------------------------------------------
   Clk    <= not Clk after 10 ns;
   nReset <= '1' after 100 ns;
-  dryValid <= not dryValid after 227 ns; -- ca. 44117 Hz
+
+
+
+
+  Stimul : process
+  begin
+
+    -- generate valid signal
+    wait for 200 ns;
+    for i in 0 to 1000 loop
+      wait for 22665216 ps; -- 22665.216 ns is 44117 Hz
+      wait until rising_edge(Clk);
+      dryValid <= '1';
+      wait until rising_edge(Clk);
+      dryValid <= '0';
+    end loop;
+
+  end process Stimul;
 
   ---------------------------------------------------------------------------
   -- Instantiations

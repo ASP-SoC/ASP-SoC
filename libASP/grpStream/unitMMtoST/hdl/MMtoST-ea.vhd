@@ -70,12 +70,18 @@ architecture Rtl of MMtoST is
   signal new_left_channel_audio  : std_logic_vector(data_width_g-1 downto 0);
   signal new_right_channel_audio : std_logic_vector(data_width_g-1 downto 0);
 
+  -- read and write strobes
+  signal rd_left  : std_ulogic;
+  signal rd_right : std_ulogic;
+  signal wr_left  : std_ulogic;
+  signal wr_right : std_ulogic;
+
   -- address constants
   constant control_c   : std_logic_vector(1 downto 0) := "00";
   constant fifospace_c : std_logic_vector(1 downto 0) := "01";
   constant leftdata_c  : std_logic_vector(1 downto 0) := "10";
   constant rightdata_c : std_logic_vector(1 downto 0) := "11";
-  
+
 begin  -- architecture Rtl
 
   -- interrupt sender register
@@ -95,7 +101,7 @@ begin  -- architecture Rtl
       avs_s0_readdata <= (others => '0');
 
     elsif rising_edge(csi_clk) then     -- rising clock edge
-      if avs_s0_read = '1' and avs_s0_chipselect = '1' then
+      if avs_s0_chipselect = '1' then
         -- default
         avs_s0_readdata <= (others => '0');
 
@@ -196,7 +202,120 @@ begin  -- architecture Rtl
   end process irq_bhv;
 
 
-  -- avalon stream
+  -- combinatoric logic for read and write strobe
+  rd_wr_stb : process is
+  begin  -- process rd_wr_stb
+    rd_left  <= '0';
+    rd_right <= '0';
+    wr_left  <= '0';
+    wr_right <= '0';
 
+    if avs_s0_chipselect = '1' then
+      case avs_s0_address is
+
+        when leftdata_c =>
+          if avs_s0_read = '1' then
+            rd_left <= '1';
+          end if;
+
+          if avs_s0_write = '1' then
+            wr_left <= '1';
+          end if;
+
+        when rightdata_c =>
+          if avs_s0_read = '1' then
+            rd_right <= '1';
+          end if;
+
+          if avs_s0_write = '1' then
+            wr_right <= '1';
+          end if;
+
+        when others => null;
+      end case;
+    end if;
+
+  end process rd_wr_stb;
+
+
+  -- st -> MM fifo
+  asi_left_fifo : entity work.FIFO
+    generic map (
+      data_width_g => data_width_g,
+      depth_g      => fifo_depth_g,
+      adr_width_g  => fifo_adr_width_g)
+    port map (
+      clk_i     => csi_clk,
+      rst_i     => rsi_reset_n,
+      wr_i      => asi_left_valid,
+      rd_i      => rd_left,
+      wr_data_i => to_StduLogicVector(asi_left_data),
+      rd_data_o => to_stdulogicvector(new_left_channel_audio),
+      full_o    => open,
+      empty_o   => open,
+      space_o   => left_channel_read_available);
+
+  -- st -> MM fifo
+  asi_right_fifo : entity work.FIFO
+    generic map (
+      data_width_g => data_width_g,
+      depth_g      => fifo_depth_g,
+      adr_width_g  => fifo_adr_width_g)
+    port map (
+      clk_i     => csi_clk,
+      rst_i     => rsi_reset_n,
+      wr_i      => asi_right_valid,
+      rd_i      => rd_right,
+      wr_data_i => to_StduLogicVector(asi_right_data),
+      rd_data_o => to_stdulogicvector(new_left_channel_audio),
+      full_o    => open,
+      empty_o   => open,
+      space_o   => right_channel_read_available);
+
+  -- MM -> st fifo
+  aso_left_fifo : entity work.FIFO
+    generic map (
+      data_width_g => data_width_g,
+      depth_g      => fifo_depth_g,
+      adr_width_g  => fifo_adr_width_g)
+    port map (
+      clk_i     => csi_clk,
+      rst_i     => rsi_reset_n,
+      wr_i      => wr_left,
+      rd_i      => asi_left_valid,
+      wr_data_i => to_stdulogicvector(avs_s0_writedata(data_width_g-1 downto 0)),
+      rd_data_o => to_stdulogicvector(aso_left_data),
+      full_o    => open,
+      empty_o   => open,
+      space_o   => left_channel_write_space);
+
+  -- MM -> st fifo
+  aso_right_fifo : entity work.FIFO
+    generic map (
+      data_width_g => data_width_g,
+      depth_g      => fifo_depth_g,
+      adr_width_g  => fifo_adr_width_g)
+    port map (
+      clk_i     => csi_clk,
+      rst_i     => rsi_reset_n,
+      wr_i      => wr_right,
+      rd_i      => asi_right_valid,
+      wr_data_i => to_stdulogicvector(avs_s0_writedata(data_width_g-1 downto 0)),
+      rd_data_o => to_stdulogicvector(aso_right_data),
+      full_o    => open,
+      empty_o   => open,
+      space_o   => right_channel_write_space);
+
+  -- delay valid with one clk cycle, because read needs one clk cycle
+  dly_valid : process (csi_clk, rsi_reset_n) is
+  begin  -- process dly_valid
+    if rsi_reset_n = '0' then           -- asynchronous reset (active low)
+      aso_left_valid  <= '0';
+      aso_right_valid <= '0';
+    elsif rising_edge(csi_clk) then     -- rising clock edge
+      aso_left_valid  <= asi_left_valid;
+      aso_right_valid <= asi_right_valid;
+    end if;
+  end process dly_valid;
 
 end architecture Rtl;

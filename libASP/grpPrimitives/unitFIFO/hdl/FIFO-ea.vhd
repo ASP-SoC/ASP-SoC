@@ -2,7 +2,7 @@
 -- Title       : FIFO
 -- Author      : Franz Steinbacher
 -------------------------------------------------------------------------------
--- Description : FIFO - memory with overflow  overwrite bhv
+-- Description : FIFO - memory
 -------------------------------------------------------------------------------
 
 library ieee;
@@ -45,6 +45,8 @@ architecture Rtl of FIFO is
   signal space       : unsigned(adr_width_g-1 downto 0);
   signal full, empty : std_ulogic;
 
+  signal rd_data : std_ulogic_vector(data_width_g-1 downto 0);
+
 begin  -- architecture Rtl
 
   -- memory
@@ -60,7 +62,7 @@ begin  -- architecture Rtl
   rd_mem : process (clk_i) is
   begin
     if rising_edge(clk_i) then
-      rd_data_o <= memory(rd_ptr);
+      rd_data <= memory(rd_ptr);
     end if;
   end process rd_mem;
 
@@ -119,5 +121,9 @@ begin  -- architecture Rtl
   empty_o <= empty;
   full_o  <= full;
 
+  -- if fifo is empty - read silence
+  rd_data_o <= rd_data when empty = '0'
+               else (others => '0') when empty = '1'
+               else (others => 'X');
 
 end architecture Rtl;

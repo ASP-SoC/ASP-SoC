@@ -3,7 +3,7 @@
 -- Author      : Franz Steinbacher
 -------------------------------------------------------------------------------
 -- Description : Memory Mapped Slave to Avalon Streaming with Left and Right Channel
---               Used to stream audio data from the soc linux t the fpga
+--               Used to stream audio data from the soc linux to the fpga
 -------------------------------------------------------------------------------
 
 library ieee;
@@ -75,6 +75,12 @@ architecture Rtl of MMtoST is
   signal rd_right : std_ulogic;
   signal wr_left  : std_ulogic;
   signal wr_right : std_ulogic;
+
+  -- fifo read stdulogicvector
+  signal asi_left_fifo_data  : std_ulogic_vector(data_width_g-1 downto 0);
+  signal asi_right_fifo_data : std_ulogic_vector(data_width_g-1 downto 0);
+  signal aso_left_fifo_data  : std_ulogic_vector(data_width_g-1 downto 0);
+  signal aso_right_fifo_data : std_ulogic_vector(data_width_g-1 downto 0);
 
   -- address constants
   constant control_c   : std_logic_vector(1 downto 0) := "00";
@@ -203,7 +209,7 @@ begin  -- architecture Rtl
 
 
   -- combinatoric logic for read and write strobe
-  rd_wr_stb : process is
+  rd_wr_stb : process (avs_s0_address, avs_s0_chipselect, avs_s0_read, avs_s0_write) is
   begin  -- process rd_wr_stb
     rd_left  <= '0';
     rd_right <= '0';
@@ -250,10 +256,12 @@ begin  -- architecture Rtl
       wr_i      => asi_left_valid,
       rd_i      => rd_left,
       wr_data_i => to_StduLogicVector(asi_left_data),
-      rd_data_o => to_stdulogicvector(new_left_channel_audio),
+      rd_data_o => asi_left_fifo_data,
       full_o    => open,
       empty_o   => open,
       space_o   => left_channel_read_available);
+
+  new_left_channel_audio <= to_StdLogicVector(asi_left_fifo_data);
 
   -- st -> MM fifo
   asi_right_fifo : entity work.FIFO
@@ -267,10 +275,12 @@ begin  -- architecture Rtl
       wr_i      => asi_right_valid,
       rd_i      => rd_right,
       wr_data_i => to_StduLogicVector(asi_right_data),
-      rd_data_o => to_stdulogicvector(new_left_channel_audio),
+      rd_data_o => asi_right_fifo_data,
       full_o    => open,
       empty_o   => open,
       space_o   => right_channel_read_available);
+
+  new_right_channel_audio <= to_StdLogicVector(asi_right_fifo_data);
 
   -- MM -> st fifo
   aso_left_fifo : entity work.FIFO
@@ -284,10 +294,12 @@ begin  -- architecture Rtl
       wr_i      => wr_left,
       rd_i      => asi_left_valid,
       wr_data_i => to_stdulogicvector(avs_s0_writedata(data_width_g-1 downto 0)),
-      rd_data_o => to_stdulogicvector(aso_left_data),
+      rd_data_o => aso_left_fifo_data,
       full_o    => open,
       empty_o   => open,
       space_o   => left_channel_write_space);
+
+  aso_left_data <= to_stdLogicVector(aso_left_fifo_data);
 
   -- MM -> st fifo
   aso_right_fifo : entity work.FIFO
@@ -301,10 +313,12 @@ begin  -- architecture Rtl
       wr_i      => wr_right,
       rd_i      => asi_right_valid,
       wr_data_i => to_stdulogicvector(avs_s0_writedata(data_width_g-1 downto 0)),
-      rd_data_o => to_stdulogicvector(aso_right_data),
+      rd_data_o => aso_right_fifo_data,
       full_o    => open,
       empty_o   => open,
       space_o   => right_channel_write_space);
+
+  aso_right_data <= to_stdLogicVector(aso_right_fifo_data);
 
   -- delay valid with one clk cycle, because read needs one clk cycle
   dly_valid : process (csi_clk, rsi_reset_n) is

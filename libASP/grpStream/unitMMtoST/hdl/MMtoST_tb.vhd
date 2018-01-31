@@ -22,11 +22,11 @@ architecture Bhv of MMtoST_tb is
 
   -- component generics
   constant data_width_g     : natural := 24;
-  constant fifo_depth_g     : natural := 128;
-  constant fifo_adr_width_g : natural := 8;
+  constant fifo_depth_g     : natural := 16;
+  constant fifo_adr_width_g : natural := 5;
 
   -- component ports
-  signal csi_clk           : std_logic;
+  signal csi_clk           : std_logic := '1';
   signal rsi_reset_n       : std_logic;
   signal avs_s0_chipselect : std_logic;
   signal avs_s0_write      : std_logic;
@@ -44,13 +44,11 @@ architecture Bhv of MMtoST_tb is
   signal aso_right_valid   : std_logic;
   signal aso_right_data    : std_logic_vector(data_width_g-1 downto 0);
 
-  -- clock
-  signal Clk : std_logic := '1';
 
 begin  -- architecture Bhv
 
   -- component instantiation
-  DUT: entity work.MMtoST
+  DUT : entity work.MMtoST
     generic map (
       data_width_g     => data_width_g,
       fifo_depth_g     => fifo_depth_g,
@@ -75,17 +73,37 @@ begin  -- architecture Bhv
       aso_right_data    => aso_right_data);
 
   -- clock generation
-  Clk <= not Clk after 10 ns;
+  csi_clk <= not csi_clk after 10 ns;
+
+  std_gen : process is
+  begin  -- process std_gen
+    asi_left_valid  <= '0';
+    asi_right_valid <= '0';
+    wait for 1000 ns;
+    wait until rising_edge(csi_clk);
+    asi_left_valid  <= '1';
+    wait until rising_edge(csi_clk);
+    asi_left_valid  <= '0';
+    asi_right_valid <= '1';
+    wait until rising_edge(csi_clk);
+    asi_right_valid <= '0';
+  end process std_gen;
 
   -- waveform generation
-  WaveGen_Proc: process
+  WaveGen_Proc : process
   begin
-    -- insert signal assignments here
+    rsi_reset_n <= '0' after 0 ns,
+                   '1' after 40 ns;
 
-    wait until Clk = '1';
+    asi_right_data <= (others => '0');
+    asi_left_data  <= (others => '0');
+
+
+
+    wait;
   end process WaveGen_Proc;
 
-  
+
 
 end architecture Bhv;
 

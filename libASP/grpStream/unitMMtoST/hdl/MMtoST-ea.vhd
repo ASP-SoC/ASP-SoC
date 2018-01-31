@@ -3,7 +3,7 @@
 -- Author      : Franz Steinbacher
 -------------------------------------------------------------------------------
 -- Description : Memory Mapped Slave to Avalon Streaming with Left and Right Channel
---               Used to stream audio data from the soc linux to the fpga
+--               Used to stream audio data from the soc linux t the fpga
 -------------------------------------------------------------------------------
 
 library ieee;
@@ -75,8 +75,7 @@ architecture Rtl of MMtoST is
   constant fifospace_c : std_logic_vector(1 downto 0) := "01";
   constant leftdata_c  : std_logic_vector(1 downto 0) := "10";
   constant rightdata_c : std_logic_vector(1 downto 0) := "11";
-
-
+  
 begin  -- architecture Rtl
 
   -- interrupt sender register

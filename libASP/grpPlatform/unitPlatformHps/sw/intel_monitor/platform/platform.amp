@@ -4,7 +4,7 @@
         <system_info filepath="true">../../../synlayQuartus/Platform.sopcinfo</system_info>
         <system_sof filepath="true">../../../synlayQuartus/output_files/PlatformHps.sof</system_sof>
         <system_jdi filepath="true"/>
-        <cable>DE-SoC [2-2]</cable>
+        <cable>DE-SoC [2-1.2]</cable>
         <processor>ARM_A9_HPS_arm_a9_0</processor>
         <reset_processor_during_load>true</reset_processor_during_load>
         <terminal>Semihosting</terminal>

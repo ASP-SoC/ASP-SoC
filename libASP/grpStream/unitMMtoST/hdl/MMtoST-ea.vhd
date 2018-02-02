@@ -82,6 +82,17 @@ architecture Rtl of MMtoST is
   signal aso_left_fifo_data  : std_ulogic_vector(data_width_g-1 downto 0);
   signal aso_right_fifo_data : std_ulogic_vector(data_width_g-1 downto 0);
 
+  -- fifo empty and full signals
+  signal asi_left_fifo_empty  : std_ulogic;
+  signal asi_right_fifo_empty : std_ulogic;
+  signal aso_left_fifo_empty  : std_ulogic;
+  signal aso_right_fifo_empty : std_ulogic;
+
+  signal asi_left_fifo_full  : std_ulogic;
+  signal asi_right_fifo_full : std_ulogic;
+  signal aso_left_fifo_full  : std_ulogic;
+  signal aso_right_fifo_full : std_ulogic;
+
   -- address constants
   constant control_c   : std_logic_vector(1 downto 0) := "00";
   constant fifospace_c : std_logic_vector(1 downto 0) := "01";
@@ -186,7 +197,8 @@ begin  -- architecture Rtl
 
       -- read interrupt
       if read_interrupt_en = '1' then
-        read_interrupt <= left_channel_read_available(fifo_adr_width_g-1)
+        read_interrupt <= asi_left_fifo_full or asi_right_fifo_full
+                          or left_channel_read_available(fifo_adr_width_g-1)
                           or (left_channel_read_available(fifo_adr_width_g-2) and left_channel_read_available(fifo_adr_width_g-3))
                           or right_channel_read_available(fifo_adr_width_g-1)
                           or (right_channel_read_available(fifo_adr_width_g-2) and right_channel_read_available(fifo_adr_width_g-3));
@@ -196,7 +208,8 @@ begin  -- architecture Rtl
 
       -- write interrupt
       if write_interrupt_en = '1' then
-        write_interrupt <= left_channel_write_space(fifo_adr_width_g-1)
+        write_interrupt <= aso_left_fifo_full or aso_right_fifo_full or
+                           left_channel_write_space(fifo_adr_width_g-1)
                            or (left_channel_write_space(fifo_adr_width_g-2) and left_channel_write_space(fifo_adr_width_g-3))
                            or right_channel_write_space(fifo_adr_width_g-1)
                            or (right_channel_write_space(fifo_adr_width_g-2) and right_channel_write_space(fifo_adr_width_g-3));
@@ -258,11 +271,13 @@ begin  -- architecture Rtl
       wr_data_i => to_StduLogicVector(asi_left_data),
       rd_data_o => asi_left_fifo_data,
       clear_i   => clear_read_fifos,
-      full_o    => open,
-      empty_o   => open,
+      full_o    => asi_left_fifo_full,
+      empty_o   => asi_left_fifo_empty,
       space_o   => left_channel_read_available);
 
-  new_left_channel_audio <= to_StdLogicVector(asi_left_fifo_data);
+  new_left_channel_audio <= to_StdLogicVector(asi_left_fifo_data) when asi_left_fifo_empty = '0'
+                            else (others => '0') when asi_left_fifo_empty = '1'
+                            else (others => 'X');
 
   -- st -> MM fifo
   asi_right_fifo : entity work.FIFO
@@ -278,11 +293,13 @@ begin  -- architecture Rtl
       wr_data_i => to_StduLogicVector(asi_right_data),
       rd_data_o => asi_right_fifo_data,
       clear_i   => clear_read_fifos,
-      full_o    => open,
-      empty_o   => open,
+      full_o    => asi_right_fifo_full,
+      empty_o   => asi_right_fifo_empty,
       space_o   => right_channel_read_available);
 
-  new_right_channel_audio <= to_StdLogicVector(asi_right_fifo_data);
+  new_right_channel_audio <= to_StdLogicVector(asi_right_fifo_data) when asi_right_fifo_empty = '0'
+                             else (others => '0') when asi_right_fifo_empty = '1'
+                             else (others => 'X');
 
   -- MM -> st fifo
   aso_left_fifo : entity work.FIFO
@@ -298,11 +315,13 @@ begin  -- architecture Rtl
       wr_data_i => to_stdulogicvector(avs_s0_writedata(data_width_g-1 downto 0)),
       rd_data_o => aso_left_fifo_data,
       clear_i   => clear_write_fifos,
-      full_o    => open,
-      empty_o   => open,
+      full_o    => aso_left_fifo_full,
+      empty_o   => aso_left_fifo_empty,
       space_o   => left_channel_write_space);
 
-  aso_left_data <= to_stdLogicVector(aso_left_fifo_data);
+  aso_left_data <= to_stdLogicVector(aso_left_fifo_data) when aso_left_fifo_empty = '0'
+                   else (others => '0') when aso_left_fifo_empty = '1'
+                   else (others => 'X');
 
   -- MM -> st fifo
   aso_right_fifo : entity work.FIFO
@@ -318,11 +337,13 @@ begin  -- architecture Rtl
       wr_data_i => to_stdulogicvector(avs_s0_writedata(data_width_g-1 downto 0)),
       rd_data_o => aso_right_fifo_data,
       clear_i   => clear_write_fifos,
-      full_o    => open,
-      empty_o   => open,
+      full_o    => aso_right_fifo_full,
+      empty_o   => aso_right_fifo_empty,
       space_o   => right_channel_write_space);
 
-  aso_right_data <= to_stdLogicVector(aso_right_fifo_data);
+  aso_right_data <= to_stdLogicVector(aso_right_fifo_data) when aso_right_fifo_empty = '0'
+                    else (others => '0') when aso_right_fifo_empty = '1'
+                    else (others => 'X');
 
   -- delay valid with one clk cycle, because read needs one clk cycle
   dly_valid : process (csi_clk, rsi_reset_n) is

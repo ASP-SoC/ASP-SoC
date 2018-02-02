@@ -20,10 +20,18 @@ end entity MMtoST_tb;
 
 architecture Bhv of MMtoST_tb is
 
+  constant strobe_time_c : time := 1000 ns;
+
   -- component generics
   constant data_width_g     : natural := 24;
-  constant fifo_depth_g     : natural := 16;
-  constant fifo_adr_width_g : natural := 5;
+  constant fifo_depth_g     : natural := 128;
+  constant fifo_adr_width_g : natural := 8;
+
+  -- address constants
+  constant control_c   : std_logic_vector(1 downto 0) := "00";
+  constant fifospace_c : std_logic_vector(1 downto 0) := "01";
+  constant leftdata_c  : std_logic_vector(1 downto 0) := "10";
+  constant rightdata_c : std_logic_vector(1 downto 0) := "11";
 
   -- component ports
   signal csi_clk           : std_logic := '1';
@@ -79,7 +87,7 @@ begin  -- architecture Bhv
   begin  -- process std_gen
     asi_left_valid  <= '0';
     asi_right_valid <= '0';
-    wait for 1000 ns;
+    wait for strobe_time_c;
     wait until rising_edge(csi_clk);
     asi_left_valid  <= '1';
     wait until rising_edge(csi_clk);
@@ -98,7 +106,23 @@ begin  -- architecture Bhv
     asi_right_data <= (others => '0');
     asi_left_data  <= (others => '0');
 
+    wait until rising_edge(csi_clk);
+    avs_s0_chipselect <= '0';
+    avs_s0_write <= '0';
+    avs_s0_read <= '0';
+    avs_s0_address <= control_c;
+    avs_s0_writedata <= (others => '0');
 
+    wait until rising_edge(csi_clk);
+    avs_s0_chipselect <= '1';
+    avs_s0_address <= fifospace_c;
+    wait for 20 * strobe_time_c;
+    
+
+    wait for 20 * strobe_time_c;
+
+    assert false report "End of simulation!" severity failure;
+    
 
     wait;
   end process WaveGen_Proc;

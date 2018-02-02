@@ -25,6 +25,8 @@ entity FIFO is
     wr_data_i : in  std_ulogic_vector(data_width_g-1 downto 0);
     rd_data_o : out std_ulogic_vector(data_width_g-1 downto 0);
 
+    clear_i : in std_ulogic;
+
     full_o  : out std_ulogic;
     empty_o : out std_ulogic;
 
@@ -110,6 +112,13 @@ begin  -- architecture Rtl
         full <= '1';
       else
         full <= '0';
+      end if;
+
+      if clear_i = '1' then
+        wr_ptr <= 0;
+        rd_ptr <= 0;
+        empty  <= '1';
+        full   <= '0';
       end if;
 
 

@@ -125,8 +125,8 @@ begin  -- architecture Rtl
             avs_s0_readdata(0)            <= read_interrupt_en;
 
           when fifospace_c =>
-            avs_s0_readdata(31 downto 24) <= std_logic_vector(left_channel_write_space);
-            avs_s0_readdata(23 downto 16) <= std_logic_vector(right_channel_write_space);
+            avs_s0_readdata(31 downto 24) <= std_logic_vector(fifo_depth_g - left_channel_write_space);
+            avs_s0_readdata(23 downto 16) <= std_logic_vector(fifo_depth_g - right_channel_write_space);
             avs_s0_readdata(15 downto 8)  <= std_logic_vector(left_channel_read_available);
             avs_s0_readdata(7 downto 0)   <= std_logic_vector(right_channel_read_available);
 
@@ -257,6 +257,7 @@ begin  -- architecture Rtl
       rd_i      => rd_left,
       wr_data_i => to_StduLogicVector(asi_left_data),
       rd_data_o => asi_left_fifo_data,
+      clear_i   => clear_read_fifos,
       full_o    => open,
       empty_o   => open,
       space_o   => left_channel_read_available);
@@ -276,6 +277,7 @@ begin  -- architecture Rtl
       rd_i      => rd_right,
       wr_data_i => to_StduLogicVector(asi_right_data),
       rd_data_o => asi_right_fifo_data,
+      clear_i   => clear_read_fifos,
       full_o    => open,
       empty_o   => open,
       space_o   => right_channel_read_available);
@@ -295,6 +297,7 @@ begin  -- architecture Rtl
       rd_i      => asi_left_valid,
       wr_data_i => to_stdulogicvector(avs_s0_writedata(data_width_g-1 downto 0)),
       rd_data_o => aso_left_fifo_data,
+      clear_i   => clear_write_fifos,
       full_o    => open,
       empty_o   => open,
       space_o   => left_channel_write_space);
@@ -314,6 +317,7 @@ begin  -- architecture Rtl
       rd_i      => asi_right_valid,
       wr_data_i => to_stdulogicvector(avs_s0_writedata(data_width_g-1 downto 0)),
       rd_data_o => aso_right_fifo_data,
+      clear_i   => clear_write_fifos,
       full_o    => open,
       empty_o   => open,
       space_o   => right_channel_write_space);

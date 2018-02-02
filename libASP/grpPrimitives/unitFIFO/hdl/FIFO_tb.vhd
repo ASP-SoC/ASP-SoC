@@ -33,6 +33,7 @@ architecture Bhv of FIFO_tb is
   signal space_o   : unsigned(adr_width_g-1 downto 0);
   signal empty_o   : std_ulogic;
   signal full_o    : std_ulogic;
+  signal clear_i   : std_ulogic;
 
   -- clock
   signal Clk : std_ulogic := '1';
@@ -52,6 +53,7 @@ begin  -- architecture Bhv
       rd_i      => rd_i,
       wr_data_i => wr_data_i,
       rd_data_o => rd_data_o,
+      clear_i   => clear_i,
       empty_o   => empty_o,
       full_o    => full_o,
       space_o   => space_o);
@@ -65,6 +67,9 @@ begin  -- architecture Bhv
 
     rst_i <= '0' after 0 ns,
              '1' after 40 ns;
+
+    clear_i <= '0' after 0 ns,
+               '1' after 200 ns;
 
     wr_i      <= '0';
     rd_i      <= '0';

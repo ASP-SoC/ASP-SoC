@@ -99,30 +99,124 @@ begin  -- architecture Bhv
 
   -- waveform generation
   WaveGen_Proc : process
+    variable count_v : unsigned(data_width_g-1 downto 0) := (others => '0');
   begin
     rsi_reset_n <= '0' after 0 ns,
                    '1' after 40 ns;
 
-    asi_right_data <= (others => '0');
-    asi_left_data  <= (others => '0');
+    asi_right_data <= std_logic_vector(count_v);
+    asi_left_data  <= std_logic_vector(count_v);
 
     wait until rising_edge(csi_clk);
     avs_s0_chipselect <= '0';
-    avs_s0_write <= '0';
-    avs_s0_read <= '0';
-    avs_s0_address <= control_c;
-    avs_s0_writedata <= (others => '0');
+    avs_s0_write      <= '0';
+    avs_s0_read       <= '0';
+    avs_s0_address    <= control_c;
+    avs_s0_writedata  <= (others => '0');
 
     wait until rising_edge(csi_clk);
     avs_s0_chipselect <= '1';
-    avs_s0_address <= fifospace_c;
+    avs_s0_address    <= fifospace_c;
     wait for 20 * strobe_time_c;
-    
+    wait until rising_edge(csi_clk);
+    avs_s0_address    <= control_c;
+
+    -- read interrupt enable
+    wait until rising_edge(csi_clk);
+    avs_s0_address   <= control_c;
+    avs_s0_writedata <= (0      => '1', 1 => '0', others => '0');
+    avs_s0_write     <= '1';
+    wait until rising_edge(csi_clk);
+    avs_s0_write     <= '0';
+    avs_s0_writedata <= (others => '0');
+
+    -- write data
+    wait until rising_edge(csi_clk);
+    avs_s0_address   <= leftdata_c;
+    avs_s0_read      <= '1';
+    wait until rising_edge(csi_clk);
+    avs_s0_read      <= '0';
+    avs_s0_writedata <= (others => '1');
+    wait until rising_edge(csi_clk);
+    avs_s0_write     <= '1';
+    wait until rising_edge(csi_clk);
+    avs_s0_write     <= '0';
+
+    wait for 1000 ns;
+
+    for i in 0 to 1023 loop
+
+      wait until rising_edge(asi_right_valid);
+      asi_right_data <= std_logic_vector(count_v);
+      asi_left_data  <= std_logic_vector(count_v);
+
+      -- read value and write back
+      wait until rising_edge(csi_clk);
+      avs_s0_address   <= leftdata_c;
+      avs_s0_read      <= '1';
+      wait until rising_edge(csi_clk);
+      avs_s0_read      <= '0';
+      avs_s0_writedata <= avs_s0_readdata;
+      wait until rising_edge(csi_clk);
+      avs_s0_write     <= '1';
+      wait until rising_edge(csi_clk);
+      avs_s0_write     <= '0';
+
+      wait until rising_edge(csi_clk);
+      avs_s0_address   <= rightdata_c;
+      avs_s0_read      <= '1';
+      wait until rising_edge(csi_clk);
+      avs_s0_read      <= '0';
+      avs_s0_writedata <= avs_s0_readdata;
+      wait until rising_edge(csi_clk);
+      avs_s0_write     <= '1';
+      wait until rising_edge(csi_clk);
+      avs_s0_write     <= '0';
+
+
+      count_v := count_v + 1;
+    end loop;  -- i
+
+    -- check empty flag
+    for a in 0 to 30 loop
+      -- read value and write back
+      wait until rising_edge(csi_clk);
+      avs_s0_address   <= leftdata_c;
+      avs_s0_read      <= '1';
+      wait until rising_edge(csi_clk);
+      avs_s0_read      <= '0';
+      avs_s0_writedata <= avs_s0_readdata;
+      wait until rising_edge(csi_clk);
+      avs_s0_write     <= '1';
+      wait until rising_edge(csi_clk);
+      avs_s0_write     <= '0';
+
+      wait until rising_edge(csi_clk);
+      avs_s0_address   <= rightdata_c;
+      avs_s0_read      <= '1';
+      wait until rising_edge(csi_clk);
+      avs_s0_read      <= '0';
+      avs_s0_writedata <= avs_s0_readdata;
+      wait until rising_edge(csi_clk);
+      avs_s0_write     <= '1';
+      wait until rising_edge(csi_clk);
+      avs_s0_write     <= '0';
+    end loop;  -- a
+
+    -- clear fifos
+    wait until rising_edge(csi_clk);
+    avs_s0_address   <= control_c;
+    avs_s0_writedata <= (2      => '1', 3 => '1', others => '0');
+    avs_s0_write     <= '1';
+    wait until rising_edge(csi_clk);
+    avs_s0_write     <= '0';
+    avs_s0_writedata <= (others => '0');
+
 
     wait for 20 * strobe_time_c;
 
     assert false report "End of simulation!" severity failure;
-    
+
 
     wait;
   end process WaveGen_Proc;

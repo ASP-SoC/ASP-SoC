@@ -14,7 +14,7 @@ entity FIFO is
   generic (
     data_width_g : natural := 24;
     depth_g      : natural := 128;
-    adr_width_g  : natural := 8);       -- log2(depth_g) - 1
+    adr_width_g  : natural := 8);       -- log2(depth_g)
 
   port (
     clk_i : in std_ulogic;
@@ -42,7 +42,8 @@ architecture Rtl of FIFO is
   signal memory : mem_t;
 
   subtype ptr_t is natural range 0 to depth_g-1;
-  signal rd_ptr, wr_ptr : ptr_t;
+  --signal rd_ptr, wr_ptr : ptr_t;
+  signal rd_ptr, wr_ptr : unsigned(adr_width_g-2 downto 0);
 
   signal space       : unsigned(adr_width_g-1 downto 0);
   signal full, empty : std_ulogic;
@@ -56,7 +57,7 @@ begin  -- architecture Rtl
   begin
     if rising_edge(clk_i) then
       if wr_i = '1' then
-        memory(wr_ptr) <= wr_data_i;
+        memory(to_integer(wr_ptr)) <= wr_data_i;
       end if;
     end if;
   end process wr_mem;
@@ -64,7 +65,7 @@ begin  -- architecture Rtl
   rd_mem : process (clk_i) is
   begin
     if rising_edge(clk_i) then
-      rd_data <= memory(rd_ptr);
+      rd_data <= memory(to_integer(rd_ptr));
     end if;
   end process rd_mem;
 
@@ -73,34 +74,34 @@ begin  -- architecture Rtl
     variable used_space : unsigned(adr_width_g-1 downto 0) := to_unsigned(0, adr_width_g);
   begin  -- process ptr_logic
     if rst_i = '0' then                 -- asynchronous reset (active low)
-      rd_ptr <= 0;
-      wr_ptr <= 0;
+      rd_ptr <= (others => '0');
+      wr_ptr <= (others => '0');
       space  <= to_unsigned(0, adr_width_g);
       full   <= '0';
       empty  <= '0';
     elsif rising_edge(clk_i) then       -- rising clock edge
 
-      used_space := space;
-
       if wr_i = '1' and full = '0' then
         if wr_ptr = depth_g-1 then
-          wr_ptr <= 0;
+          wr_ptr <= (others => '0');
         else
           wr_ptr <= wr_ptr + 1;
         end if;
-        used_space := used_space + 1;
       end if;
 
       if rd_i = '1' and empty = '0' then
         if rd_ptr = depth_g-1 then
-          rd_ptr <= 0;
+          rd_ptr <= (others => '0');
         else
           rd_ptr <= rd_ptr + 1;
         end if;
-        used_space := used_space - 1;
       end if;
 
-      space <= used_space;
+      if empty = '1' then
+        space <= (others => '0');
+      elsif empty = '0' then
+        space <= to_unsigned(0, space'length) + (wr_ptr - rd_ptr);
+      end if;
 
       if wr_ptr = rd_ptr then
         empty <= '1';
@@ -115,8 +116,8 @@ begin  -- architecture Rtl
       end if;
 
       if clear_i = '1' then
-        wr_ptr <= 0;
-        rd_ptr <= 0;
+        wr_ptr <= (others => '0');
+        rd_ptr <= (others => '0');
         empty  <= '1';
         full   <= '0';
       end if;

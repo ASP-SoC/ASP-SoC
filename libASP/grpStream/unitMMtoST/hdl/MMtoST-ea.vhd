@@ -93,6 +93,10 @@ architecture Rtl of MMtoST is
   signal aso_left_fifo_full  : std_ulogic;
   signal aso_right_fifo_full : std_ulogic;
 
+  -- fifo space
+  signal aso_left_fifo_space  : unsigned(fifo_adr_width_g-1 downto 0);
+  signal aso_right_fifo_space : unsigned(fifo_adr_width_g-1 downto 0);
+
   -- address constants
   constant control_c   : std_logic_vector(1 downto 0) := "00";
   constant fifospace_c : std_logic_vector(1 downto 0) := "01";
@@ -136,8 +140,8 @@ begin  -- architecture Rtl
             avs_s0_readdata(0)            <= read_interrupt_en;
 
           when fifospace_c =>
-            avs_s0_readdata(31 downto 24) <= std_logic_vector(fifo_depth_g - left_channel_write_space);
-            avs_s0_readdata(23 downto 16) <= std_logic_vector(fifo_depth_g - right_channel_write_space);
+            avs_s0_readdata(31 downto 24) <= std_logic_vector(left_channel_write_space);
+            avs_s0_readdata(23 downto 16) <= std_logic_vector(right_channel_write_space);
             avs_s0_readdata(15 downto 8)  <= std_logic_vector(left_channel_read_available);
             avs_s0_readdata(7 downto 0)   <= std_logic_vector(right_channel_read_available);
 
@@ -317,11 +321,14 @@ begin  -- architecture Rtl
       clear_i   => clear_write_fifos,
       full_o    => aso_left_fifo_full,
       empty_o   => aso_left_fifo_empty,
-      space_o   => left_channel_write_space);
+      space_o   => aso_left_fifo_space);
 
   aso_left_data <= to_stdLogicVector(aso_left_fifo_data) when aso_left_fifo_empty = '0'
                    else (others => '0') when aso_left_fifo_empty = '1'
                    else (others => 'X');
+
+  -- calculate remaining space
+  left_channel_write_space <= fifo_depth_g - aso_left_fifo_space;
 
   -- MM -> st fifo
   aso_right_fifo : entity work.FIFO
@@ -339,11 +346,14 @@ begin  -- architecture Rtl
       clear_i   => clear_write_fifos,
       full_o    => aso_right_fifo_full,
       empty_o   => aso_right_fifo_empty,
-      space_o   => right_channel_write_space);
+      space_o   => aso_right_fifo_space);
 
   aso_right_data <= to_stdLogicVector(aso_right_fifo_data) when aso_right_fifo_empty = '0'
                     else (others => '0') when aso_right_fifo_empty = '1'
                     else (others => 'X');
+
+  -- calculate remaining space
+  right_channel_write_space <= fifo_depth_g - aso_right_fifo_space;
 
   -- delay valid with one clk cycle, because read needs one clk cycle
   dly_valid : process (csi_clk, rsi_reset_n) is

@@ -212,7 +212,7 @@ begin  -- architecture Rtl
 
       -- write interrupt
       if write_interrupt_en = '1' then
-        write_interrupt <= aso_left_fifo_full or aso_right_fifo_full or
+        write_interrupt <= aso_left_fifo_empty or aso_right_fifo_empty or
                            left_channel_write_space(fifo_adr_width_g-1)
                            or (left_channel_write_space(fifo_adr_width_g-2) and left_channel_write_space(fifo_adr_width_g-3))
                            or right_channel_write_space(fifo_adr_width_g-1)

@@ -1,0 +1,567 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<system name="$${FILENAME}">
+ <component
+   name="$${FILENAME}"
+   displayName="$${FILENAME}"
+   version="1.0"
+   description=""
+   tags=""
+   categories="System" />
+ <parameter name="bonusData"><![CDATA[bonusData 
+{
+   element add_left_dds
+   {
+      datum _sortIndex
+      {
+         value = "10";
+         type = "int";
+      }
+   }
+   element add_left_noise
+   {
+      datum _sortIndex
+      {
+         value = "6";
+         type = "int";
+      }
+   }
+   element add_right_dds
+   {
+      datum _sortIndex
+      {
+         value = "13";
+         type = "int";
+      }
+   }
+   element add_right_noise
+   {
+      datum _sortIndex
+      {
+         value = "8";
+         type = "int";
+      }
+   }
+   element channel_mux_in
+   {
+      datum _sortIndex
+      {
+         value = "2";
+         type = "int";
+      }
+      datum sopceditor_expanded
+      {
+         value = "1";
+         type = "boolean";
+      }
+   }
+   element clk
+   {
+      datum _sortIndex
+      {
+         value = "0";
+         type = "int";
+      }
+   }
+   element dds_left
+   {
+      datum _sortIndex
+      {
+         value = "9";
+         type = "int";
+      }
+   }
+   element dds_right
+   {
+      datum _sortIndex
+      {
+         value = "12";
+         type = "int";
+      }
+   }
+   element delay_left
+   {
+      datum _sortIndex
+      {
+         value = "3";
+         type = "int";
+      }
+   }
+   element delay_right
+   {
+      datum _sortIndex
+      {
+         value = "4";
+         type = "int";
+      }
+   }
+   element fir_left
+   {
+      datum _sortIndex
+      {
+         value = "11";
+         type = "int";
+      }
+   }
+   element fir_right
+   {
+      datum _sortIndex
+      {
+         value = "14";
+         type = "int";
+      }
+   }
+   element mult_out
+   {
+      datum _sortIndex
+      {
+         value = "15";
+         type = "int";
+      }
+   }
+   element mux_out
+   {
+      datum _sortIndex
+      {
+         value = "16";
+         type = "int";
+      }
+   }
+   element strobe_gen
+   {
+      datum _sortIndex
+      {
+         value = "1";
+         type = "int";
+      }
+   }
+   element white_noise_left
+   {
+      datum _sortIndex
+      {
+         value = "5";
+         type = "int";
+      }
+   }
+   element white_noise_right
+   {
+      datum _sortIndex
+      {
+         value = "7";
+         type = "int";
+      }
+   }
+}
+]]></parameter>
+ <parameter name="clockCrossingAdapter" value="HANDSHAKE" />
+ <parameter name="device" value="5CSEMA5F31C6" />
+ <parameter name="deviceFamily" value="Cyclone V" />
+ <parameter name="deviceSpeedGrade" value="6" />
+ <parameter name="fabricMode" value="QSYS" />
+ <parameter name="generateLegacySim" value="false" />
+ <parameter name="generationId" value="0" />
+ <parameter name="globalResetBus" value="false" />
+ <parameter name="hdlLanguage" value="VERILOG" />
+ <parameter name="hideFromIPCatalog" value="false" />
+ <parameter name="lockedInterfaceDefinition" value="" />
+ <parameter name="maxAdditionalLatency" value="1" />
+ <parameter name="projectName" value="" />
+ <parameter name="sopcBorderPoints" value="false" />
+ <parameter name="systemHash" value="0" />
+ <parameter name="testBenchDutName" value="" />
+ <parameter name="timeStamp" value="0" />
+ <parameter name="useTestBenchNamingPattern" value="false" />
+ <instanceScript></instanceScript>
+ <interface
+   name="add_left_dds_s0"
+   internal="add_left_dds.s0_config"
+   type="avalon"
+   dir="end" />
+ <interface
+   name="add_left_noise_s0"
+   internal="add_left_noise.s0_config"
+   type="avalon"
+   dir="end" />
+ <interface
+   name="add_right_dds_s0"
+   internal="add_right_dds.s0_config"
+   type="avalon"
+   dir="end" />
+ <interface
+   name="add_right_noise_s0"
+   internal="add_right_noise.s0_config"
+   type="avalon"
+   dir="end" />
+ <interface
+   name="channel_mux_in_s0"
+   internal="channel_mux_in.s0"
+   type="avalon"
+   dir="end" />
+ <interface name="clk" internal="clk.clk_in" type="clock" dir="end" />
+ <interface
+   name="dds_left_s0"
+   internal="dds_left.s0_table"
+   type="avalon"
+   dir="end" />
+ <interface
+   name="dds_left_s1"
+   internal="dds_left.s1_config"
+   type="avalon"
+   dir="end" />
+ <interface
+   name="dds_left_strobe"
+   internal="dds_left.strobe"
+   type="conduit"
+   dir="end" />
+ <interface
+   name="dds_right_s0"
+   internal="dds_right.s0_table"
+   type="avalon"
+   dir="end" />
+ <interface
+   name="dds_right_s1"
+   internal="dds_right.s1_config"
+   type="avalon"
+   dir="end" />
+ <interface
+   name="dds_right_strobe"
+   internal="dds_right.strobe"
+   type="conduit"
+   dir="end" />
+ <interface name="delay_left_s0" internal="delay_left.s0" type="avalon" dir="end" />
+ <interface
+   name="delay_right_s0"
+   internal="delay_right.s0"
+   type="avalon"
+   dir="end" />
+ <interface
+   name="fir_left_s0"
+   internal="fir_left.s0_coeffs"
+   type="avalon"
+   dir="end" />
+ <interface
+   name="fir_left_s1"
+   internal="fir_left.s1_enable"
+   type="avalon"
+   dir="end" />
+ <interface
+   name="fir_right_s0"
+   internal="fir_right.s0_coeffs"
+   type="avalon"
+   dir="end" />
+ <interface
+   name="fir_right_s1"
+   internal="fir_right.s1_enable"
+   type="avalon"
+   dir="end" />
+ <interface
+   name="left_sink"
+   internal="strobe_gen.sink"
+   type="avalon_streaming"
+   dir="end" />
+ <interface
+   name="left_source"
+   internal="mux_out.left_source"
+   type="avalon_streaming"
+   dir="start" />
+ <interface name="mult_out_s0" internal="mult_out.s0" type="avalon" dir="end" />
+ <interface name="mux_out_s0" internal="mux_out.s0" type="avalon" dir="end" />
+ <interface name="reset" internal="clk.clk_in_reset" type="reset" dir="end" />
+ <interface
+   name="right_sink"
+   internal="channel_mux_in.right_sink"
+   type="avalon_streaming"
+   dir="end" />
+ <interface
+   name="right_source"
+   internal="mux_out.right_source"
+   type="avalon_streaming"
+   dir="start" />
+ <interface name="strobe" internal="strobe_gen.strobe" type="conduit" dir="end" />
+ <interface
+   name="white_noise_left_s0"
+   internal="white_noise_left.s0_enable"
+   type="avalon"
+   dir="end" />
+ <interface
+   name="white_noise_left_strobe"
+   internal="white_noise_left.strobe"
+   type="conduit"
+   dir="end" />
+ <interface
+   name="white_noise_right_s0"
+   internal="white_noise_right.s0_enable"
+   type="avalon"
+   dir="end" />
+ <interface
+   name="white_noise_right_strobe"
+   internal="white_noise_right.strobe"
+   type="conduit"
+   dir="end" />
+ <module name="add_left_dds" kind="AddChannels" version="1.0" enabled="1">
+  <parameter name="data_width_g" value="24" />
+ </module>
+ <module name="add_left_noise" kind="AddChannels" version="1.0" enabled="1">
+  <parameter name="data_width_g" value="24" />
+ </module>
+ <module name="add_right_dds" kind="AddChannels" version="1.0" enabled="1">
+  <parameter name="data_width_g" value="24" />
+ </module>
+ <module name="add_right_noise" kind="AddChannels" version="1.0" enabled="1">
+  <parameter name="data_width_g" value="24" />
+ </module>
+ <module name="channel_mux_in" kind="ChannelMux" version="1.0" enabled="1">
+  <parameter name="gDataWidth" value="24" />
+ </module>
+ <module name="clk" kind="clock_source" version="17.1" enabled="1">
+  <parameter name="clockFrequency" value="50000000" />
+  <parameter name="clockFrequencyKnown" value="true" />
+  <parameter name="inputClockFrequency" value="0" />
+  <parameter name="resetSynchronousEdges" value="NONE" />
+ </module>
+ <module name="dds_left" kind="Dds" version="1.0" enabled="1">
+  <parameter name="data_width_g" value="24" />
+  <parameter name="phase_bits_g" value="20" />
+  <parameter name="phase_dither_g" value="8" />
+  <parameter name="wave_table_width_g" value="24" />
+ </module>
+ <module name="dds_right" kind="Dds" version="1.0" enabled="1">
+  <parameter name="data_width_g" value="24" />
+  <parameter name="phase_bits_g" value="20" />
+  <parameter name="phase_dither_g" value="8" />
+  <parameter name="wave_table_width_g" value="24" />
+ </module>
+ <module name="delay_left" kind="Delay" version="1.0" enabled="1">
+  <parameter name="gDataWidth" value="24" />
+  <parameter name="gMaxDelay" value="1024" />
+ </module>
+ <module name="delay_right" kind="Delay" version="1.0" enabled="1">
+  <parameter name="gDataWidth" value="24" />
+  <parameter name="gMaxDelay" value="1024" />
+ </module>
+ <module name="fir_left" kind="FirFilter" version="1.0" enabled="1">
+  <parameter name="coeff_num_g" value="128" />
+  <parameter name="data_width_g" value="24" />
+ </module>
+ <module name="fir_right" kind="FirFilter" version="1.0" enabled="1">
+  <parameter name="coeff_num_g" value="128" />
+  <parameter name="data_width_g" value="24" />
+ </module>
+ <module name="mult_out" kind="Multiply" version="1.0" enabled="1">
+  <parameter name="data_width_g" value="24" />
+ </module>
+ <module name="mux_out" kind="ChannelMux" version="1.0" enabled="1">
+  <parameter name="gDataWidth" value="24" />
+ </module>
+ <module name="strobe_gen" kind="ValidExtractor" version="1.0" enabled="1">
+  <parameter name="data_width_g" value="24" />
+ </module>
+ <module name="white_noise_left" kind="WhiteNoise" version="1.0" enabled="1">
+  <parameter name="data_width_g" value="24" />
+  <parameter name="lfsr_length_g" value="24" />
+ </module>
+ <module name="white_noise_right" kind="WhiteNoise" version="1.0" enabled="1">
+  <parameter name="data_width_g" value="24" />
+  <parameter name="lfsr_length_g" value="24" />
+ </module>
+ <connection
+   kind="avalon_streaming"
+   version="17.1"
+   start="mult_out.left_source"
+   end="mux_out.left_sink" />
+ <connection
+   kind="avalon_streaming"
+   version="17.1"
+   start="channel_mux_in.left_source"
+   end="delay_left.sink" />
+ <connection
+   kind="avalon_streaming"
+   version="17.1"
+   start="mult_out.right_source"
+   end="mux_out.right_sink" />
+ <connection
+   kind="avalon_streaming"
+   version="17.1"
+   start="channel_mux_in.right_source"
+   end="delay_right.sink" />
+ <connection
+   kind="avalon_streaming"
+   version="17.1"
+   start="strobe_gen.source"
+   end="channel_mux_in.left_sink" />
+ <connection
+   kind="avalon_streaming"
+   version="17.1"
+   start="fir_left.source"
+   end="mult_out.left_sink" />
+ <connection
+   kind="avalon_streaming"
+   version="17.1"
+   start="fir_right.source"
+   end="mult_out.right_sink" />
+ <connection
+   kind="avalon_streaming"
+   version="17.1"
+   start="add_right_dds.source"
+   end="fir_right.sink" />
+ <connection
+   kind="avalon_streaming"
+   version="17.1"
+   start="add_left_dds.source"
+   end="fir_left.sink" />
+ <connection
+   kind="avalon_streaming"
+   version="17.1"
+   start="delay_left.source"
+   end="add_left_noise.sink_a" />
+ <connection
+   kind="avalon_streaming"
+   version="17.1"
+   start="delay_right.source"
+   end="add_right_noise.sink_a" />
+ <connection
+   kind="avalon_streaming"
+   version="17.1"
+   start="add_left_noise.source"
+   end="add_left_dds.sink_a" />
+ <connection
+   kind="avalon_streaming"
+   version="17.1"
+   start="add_right_noise.source"
+   end="add_right_dds.sink_a" />
+ <connection
+   kind="avalon_streaming"
+   version="17.1"
+   start="white_noise_left.source"
+   end="add_left_noise.sink_b" />
+ <connection
+   kind="avalon_streaming"
+   version="17.1"
+   start="white_noise_right.source"
+   end="add_right_noise.sink_b" />
+ <connection
+   kind="avalon_streaming"
+   version="17.1"
+   start="dds_left.source"
+   end="add_left_dds.sink_b" />
+ <connection
+   kind="avalon_streaming"
+   version="17.1"
+   start="dds_right.source"
+   end="add_right_dds.sink_b" />
+ <connection kind="clock" version="17.1" start="clk.clk" end="strobe_gen.clock" />
+ <connection
+   kind="clock"
+   version="17.1"
+   start="clk.clk"
+   end="channel_mux_in.clock" />
+ <connection kind="clock" version="17.1" start="clk.clk" end="delay_left.clock" />
+ <connection kind="clock" version="17.1" start="clk.clk" end="delay_right.clock" />
+ <connection
+   kind="clock"
+   version="17.1"
+   start="clk.clk"
+   end="white_noise_left.clock" />
+ <connection
+   kind="clock"
+   version="17.1"
+   start="clk.clk"
+   end="white_noise_right.clock" />
+ <connection
+   kind="clock"
+   version="17.1"
+   start="clk.clk"
+   end="add_left_noise.clock" />
+ <connection
+   kind="clock"
+   version="17.1"
+   start="clk.clk"
+   end="add_right_noise.clock" />
+ <connection kind="clock" version="17.1" start="clk.clk" end="dds_left.clock" />
+ <connection kind="clock" version="17.1" start="clk.clk" end="dds_right.clock" />
+ <connection kind="clock" version="17.1" start="clk.clk" end="add_left_dds.clock" />
+ <connection kind="clock" version="17.1" start="clk.clk" end="add_right_dds.clock" />
+ <connection kind="clock" version="17.1" start="clk.clk" end="mult_out.clock" />
+ <connection kind="clock" version="17.1" start="clk.clk" end="mux_out.clock" />
+ <connection kind="clock" version="17.1" start="clk.clk" end="fir_right.clock" />
+ <connection kind="clock" version="17.1" start="clk.clk" end="fir_left.clock" />
+ <connection
+   kind="reset"
+   version="17.1"
+   start="clk.clk_reset"
+   end="strobe_gen.reset" />
+ <connection
+   kind="reset"
+   version="17.1"
+   start="clk.clk_reset"
+   end="channel_mux_in.reset" />
+ <connection
+   kind="reset"
+   version="17.1"
+   start="clk.clk_reset"
+   end="delay_left.reset" />
+ <connection
+   kind="reset"
+   version="17.1"
+   start="clk.clk_reset"
+   end="delay_right.reset" />
+ <connection
+   kind="reset"
+   version="17.1"
+   start="clk.clk_reset"
+   end="white_noise_left.reset" />
+ <connection
+   kind="reset"
+   version="17.1"
+   start="clk.clk_reset"
+   end="white_noise_right.reset" />
+ <connection
+   kind="reset"
+   version="17.1"
+   start="clk.clk_reset"
+   end="add_left_noise.reset" />
+ <connection
+   kind="reset"
+   version="17.1"
+   start="clk.clk_reset"
+   end="add_right_noise.reset" />
+ <connection
+   kind="reset"
+   version="17.1"
+   start="clk.clk_reset"
+   end="dds_left.reset" />
+ <connection
+   kind="reset"
+   version="17.1"
+   start="clk.clk_reset"
+   end="dds_right.reset" />
+ <connection
+   kind="reset"
+   version="17.1"
+   start="clk.clk_reset"
+   end="add_left_dds.reset" />
+ <connection
+   kind="reset"
+   version="17.1"
+   start="clk.clk_reset"
+   end="add_right_dds.reset" />
+ <connection
+   kind="reset"
+   version="17.1"
+   start="clk.clk_reset"
+   end="mult_out.reset" />
+ <connection kind="reset" version="17.1" start="clk.clk_reset" end="mux_out.reset" />
+ <connection
+   kind="reset"
+   version="17.1"
+   start="clk.clk_reset"
+   end="fir_right.reset" />
+ <connection
+   kind="reset"
+   version="17.1"
+   start="clk.clk_reset"
+   end="fir_left.reset" />
+ <interconnectRequirement for="$system" name="qsys_mm.clockCrossingAdapter" value="HANDSHAKE" />
+ <interconnectRequirement for="$system" name="qsys_mm.enableEccProtection" value="FALSE" />
+ <interconnectRequirement for="$system" name="qsys_mm.insertDefaultSlave" value="FALSE" />
+ <interconnectRequirement for="$system" name="qsys_mm.maxAdditionalLatency" value="1" />
+</system>

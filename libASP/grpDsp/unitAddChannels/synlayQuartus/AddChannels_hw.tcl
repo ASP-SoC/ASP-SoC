@@ -43,6 +43,7 @@ set_fileset_property QUARTUS_SYNTH ENABLE_FILE_OVERWRITE_MODE false
 add_fileset_file AddChannels-ea.vhd VHDL PATH ../hdl/AddChannels-ea.vhd TOP_LEVEL_FILE
 add_fileset_file fixed_float_types_c.vhdl VHDL PATH ../../../grpPackages/pkgFixed/src/fixed_float_types_c.vhdl
 add_fileset_file fixed_pkg_c.vhdl VHDL PATH ../../../grpPackages/pkgFixed/src/fixed_pkg_c.vhdl
+add_fileset_file Global-p.vhd VHDL PATH ../../../grpPackages/pkgGlobal/src/Global-p.vhd
 
 
 # 
@@ -90,6 +91,38 @@ set_interface_property reset SVD_ADDRESS_GROUP ""
 
 add_interface_port reset rsi_reset_n reset_n Input 1
 
+# 
+# connection point s0_config
+# 
+add_interface s0_config avalon end
+set_interface_property s0_config addressUnits WORDS
+set_interface_property s0_config associatedClock clock
+set_interface_property s0_config associatedReset reset
+set_interface_property s0_config bitsPerSymbol 8
+set_interface_property s0_config burstOnBurstBoundariesOnly false
+set_interface_property s0_config burstcountUnits WORDS
+set_interface_property s0_config explicitAddressSpan 0
+set_interface_property s0_config holdTime 0
+set_interface_property s0_config linewrapBursts false
+set_interface_property s0_config maximumPendingReadTransactions 0
+set_interface_property s0_config maximumPendingWriteTransactions 0
+set_interface_property s0_config readLatency 0
+set_interface_property s0_config readWaitTime 1
+set_interface_property s0_config setupTime 0
+set_interface_property s0_config timingUnits Cycles
+set_interface_property s0_config writeWaitTime 0
+set_interface_property s0_config ENABLED true
+set_interface_property s0_config EXPORT_OF ""
+set_interface_property s0_config PORT_NAME_MAP ""
+set_interface_property s0_config CMSIS_SVD_VARIABLES ""
+set_interface_property s0_config SVD_ADDRESS_GROUP ""
+
+add_interface_port s0_config avs_s0_write write Input 1
+add_interface_port s0_config avs_s0_writedata writedata Input 32
+set_interface_assignment s0_config embeddedsw.configuration.isFlash 0
+set_interface_assignment s0_config embeddedsw.configuration.isMemoryDevice 0
+set_interface_assignment s0_config embeddedsw.configuration.isNonVolatileStorage 0
+set_interface_assignment s0_config embeddedsw.configuration.isPrintableDevice 0
 
 # 
 # connection point source

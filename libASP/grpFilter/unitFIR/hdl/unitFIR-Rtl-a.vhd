@@ -33,12 +33,11 @@ type filt_record is record
 	StageCnt : integer range 0 to gMaxNumCoeffs;		-- stage index
 	CoeffCnt : integer range 0 to gMaxNumCoeffs;		-- coeff index
 	State	 : aFilterState;							-- FSM state
-	-- Stages   : aStage;
     valid	 : std_ulogic;								-- valid signal if filtering for current input value is finished
 	WriteIndex : integer range 0 to gMaxNumCoeffs;	-- write index for stage ring buffer
 	ReadIndex : integer range 0 to gMaxNumCoeffs;		-- read index for stage ring buffer
 	NumOfReads : integer;								-- check signal for number of reads from stages and coeffs
-	-- LastFiltered : sfixed(sfixed_high downto sfixed_low);	-- filtered value from last iteration (if input valid signal doesn't appear)
+	FiltOut : sfixed(sfixed_high downto sfixed_low);	-- filter output data
 end record;
 
 -- *************************
@@ -54,14 +53,14 @@ constant filt_def_config : filt_record := (
 	cInactivated,
 	0,
 	1,
-	0
-	--to_sfixed(0.0, sfixed_high, sfixed_low)
+	0,
+	to_sfixed(0.0, sfixed_high, sfixed_low)
 );
 
 
 -- create the ram memory for the coefficients and the stages (the delayed values z^-1)
-signal Coeff		: aCoeffArray;-- := (others => to_sfixed(0.0, sfixed_high, sfixed_low));
-signal Stages	: aStage ;--:= (others => to_sfixed(0.0, sfixed_high, sfixed_low));
+signal Coeff		: aCoeffArray;
+signal Stages	: aStage ;
 
 -- create the structures for the FSM
 signal R, NxR : filt_record;
@@ -122,6 +121,7 @@ begin
 	
 	when 	IDLE 	=> 		-- wait until input data is valid
 		if asi_valid = cActivated then 
+			NxR.FiltOut <= R.FiltData;
 			NxR.FiltData <= to_sfixed(0.0, sfixed_high, sfixed_low);	 -- reset tmp filter data
 			NxR.MovSample <= to_sfixed(asi_data, sfixed_high, sfixed_low);
 			NxR.State	<= MULT;										 -- set next stage
@@ -188,6 +188,6 @@ end process;
 
 --aso_valid <= asi_valid;
 aso_valid <= R.valid;
-aso_data  <= to_slv(R.FiltData); --when R.valid = cActivated else to_slv(R.LastFiltered);
+aso_data  <= to_slv(R.FiltOut); --when R.valid = cActivated else to_slv(R.LastFiltered);
 
 end architecture Rtl;

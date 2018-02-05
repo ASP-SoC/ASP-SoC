@@ -1,0 +1,23 @@
+
+
+* Einfuehrung
+Motivation, Systemuebersicht, Ziele (Konzeptentwicklung zum Entwurf der Bloecke)
+
+* Aufbau 
+** Kommunikation innerhalb FPGA (Avalon ST)
+** Kommunikation (SoC: Linux <-> FPGA, Avalon MM)
+Lightweight bridge, 
+** Qsys Screenshot
+
+* Beispiel-Plattform
+** Uebersicht (Blockschaltbild) 
+** Live-Vorfuehrung einzelner Bloecke
+
+* Fazit
+Design-Flow ausgearbeitet, Konzept abgeschlossen
+** Aussicht: Implementierung weiterer Bloecke
+** Hierachie
+Website (Angular) -> flask + subscripts fuer Filter usw (Python) -> Device Driver (C) -> Brigdes -> MM register/RAM ->  HW Design
+
+
+

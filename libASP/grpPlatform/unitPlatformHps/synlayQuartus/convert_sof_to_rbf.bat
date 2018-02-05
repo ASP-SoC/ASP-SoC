@@ -1,0 +1,1 @@
+quartus_cpf -c convert_sof_to_rbf.cof

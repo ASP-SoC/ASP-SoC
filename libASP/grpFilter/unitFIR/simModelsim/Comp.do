@@ -36,5 +36,9 @@ myvcom ${Root}/grpFilter/unitFIR/hdl/pkgFIR.vhd
 myvcom ${Root}/grpFilter/unitFIR/hdl/unitFIR-e.vhd
 myvcom ${Root}/grpFilter/unitFIR/hdl/unitFIR-Rtl-a.vhd
 
+echo ## StrobeGen
+myvcom ${Root}/grpFilter/unitFIR/hdl/StrobeGen-e.vhd
+myvcom ${Root}/grpFilter/unitFIR/hdl/StrobeGen-Rtl-a.vhd
+
 echo ## FIR Testbench
 myvcom ${Root}/grpFilter/unitFIR/hdl/tbFIR-Bhv-ea.vhd

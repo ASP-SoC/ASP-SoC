@@ -352,6 +352,27 @@
          type = "String";
       }
    }
+   element MMtoST_0
+   {
+      datum _sortIndex
+      {
+         value = "5";
+         type = "int";
+      }
+   }
+   element MMtoST_0.s0
+   {
+      datum _lockedAddress
+      {
+         value = "1";
+         type = "boolean";
+      }
+      datum baseAddress
+      {
+         value = "176";
+         type = "String";
+      }
+   }
    element Platform
    {
       datum _originalDeviceFamily
@@ -444,6 +465,58 @@
          type = "String";
       }
    }
+   element channel_mux_in_st_left
+   {
+      datum _sortIndex
+      {
+         value = "6";
+         type = "int";
+      }
+      datum sopceditor_expanded
+      {
+         value = "1";
+         type = "boolean";
+      }
+   }
+   element channel_mux_in_st_left.s0
+   {
+      datum _lockedAddress
+      {
+         value = "1";
+         type = "boolean";
+      }
+      datum baseAddress
+      {
+         value = "192";
+         type = "String";
+      }
+   }
+   element channel_mux_in_st_right
+   {
+      datum _sortIndex
+      {
+         value = "7";
+         type = "int";
+      }
+      datum sopceditor_expanded
+      {
+         value = "1";
+         type = "boolean";
+      }
+   }
+   element channel_mux_in_st_right.s0
+   {
+      datum _lockedAddress
+      {
+         value = "1";
+         type = "boolean";
+      }
+      datum baseAddress
+      {
+         value = "172";
+         type = "String";
+      }
+   }
    element clk
    {
       datum _sortIndex
@@ -528,6 +601,22 @@
       {
          value = "1";
          type = "boolean";
+      }
+   }
+   element st_splitter_left_out
+   {
+      datum _sortIndex
+      {
+         value = "8";
+         type = "int";
+      }
+   }
+   element st_splitter_right_out
+   {
+      datum _sortIndex
+      {
+         value = "9";
+         type = "int";
       }
    }
 }
@@ -1116,27 +1205,43 @@
   <parameter name="use_default_mpu_clk" value="false" />
  </module>
  <module name="ASP" kind="subsystemA" version="1.0" enabled="1">
-  <parameter name="AUTO_CLK_0_CLOCK_DOMAIN" value="-1" />
-  <parameter name="AUTO_CLK_0_CLOCK_RATE" value="-1" />
-  <parameter name="AUTO_CLK_0_RESET_DOMAIN" value="-1" />
-  <parameter name="AUTO_CLK_CLOCK_DOMAIN" value="1" />
+  <parameter name="AUTO_CLK_CLOCK_DOMAIN" value="2" />
   <parameter name="AUTO_CLK_CLOCK_RATE" value="50000000" />
-  <parameter name="AUTO_CLK_RESET_DOMAIN" value="1" />
+  <parameter name="AUTO_CLK_RESET_DOMAIN" value="2" />
   <parameter name="AUTO_DEVICE" value="5CSEMA5F31C6" />
   <parameter name="AUTO_DEVICE_FAMILY" value="Cyclone V" />
   <parameter name="AUTO_DEVICE_SPEEDGRADE" value="6" />
   <parameter name="AUTO_GENERATION_ID" value="0" />
-  <parameter name="AUTO_UNIQUE_ID" value="$${FILENAME}_ASP" />
+  <parameter name="AUTO_UNIQUE_ID" value="Platform_ASP" />
+ </module>
+ <module name="MMtoST_0" kind="MMtoST" version="1.0" enabled="1">
+  <parameter name="data_width_g" value="24" />
+  <parameter name="fifo_adr_width_g" value="8" />
+  <parameter name="fifo_depth_g" value="128" />
  </module>
  <module name="audio" kind="AudioCodecSubSytem" version="1.0" enabled="1">
-  <parameter name="AUTO_CLK_CLOCK_DOMAIN" value="1" />
+  <parameter name="AUTO_CLK_CLOCK_DOMAIN" value="2" />
   <parameter name="AUTO_CLK_CLOCK_RATE" value="50000000" />
-  <parameter name="AUTO_CLK_RESET_DOMAIN" value="1" />
+  <parameter name="AUTO_CLK_RESET_DOMAIN" value="2" />
   <parameter name="AUTO_DEVICE" value="5CSEMA5F31C6" />
   <parameter name="AUTO_DEVICE_FAMILY" value="Cyclone V" />
   <parameter name="AUTO_DEVICE_SPEEDGRADE" value="6" />
   <parameter name="AUTO_GENERATION_ID" value="0" />
-  <parameter name="AUTO_UNIQUE_ID" value="$${FILENAME}_audio" />
+  <parameter name="AUTO_UNIQUE_ID" value="Platform_audio" />
+ </module>
+ <module
+   name="channel_mux_in_st_left"
+   kind="ChannelMux"
+   version="1.0"
+   enabled="1">
+  <parameter name="gDataWidth" value="24" />
+ </module>
+ <module
+   name="channel_mux_in_st_right"
+   kind="ChannelMux"
+   version="1.0"
+   enabled="1">
+  <parameter name="gDataWidth" value="24" />
  </module>
  <module name="clk" kind="clock_source" version="17.1" enabled="1">
   <parameter name="clockFrequency" value="50000000" />
@@ -1145,14 +1250,56 @@
   <parameter name="resetSynchronousEdges" value="NONE" />
  </module>
  <module name="pio" kind="pioModules" version="1.0" enabled="1">
-  <parameter name="AUTO_CLK_CLOCK_DOMAIN" value="1" />
+  <parameter name="AUTO_CLK_CLOCK_DOMAIN" value="2" />
   <parameter name="AUTO_CLK_CLOCK_RATE" value="50000000" />
-  <parameter name="AUTO_CLK_RESET_DOMAIN" value="1" />
+  <parameter name="AUTO_CLK_RESET_DOMAIN" value="2" />
   <parameter name="AUTO_DEVICE" value="5CSEMA5F31C6" />
   <parameter name="AUTO_DEVICE_FAMILY" value="Cyclone V" />
   <parameter name="AUTO_DEVICE_SPEEDGRADE" value="6" />
   <parameter name="AUTO_GENERATION_ID" value="0" />
-  <parameter name="AUTO_UNIQUE_ID" value="$${FILENAME}_pio" />
+  <parameter name="AUTO_UNIQUE_ID" value="Platform_pio" />
+ </module>
+ <module
+   name="st_splitter_left_out"
+   kind="altera_avalon_st_splitter"
+   version="17.1"
+   enabled="1">
+  <parameter name="BITS_PER_SYMBOL" value="8" />
+  <parameter name="CHANNEL_WIDTH" value="1" />
+  <parameter name="DATA_WIDTH" value="24" />
+  <parameter name="ERROR_DESCRIPTOR" value="" />
+  <parameter name="ERROR_WIDTH" value="1" />
+  <parameter name="MAX_CHANNELS" value="1" />
+  <parameter name="NUMBER_OF_OUTPUTS" value="2" />
+  <parameter name="QUALIFY_VALID_OUT" value="0" />
+  <parameter name="READY_LATENCY" value="0" />
+  <parameter name="USE_CHANNEL" value="0" />
+  <parameter name="USE_DATA" value="1" />
+  <parameter name="USE_ERROR" value="0" />
+  <parameter name="USE_PACKETS" value="0" />
+  <parameter name="USE_READY" value="0" />
+  <parameter name="USE_VALID" value="1" />
+ </module>
+ <module
+   name="st_splitter_right_out"
+   kind="altera_avalon_st_splitter"
+   version="17.1"
+   enabled="1">
+  <parameter name="BITS_PER_SYMBOL" value="8" />
+  <parameter name="CHANNEL_WIDTH" value="1" />
+  <parameter name="DATA_WIDTH" value="24" />
+  <parameter name="ERROR_DESCRIPTOR" value="" />
+  <parameter name="ERROR_WIDTH" value="1" />
+  <parameter name="MAX_CHANNELS" value="1" />
+  <parameter name="NUMBER_OF_OUTPUTS" value="2" />
+  <parameter name="QUALIFY_VALID_OUT" value="0" />
+  <parameter name="READY_LATENCY" value="0" />
+  <parameter name="USE_CHANNEL" value="0" />
+  <parameter name="USE_DATA" value="1" />
+  <parameter name="USE_ERROR" value="0" />
+  <parameter name="USE_PACKETS" value="0" />
+  <parameter name="USE_READY" value="0" />
+  <parameter name="USE_VALID" value="1" />
  </module>
  <connection
    kind="avalon"
@@ -1356,6 +1503,33 @@
    kind="avalon"
    version="17.1"
    start="ARM_A9_HPS.h2f_lw_axi_master"
+   end="MMtoST_0.s0">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x00b0" />
+  <parameter name="defaultConnection" value="false" />
+ </connection>
+ <connection
+   kind="avalon"
+   version="17.1"
+   start="ARM_A9_HPS.h2f_lw_axi_master"
+   end="channel_mux_in_st_left.s0">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x00c0" />
+  <parameter name="defaultConnection" value="false" />
+ </connection>
+ <connection
+   kind="avalon"
+   version="17.1"
+   start="ARM_A9_HPS.h2f_lw_axi_master"
+   end="channel_mux_in_st_right.s0">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x00ac" />
+  <parameter name="defaultConnection" value="false" />
+ </connection>
+ <connection
+   kind="avalon"
+   version="17.1"
+   start="ARM_A9_HPS.h2f_lw_axi_master"
    end="audio.source_mux">
   <parameter name="arbitrationPriority" value="1" />
   <parameter name="baseAddress" value="0x0060" />
@@ -1391,26 +1565,87 @@
  <connection
    kind="avalon_streaming"
    version="17.1"
+   start="ASP.left_source"
+   end="st_splitter_left_out.in" />
+ <connection
+   kind="avalon_streaming"
+   version="17.1"
    start="audio.left_source"
+   end="channel_mux_in_st_left.left_sink" />
+ <connection
+   kind="avalon_streaming"
+   version="17.1"
+   start="channel_mux_in_st_left.left_source"
    end="ASP.left_sink" />
  <connection
    kind="avalon_streaming"
    version="17.1"
-   start="ASP.left_source"
-   end="audio.left_sink" />
+   start="MMtoST_0.left_source"
+   end="channel_mux_in_st_left.right_sink" />
  <connection
    kind="avalon_streaming"
    version="17.1"
-   start="audio.right_source"
+   start="channel_mux_in_st_right.left_source"
    end="ASP.right_sink" />
  <connection
    kind="avalon_streaming"
    version="17.1"
-   start="ASP.right_source"
+   start="st_splitter_left_out.out0"
+   end="MMtoST_0.left_sink" />
+ <connection
+   kind="avalon_streaming"
+   version="17.1"
+   start="st_splitter_right_out.out0"
+   end="MMtoST_0.right_sink" />
+ <connection
+   kind="avalon_streaming"
+   version="17.1"
+   start="st_splitter_left_out.out1"
+   end="audio.left_sink" />
+ <connection
+   kind="avalon_streaming"
+   version="17.1"
+   start="st_splitter_right_out.out1"
    end="audio.right_sink" />
+ <connection
+   kind="avalon_streaming"
+   version="17.1"
+   start="ASP.right_source"
+   end="st_splitter_right_out.in" />
+ <connection
+   kind="avalon_streaming"
+   version="17.1"
+   start="audio.right_source"
+   end="channel_mux_in_st_right.left_sink" />
+ <connection
+   kind="avalon_streaming"
+   version="17.1"
+   start="MMtoST_0.right_source"
+   end="channel_mux_in_st_right.right_sink" />
  <connection kind="clock" version="17.1" start="clk.clk" end="audio.clk" />
  <connection kind="clock" version="17.1" start="clk.clk" end="pio.clk" />
  <connection kind="clock" version="17.1" start="clk.clk" end="ASP.clk" />
+ <connection
+   kind="clock"
+   version="17.1"
+   start="clk.clk"
+   end="st_splitter_left_out.clk" />
+ <connection
+   kind="clock"
+   version="17.1"
+   start="clk.clk"
+   end="st_splitter_right_out.clk" />
+ <connection kind="clock" version="17.1" start="clk.clk" end="MMtoST_0.clock" />
+ <connection
+   kind="clock"
+   version="17.1"
+   start="clk.clk"
+   end="channel_mux_in_st_left.clock" />
+ <connection
+   kind="clock"
+   version="17.1"
+   start="clk.clk"
+   end="channel_mux_in_st_right.clock" />
  <connection
    kind="clock"
    version="17.1"
@@ -1419,6 +1654,31 @@
  <connection kind="reset" version="17.1" start="clk.clk_reset" end="audio.reset" />
  <connection kind="reset" version="17.1" start="clk.clk_reset" end="pio.reset" />
  <connection kind="reset" version="17.1" start="clk.clk_reset" end="ASP.reset" />
+ <connection
+   kind="reset"
+   version="17.1"
+   start="clk.clk_reset"
+   end="MMtoST_0.reset" />
+ <connection
+   kind="reset"
+   version="17.1"
+   start="clk.clk_reset"
+   end="channel_mux_in_st_left.reset" />
+ <connection
+   kind="reset"
+   version="17.1"
+   start="clk.clk_reset"
+   end="channel_mux_in_st_right.reset" />
+ <connection
+   kind="reset"
+   version="17.1"
+   start="clk.clk_reset"
+   end="st_splitter_left_out.reset" />
+ <connection
+   kind="reset"
+   version="17.1"
+   start="clk.clk_reset"
+   end="st_splitter_right_out.reset" />
  <connection
    kind="reset"
    version="17.1"
@@ -1434,6 +1694,31 @@
    version="17.1"
    start="ARM_A9_HPS.h2f_reset"
    end="ASP.reset" />
+ <connection
+   kind="reset"
+   version="17.1"
+   start="ARM_A9_HPS.h2f_reset"
+   end="MMtoST_0.reset" />
+ <connection
+   kind="reset"
+   version="17.1"
+   start="ARM_A9_HPS.h2f_reset"
+   end="channel_mux_in_st_left.reset" />
+ <connection
+   kind="reset"
+   version="17.1"
+   start="ARM_A9_HPS.h2f_reset"
+   end="channel_mux_in_st_right.reset" />
+ <connection
+   kind="reset"
+   version="17.1"
+   start="ARM_A9_HPS.h2f_reset"
+   end="st_splitter_left_out.reset" />
+ <connection
+   kind="reset"
+   version="17.1"
+   start="ARM_A9_HPS.h2f_reset"
+   end="st_splitter_right_out.reset" />
  <interconnectRequirement for="$system" name="qsys_mm.clockCrossingAdapter" value="HANDSHAKE" />
  <interconnectRequirement for="$system" name="qsys_mm.enableEccProtection" value="FALSE" />
  <interconnectRequirement for="$system" name="qsys_mm.insertDefaultSlave" value="FALSE" />

@@ -23,7 +23,7 @@ set_module_property NAME ASP_SoC_FIR
 set_module_property VERSION 1.1
 set_module_property INTERNAL false
 set_module_property OPAQUE_ADDRESS_MAP true
-set_module_property GROUP "ASP-SoC IP"
+set_module_property GROUP "ASP-SoC IP/Filter"
 set_module_property AUTHOR "Martin Steiger"
 set_module_property DISPLAY_NAME ASP_SoC_FIR
 set_module_property INSTANTIATE_IN_SYSTEM_MODULE true
@@ -62,25 +62,25 @@ add_fileset_file fixed_pkg_c.vhdl VHDL PATH ../../../grpPackages/pkgFixed/src/fi
 # 
 add_parameter gDataWidth NATURAL 24
 set_parameter_property gDataWidth DEFAULT_VALUE 24
-set_parameter_property gDataWidth DISPLAY_NAME gDataWidth
+set_parameter_property gDataWidth DISPLAY_NAME "Data Width"
 set_parameter_property gDataWidth TYPE NATURAL
-set_parameter_property gDataWidth UNITS None
-set_parameter_property gDataWidth ALLOWED_RANGES 0:2147483647
+set_parameter_property gDataWidth UNITS bits
+set_parameter_property gDataWidth ALLOWED_RANGES {16 20 24 32}
 set_parameter_property gDataWidth HDL_PARAMETER true
 add_parameter gNrAddressLines NATURAL 4
 set_parameter_property gNrAddressLines DEFAULT_VALUE 4
 set_parameter_property gNrAddressLines DISPLAY_NAME gNrAddressLines
 set_parameter_property gNrAddressLines TYPE NATURAL
-set_parameter_property gNrAddressLines UNITS None
+set_parameter_property gNrAddressLines UNITS bits
 set_parameter_property gNrAddressLines ALLOWED_RANGES 0:2147483647
-set_parameter_property gNrAddressLines HDL_PARAMETER true
-add_parameter gNumberOfCoeffs NATURAL 16
-set_parameter_property gNumberOfCoeffs DEFAULT_VALUE 16
-set_parameter_property gNumberOfCoeffs DISPLAY_NAME gNumberOfCoeffs
-set_parameter_property gNumberOfCoeffs TYPE NATURAL
-set_parameter_property gNumberOfCoeffs UNITS None
-set_parameter_property gNumberOfCoeffs ALLOWED_RANGES 0:2147483647
-set_parameter_property gNumberOfCoeffs HDL_PARAMETER true
+set_parameter_property gNrAddressLines HDL_PARAMETER false
+add_parameter gMaxNumCoeffs NATURAL 16
+set_parameter_property gMaxNumCoeffs DEFAULT_VALUE 16
+set_parameter_property gMaxNumCoeffs DISPLAY_NAME "Number of Coeffs"
+set_parameter_property gMaxNumCoeffs TYPE NATURAL
+set_parameter_property gMaxNumCoeffs UNITS None
+set_parameter_property gMaxNumCoeffs ALLOWED_RANGES 0:2147483647
+set_parameter_property gMaxNumCoeffs HDL_PARAMETER true
 
 
 # 
@@ -144,7 +144,7 @@ set_interface_property s0 PORT_NAME_MAP ""
 set_interface_property s0 CMSIS_SVD_VARIABLES ""
 set_interface_property s0 SVD_ADDRESS_GROUP ""
 
-add_interface_port s0 avs_s0_address address Input gnraddresslines
+add_interface_port s0 avs_s0_address address Input gNrAddressLines
 add_interface_port s0 avs_s0_write write Input 1
 add_interface_port s0 avs_s0_writedata writedata Input 32
 add_interface_port s0 avs_s0_readdata readdata Output 32

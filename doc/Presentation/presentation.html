@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<title>ASP-SoC</title>
+<meta name="author" content="(Wurm, Steinbacher, Steiger, Reisinger, Posch, Haberleitner)"/>
+<style type="text/css">
+.underline { text-decoration: underline; }
+</style>
+<link rel="stylesheet" href="http://cdn.jsdelivr.net/reveal.js/3.0.0/css/reveal.css"/>
+
+<link rel="stylesheet" href="http://cdn.jsdelivr.net/reveal.js/3.0.0/css/theme/moon.css" id="theme"/>
+
+
+<!-- If the query includes 'print-pdf', include the PDF print sheet -->
+<script>
+    if( window.location.search.match( /print-pdf/gi ) ) {
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = 'http://cdn.jsdelivr.net/reveal.js/3.0.0/css/print/pdf.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    }
+</script>
+</head>
+<body>
+<div class="reveal">
+<div class="slides">
+<section id="sec-title-slide"><h1 class="title">ASP-SoC</h1><h2 class="author">Wurm, Steinbacher, Steiger, Reisinger, Posch, Haberleitner</h2><p class="date">Created: 2018-02-06 Die 17:04</p>
+</section>
+<section id="table-of-contents">
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#/slide-orgf62fbf5">1. Einfuehrung</a>
+<ul>
+<li><a href="#/slide-org68de444">1.1. Motivation und Ziele</a></li>
+<li><a href="#/slide-orgca0caf5">1.2. Systemübersicht</a></li>
+</ul>
+</li>
+<li><a href="#/slide-org70e8c74">2. Architektur</a>
+<ul>
+<li><a href="#/slide-orgee35318">2.1. Kommunikation</a></li>
+<li><a href="#/slide-orgf22d3a8">2.2. Qsys</a></li>
+</ul>
+</li>
+<li><a href="#/slide-org805c73a">3. Beispiel-Plattform</a>
+<ul>
+<li><a href="#/slide-orgca48057">3.1. Uebersicht</a></li>
+<li><a href="#/slide-org3e5d7c9">3.2. Beispiel Channel-MUX</a></li>
+</ul>
+</li>
+<li><a href="#/slide-org0dbfd28">4. Fazit</a>
+<ul>
+<li><a href="#/slide-org1a1962a">4.1. Status &amp; Aussicht</a></li>
+<li><a href="#/slide-orgcd247b4">4.2. GUI-Stack</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</section>
+
+
+<section>
+<section id="slide-orgf62fbf5">
+<h2 id="orgf62fbf5"><span class="section-number-2">1</span> Einfuehrung</h2>
+<div class="outline-text-2" id="text-1">
+</div>
+</section>
+<section id="slide-org68de444">
+<h3 id="org68de444"><span class="section-number-3">1.1</span> Motivation und Ziele</h3>
+
+<div class="figure">
+<p><img src="../ASP-SoC_Logo/aspsoc2.png" alt="aspsoc2.png" style="border:none" />
+</p>
+</div>
+<ul>
+<li>Echtzeitverarbeitung</li>
+<li>Vielseitige Steuerungsmöglichkeiten durch GNU/Linux</li>
+<li>Keine CPU-Zeit im Betrieb nötig</li>
+
+</ul>
+
+</section>
+<section id="slide-orgca0caf5">
+<h3 id="orgca0caf5"><span class="section-number-3">1.2</span> Systemübersicht</h3>
+<ul>
+<li>Kommunikation zwischen Linux und Signalverarbeitungsteil über Bridges</li>
+<li>Linux: Device Driver für jede konfigurierbare Komponente</li>
+
+</ul>
+
+<div class="figure">
+<p><img src="../ASP-SoC_Logo/ARM.png" alt="ARM.png" height="60%," width="60%" />
+</p>
+</div>
+
+
+</section>
+</section>
+<section>
+<section id="slide-org70e8c74">
+<h2 id="org70e8c74"><span class="section-number-2">2</span> Architektur</h2>
+<div class="outline-text-2" id="text-2">
+</div>
+</section>
+<section id="slide-orgee35318">
+<h3 id="orgee35318"><span class="section-number-3">2.1</span> Kommunikation</h3>
+
+<div class="figure">
+<p><img src="../ASP-SoC_Logo/Default_Baustein.png" alt="Default_Baustein.png" height="80%," width="80%" />
+</p>
+</div>
+
+<p>
+Komponente zu Komponente: Avalon Streaming Bus
+HPS und Komponente: Avalon Memory Mapped Bus
+</p>
+
+
+</section>
+<section id="slide-orgf22d3a8" data-background="../ASP-SoC_Logo/qsys_dark.png" data-background-transition="slide">
+<h3 id="orgf22d3a8"><span class="section-number-3">2.2</span> Qsys</h3>
+<p>
+Eindimensionale Verbindung der Komponenten
+</p>
+
+</section>
+</section>
+<section>
+<section id="slide-org805c73a">
+<h2 id="org805c73a"><span class="section-number-2">3</span> Beispiel-Plattform</h2>
+<div class="outline-text-2" id="text-3">
+</div>
+</section>
+<section id="slide-orgca48057">
+<h3 id="orgca48057"><span class="section-number-3">3.1</span> Uebersicht</h3>
+
+<div class="figure">
+<p><img src="../ASP-SoC_Logo/Testaufbau.png" alt="Testaufbau.png" />
+</p>
+</div>
+
+</section>
+<section id="slide-org3e5d7c9">
+<h3 id="org3e5d7c9"><span class="section-number-3">3.2</span> Beispiel Channel-MUX</h3>
+
+
+</section>
+</section>
+<section>
+<section id="slide-org0dbfd28">
+<h2 id="org0dbfd28"><span class="section-number-2">4</span> Fazit</h2>
+<div class="outline-text-2" id="text-4">
+</div>
+</section>
+<section id="slide-org1a1962a">
+<h3 id="org1a1962a"><span class="section-number-3">4.1</span> Status &amp; Aussicht</h3>
+<ul>
+<li>Erste Blöcke bereits funktional</li>
+<li>Workflow ausgearbeitet und dokumentiert</li>
+<li>Mögliche Erweiterung auf Videoverarbeitung</li>
+
+</ul>
+
+
+</section>
+<section id="slide-orgcd247b4">
+<h3 id="orgcd247b4"><span class="section-number-3">4.2</span> GUI-Stack</h3>
+
+<div class="figure">
+<p><img src="../ASP-SoC_Logo/Hierarchie.png" alt="Hierarchie.png" height="65%," width="65%" />
+</p>
+</div>
+</section>
+</section>
+</div>
+</div>
+<script src="http://cdn.jsdelivr.net/reveal.js/3.0.0/lib/js/head.min.js"></script>
+<script src="http://cdn.jsdelivr.net/reveal.js/3.0.0/js/reveal.js"></script>
+
+<script>
+// Full list of configuration options available here:
+// https://github.com/hakimel/reveal.js#configuration
+Reveal.initialize({
+
+controls: true,
+progress: true,
+history: false,
+center: true,
+slideNumber: 'c',
+rollingLinks: false,
+keyboard: true,
+overview: true,
+
+theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+transitionSpeed: 'default',
+multiplex: {
+    secret: '', // null if client
+    id: '', // id, obtained from socket.io server
+    url: '' // Location of socket.io server
+},
+
+// Optional libraries used to extend on reveal.js
+dependencies: [
+ { src: 'http://cdn.jsdelivr.net/reveal.js/3.0.0/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+ { src: 'http://cdn.jsdelivr.net/reveal.js/3.0.0/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+ { src: 'http://cdn.jsdelivr.net/reveal.js/3.0.0/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+ { src: 'http://cdn.jsdelivr.net/reveal.js/3.0.0/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+ { src: 'http://cdn.jsdelivr.net/reveal.js/3.0.0/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }]
+});
+</script>
+</body>
+</html>

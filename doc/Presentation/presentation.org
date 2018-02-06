@@ -1,23 +1,56 @@
+#+AUTHOR: Wurm, Steinbacher, Steiger, Reisinger, Posch, Haberleitner
+#+TITLE: ASP-SoC
+#+SUBTITLE: Audio-Signalverarbeitung auf einem SoC
 
 
-* Einfuehrung
-Motivation, Systemuebersicht, Ziele (Konzeptentwicklung zum Entwurf der Bloecke)
+* Einführung
+** Motivation und Ziele
+#+ATTR_HTML: :style border:none 
+file:../ASP-SoC_Logo/aspsoc2.png
+- Echtzeitverarbeitung
+- Vielseitige Steuerungsmöglichkeiten durch GNU/Linux
+- Keine CPU-Zeit im Betrieb nötig
 
-* Aufbau 
-** Kommunikation innerhalb FPGA (Avalon ST)
-** Kommunikation (SoC: Linux <-> FPGA, Avalon MM)
-Lightweight bridge, 
-** Qsys Screenshot
+** Systemübersicht
+- Kommunikation zwischen Linux und Signalverarbeitungsteil über Bridges
+- Linux: Device Driver für jede konfigurierbare Komponente
+#+ATTR_HTML: :height 60%, :width 60%
+file:../ASP-SoC_Logo/ARM.png
+
+ 
+* Architektur
+** Kommunikation 
+#+ATTR_HTML: :height 80%, :width 80%
+file:../ASP-SoC_Logo/Default_Baustein.png
+
+Komponente zu Komponente: Avalon Streaming Bus
+HPS und Komponente: Avalon Memory Mapped Bus
+
+
+** Qsys
+    :PROPERTIES:
+    :reveal_background: ../ASP-SoC_Logo/qsys_dark.png
+    :reveal_background_trans: slide
+    :END:
+Eindimensionale Verbindung der Komponenten
 
 * Beispiel-Plattform
-** Uebersicht (Blockschaltbild) 
-** Live-Vorfuehrung einzelner Bloecke
+** Übersicht
+
+file:../ASP-SoC_Logo/Testaufbau.png
+
+** Beispiel Channel-MUX
+
 
 * Fazit
-Design-Flow ausgearbeitet, Konzept abgeschlossen
-** Aussicht: Implementierung weiterer Bloecke
-** Hierachie
-Website (Angular) -> flask + subscripts fuer Filter usw (Python) -> Device Driver (C) -> Brigdes -> MM register/RAM ->  HW Design
+
+** Status & Aussicht
+- Erste Blöcke bereits funktional
+- Workflow ausgearbeitet und dokumentiert
+- Mögliche Erweiterung auf Videoverarbeitung
 
 
+** GUI-Stack
+#+ATTR_HTML: :height 65%, :width 65%
+file:../ASP-SoC_Logo/Hierarchie.png
 

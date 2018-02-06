@@ -27,17 +27,21 @@ Komponente zu Komponente: Avalon Streaming Bus
 HPS und Komponente: Avalon Memory Mapped Bus
 
 
-** Qsys
+** Platform Designer(Qsys)
     :PROPERTIES:
     :reveal_background: ../ASP-SoC_Logo/qsys_dark.png
     :reveal_background_trans: slide
-    :END:
+    :END:      
 Eindimensionale Verbindung der Komponenten
 
 * Beispiel-Plattform
 ** Übersicht
 
 file:../ASP-SoC_Logo/Testaufbau.png
+
+** GUI-Stack
+#+ATTR_HTML: :height 65%, :width 65%
+file:../ASP-SoC_Logo/Hierarchie.png
 
 ** Beispiel Channel-MUX
 
@@ -46,11 +50,10 @@ file:../ASP-SoC_Logo/Testaufbau.png
 
 ** Status & Aussicht
 - Erste Blöcke bereits funktional
-- Workflow ausgearbeitet und dokumentiert
+- Konzept & Workflow ausgearbeitet
+- Erweiterung der DSP Blöcke
 - Mögliche Erweiterung auf Videoverarbeitung
 
 
-** GUI-Stack
-#+ATTR_HTML: :height 65%, :width 65%
-file:../ASP-SoC_Logo/Hierarchie.png
+
 

@@ -5,7 +5,7 @@
 
 * Einführung
 ** Motivation und Ziele
-#+ATTR_HTML: :style border:none 
+#+ATTR_HTML: :style background:none; border:none; box-shadow:none; 
 file:../ASP-SoC_Logo/aspsoc2.png
 - Echtzeitverarbeitung
 - Vielseitige Steuerungsmöglichkeiten durch GNU/Linux
@@ -14,16 +14,22 @@ file:../ASP-SoC_Logo/aspsoc2.png
 ** Systemübersicht
 - Kommunikation zwischen Linux und Signalverarbeitungsteil über Bridges
 - Linux: Device Driver für jede konfigurierbare Komponente
-#+ATTR_HTML: :height 60%, :width 60%
+#+ATTR_HTML: :height 60%, :width 60% :style background:none; border:none; box-shadow:none; 
 file:../ASP-SoC_Logo/ARM.png
 
  
 * Architektur
+** Audiocodec
+integrierter Codec auf DE1-SoC Board: WM8731
+[[file:../images/codec.png]]
+Konfiguration über I2C \\
+Daten über I2S
+
 ** Kommunikation 
-#+ATTR_HTML: :height 80%, :width 80%
+#+ATTR_HTML: :height 80% :width 80% :style background:white; box-shadow:none; 
 file:../ASP-SoC_Logo/Default_Baustein.png
 
-Komponente zu Komponente: Avalon Streaming Bus
+Komponente zu Komponente: Avalon Streaming Bus \\
 HPS und Komponente: Avalon Memory Mapped Bus
 
 
@@ -36,12 +42,12 @@ Eindimensionale Verbindung der Komponenten
 
 * Beispiel-Plattform
 ** Übersicht
-
+#+ATTR_HTML: :style background:white; border:none; box-shadow:none; 
 file:../ASP-SoC_Logo/Testaufbau.png
 
 ** GUI-Stack
-#+ATTR_HTML: :height 65%, :width 65%
-file:../ASP-SoC_Logo/Hierarchie.png
+#+ATTR_HTML: :height 65%, :width 65% :style background:white; border:none; box-shadow:none; 
+file:../images/overview.png
 
 ** Beispiel Channel-MUX
 

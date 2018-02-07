@@ -26,35 +26,36 @@
 <body>
 <div class="reveal">
 <div class="slides">
-<section id="sec-title-slide"><h1 class="title">ASP-SoC</h1><h2 class="author">Wurm, Steinbacher, Steiger, Reisinger, Posch, Haberleitner</h2><p class="date">Created: 2018-02-06 Die 17:04</p>
+<section id="sec-title-slide"><h1 class="title">ASP-SoC</h1><h2 class="author">Wurm, Steinbacher, Steiger, Reisinger, Posch, Haberleitner</h2><p class="date">Created: 2018-02-07 Mit 10:01</p>
 </section>
 <section id="table-of-contents">
 <div id="table-of-contents">
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#/slide-orgf62fbf5">1. Einfuehrung</a>
+<li><a href="#/slide-orgcc55faf">1. Einführung</a>
 <ul>
-<li><a href="#/slide-org68de444">1.1. Motivation und Ziele</a></li>
-<li><a href="#/slide-orgca0caf5">1.2. Systemübersicht</a></li>
+<li><a href="#/slide-org95d6f98">1.1. Motivation und Ziele</a></li>
+<li><a href="#/slide-orgb197531">1.2. Systemübersicht</a></li>
 </ul>
 </li>
-<li><a href="#/slide-org70e8c74">2. Architektur</a>
+<li><a href="#/slide-org379d301">2. Architektur</a>
 <ul>
-<li><a href="#/slide-orgee35318">2.1. Kommunikation</a></li>
-<li><a href="#/slide-orgf22d3a8">2.2. Qsys</a></li>
+<li><a href="#/slide-orgf4292e5">2.1. Audiocodec</a></li>
+<li><a href="#/slide-org79281be">2.2. Kommunikation</a></li>
+<li><a href="#/slide-org53bb4a8">2.3. Platform Designer(Qsys)</a></li>
 </ul>
 </li>
-<li><a href="#/slide-org805c73a">3. Beispiel-Plattform</a>
+<li><a href="#/slide-org7ba57ab">3. Beispiel-Plattform</a>
 <ul>
-<li><a href="#/slide-orgca48057">3.1. Uebersicht</a></li>
-<li><a href="#/slide-org3e5d7c9">3.2. Beispiel Channel-MUX</a></li>
+<li><a href="#/slide-org4218d40">3.1. Übersicht</a></li>
+<li><a href="#/slide-orgbba9392">3.2. GUI-Stack</a></li>
+<li><a href="#/slide-orgde3cad0">3.3. Beispiel Channel-MUX</a></li>
 </ul>
 </li>
-<li><a href="#/slide-org0dbfd28">4. Fazit</a>
+<li><a href="#/slide-org4ad0639">4. Fazit</a>
 <ul>
-<li><a href="#/slide-org1a1962a">4.1. Status &amp; Aussicht</a></li>
-<li><a href="#/slide-orgcd247b4">4.2. GUI-Stack</a></li>
+<li><a href="#/slide-orgbffeceb">4.1. Status &amp; Aussicht</a></li>
 </ul>
 </li>
 </ul>
@@ -64,16 +65,16 @@
 
 
 <section>
-<section id="slide-orgf62fbf5">
-<h2 id="orgf62fbf5"><span class="section-number-2">1</span> Einfuehrung</h2>
+<section id="slide-orgcc55faf">
+<h2 id="orgcc55faf"><span class="section-number-2">1</span> Einführung</h2>
 <div class="outline-text-2" id="text-1">
 </div>
 </section>
-<section id="slide-org68de444">
-<h3 id="org68de444"><span class="section-number-3">1.1</span> Motivation und Ziele</h3>
+<section id="slide-org95d6f98">
+<h3 id="org95d6f98"><span class="section-number-3">1.1</span> Motivation und Ziele</h3>
 
 <div class="figure">
-<p><img src="../ASP-SoC_Logo/aspsoc2.png" alt="aspsoc2.png" style="border:none" />
+<p><img src="../ASP-SoC_Logo/aspsoc2.png" alt="aspsoc2.png" style="background:none; border:none; box-shadow:none;" />
 </p>
 </div>
 <ul>
@@ -84,8 +85,8 @@
 </ul>
 
 </section>
-<section id="slide-orgca0caf5">
-<h3 id="orgca0caf5"><span class="section-number-3">1.2</span> Systemübersicht</h3>
+<section id="slide-orgb197531">
+<h3 id="orgb197531"><span class="section-number-3">1.2</span> Systemübersicht</h3>
 <ul>
 <li>Kommunikation zwischen Linux und Signalverarbeitungsteil über Bridges</li>
 <li>Linux: Device Driver für jede konfigurierbare Komponente</li>
@@ -93,7 +94,7 @@
 </ul>
 
 <div class="figure">
-<p><img src="../ASP-SoC_Logo/ARM.png" alt="ARM.png" height="60%," width="60%" />
+<p><img src="../ASP-SoC_Logo/ARM.png" alt="ARM.png" height="60%," width="60%" style="background:none; border:none; box-shadow:none;" />
 </p>
 </div>
 
@@ -101,28 +102,38 @@
 </section>
 </section>
 <section>
-<section id="slide-org70e8c74">
-<h2 id="org70e8c74"><span class="section-number-2">2</span> Architektur</h2>
+<section id="slide-org379d301">
+<h2 id="org379d301"><span class="section-number-2">2</span> Architektur</h2>
 <div class="outline-text-2" id="text-2">
 </div>
 </section>
-<section id="slide-orgee35318">
-<h3 id="orgee35318"><span class="section-number-3">2.1</span> Kommunikation</h3>
+<section id="slide-orgf4292e5">
+<h3 id="orgf4292e5"><span class="section-number-3">2.1</span> Audiocodec</h3>
+<p>
+integrierter Codec auf DE1-SoC Board: WM8731
+<img src="../images/codec.png" alt="codec.png" />
+Konfiguration über I2C <br />
+Daten über I2S
+</p>
+
+</section>
+<section id="slide-org79281be">
+<h3 id="org79281be"><span class="section-number-3">2.2</span> Kommunikation</h3>
 
 <div class="figure">
-<p><img src="../ASP-SoC_Logo/Default_Baustein.png" alt="Default_Baustein.png" height="80%," width="80%" />
+<p><img src="../ASP-SoC_Logo/Default_Baustein.png" alt="Default_Baustein.png" height="80%" width="80%" style="background:white; box-shadow:none;" />
 </p>
 </div>
 
 <p>
-Komponente zu Komponente: Avalon Streaming Bus
+Komponente zu Komponente: Avalon Streaming Bus <br />
 HPS und Komponente: Avalon Memory Mapped Bus
 </p>
 
 
 </section>
-<section id="slide-orgf22d3a8" data-background="../ASP-SoC_Logo/qsys_dark.png" data-background-transition="slide">
-<h3 id="orgf22d3a8"><span class="section-number-3">2.2</span> Qsys</h3>
+<section id="slide-org53bb4a8" data-background="../ASP-SoC_Logo/qsys_dark.png" data-background-transition="slide">
+<h3 id="org53bb4a8"><span class="section-number-3">2.3</span> Platform Designer(Qsys)</h3>
 <p>
 Eindimensionale Verbindung der Komponenten
 </p>
@@ -130,50 +141,50 @@ Eindimensionale Verbindung der Komponenten
 </section>
 </section>
 <section>
-<section id="slide-org805c73a">
-<h2 id="org805c73a"><span class="section-number-2">3</span> Beispiel-Plattform</h2>
+<section id="slide-org7ba57ab">
+<h2 id="org7ba57ab"><span class="section-number-2">3</span> Beispiel-Plattform</h2>
 <div class="outline-text-2" id="text-3">
 </div>
 </section>
-<section id="slide-orgca48057">
-<h3 id="orgca48057"><span class="section-number-3">3.1</span> Uebersicht</h3>
+<section id="slide-org4218d40">
+<h3 id="org4218d40"><span class="section-number-3">3.1</span> Übersicht</h3>
 
 <div class="figure">
-<p><img src="../ASP-SoC_Logo/Testaufbau.png" alt="Testaufbau.png" />
+<p><img src="../ASP-SoC_Logo/Testaufbau.png" alt="Testaufbau.png" style="background:white; border:none; box-shadow:none;" />
 </p>
 </div>
 
 </section>
-<section id="slide-org3e5d7c9">
-<h3 id="org3e5d7c9"><span class="section-number-3">3.2</span> Beispiel Channel-MUX</h3>
+<section id="slide-orgbba9392">
+<h3 id="orgbba9392"><span class="section-number-3">3.2</span> GUI-Stack</h3>
+
+<div class="figure">
+<p><img src="../images/overview.png" alt="overview.png" height="65%," width="65%" style="background:white; border:none; box-shadow:none;" />
+</p>
+</div>
+
+</section>
+<section id="slide-orgde3cad0">
+<h3 id="orgde3cad0"><span class="section-number-3">3.3</span> Beispiel Channel-MUX</h3>
 
 
 </section>
 </section>
 <section>
-<section id="slide-org0dbfd28">
-<h2 id="org0dbfd28"><span class="section-number-2">4</span> Fazit</h2>
+<section id="slide-org4ad0639">
+<h2 id="org4ad0639"><span class="section-number-2">4</span> Fazit</h2>
 <div class="outline-text-2" id="text-4">
 </div>
 </section>
-<section id="slide-org1a1962a">
-<h3 id="org1a1962a"><span class="section-number-3">4.1</span> Status &amp; Aussicht</h3>
+<section id="slide-orgbffeceb">
+<h3 id="orgbffeceb"><span class="section-number-3">4.1</span> Status &amp; Aussicht</h3>
 <ul>
 <li>Erste Blöcke bereits funktional</li>
-<li>Workflow ausgearbeitet und dokumentiert</li>
+<li>Konzept &amp; Workflow ausgearbeitet</li>
+<li>Erweiterung der DSP Blöcke</li>
 <li>Mögliche Erweiterung auf Videoverarbeitung</li>
 
 </ul>
-
-
-</section>
-<section id="slide-orgcd247b4">
-<h3 id="orgcd247b4"><span class="section-number-3">4.2</span> GUI-Stack</h3>
-
-<div class="figure">
-<p><img src="../ASP-SoC_Logo/Hierarchie.png" alt="Hierarchie.png" height="65%," width="65%" />
-</p>
-</div>
 </section>
 </section>
 </div>

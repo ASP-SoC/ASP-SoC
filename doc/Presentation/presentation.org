@@ -14,19 +14,20 @@ file:../ASP-SoC_Logo/aspsoc2.png
 ** Systemübersicht
 - Kommunikation zwischen Linux und Signalverarbeitungsteil über Bridges
 - Linux: Device Driver für jede konfigurierbare Komponente
-#+ATTR_HTML: :height 60%, :width 60% :style background:none; border:none; box-shadow:none; 
+#+ATTR_HTML: :height 50%, :width 50% :style background:none; border:none; box-shadow:none; 
 file:../ASP-SoC_Logo/ARM.png
 
  
 * Architektur
 ** Audiocodec
 integrierter Codec auf DE1-SoC Board: WM8731
+#+ATTR_HTML: :height 90%, :width 90%
 [[file:../images/codec.png]]
 Konfiguration über I2C \\
 Daten über I2S
 
 ** Kommunikation 
-#+ATTR_HTML: :height 80% :width 80% :style background:white; box-shadow:none; 
+#+ATTR_HTML: :height 70% :width 70% :style background:white; box-shadow:none; 
 file:../ASP-SoC_Logo/Default_Baustein.png
 
 Komponente zu Komponente: Avalon Streaming Bus \\
@@ -46,7 +47,7 @@ Eindimensionale Verbindung der Komponenten
 file:../ASP-SoC_Logo/Testaufbau.png
 
 ** GUI-Stack
-#+ATTR_HTML: :height 65%, :width 65% :style background:white; border:none; box-shadow:none; 
+#+ATTR_HTML: :height 55%, :width 55% :style background:white; border:none; box-shadow:none; 
 file:../images/overview.png
 
 ** Beispiel Channel-MUX

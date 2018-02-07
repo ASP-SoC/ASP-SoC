@@ -6,7 +6,7 @@
 * Einführung
 ** Motivation und Ziele
 #+ATTR_HTML: :style background:none; border:none; box-shadow:none; 
-file:../ASP-SoC_Logo/aspsoc2.png
+file:../ASP-SoC_Logo/Plattform.png
 - Echtzeitverarbeitung
 - Vielseitige Steuerungsmöglichkeiten durch GNU/Linux
 - Keine CPU-Zeit im Betrieb nötig

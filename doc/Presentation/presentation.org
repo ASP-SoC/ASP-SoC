@@ -23,15 +23,11 @@ file:../ASP-SoC_Logo/ARM.png
 integrierter Codec auf DE1-SoC Board: WM8731
 #+ATTR_HTML: :height 90%, :width 90%
 [[file:../images/codec.png]]
-Konfiguration über I2C \\
-Daten über I2S
+Konfiguration über I2C; Daten über I2S
 
 ** Kommunikation 
-#+ATTR_HTML: :height 70% :width 70% :style background:white; box-shadow:none; 
+#+ATTR_HTML: :height 80% :width 80% :style background:white; box-shadow:none; 
 file:../ASP-SoC_Logo/Default_Baustein.png
-
-Komponente zu Komponente: Avalon Streaming Bus \\
-HPS und Komponente: Avalon Memory Mapped Bus
 
 
 ** Platform Designer(Qsys)

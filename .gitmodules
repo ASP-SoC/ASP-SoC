@@ -7,3 +7,6 @@
 [submodule "gui"]
 	path = gui
 	url = git@github.com:ASP-SoC/gui.git
+[submodule "sw"]
+	path = sw
+	url = git@github.com:ASP-SoC/sw.git
